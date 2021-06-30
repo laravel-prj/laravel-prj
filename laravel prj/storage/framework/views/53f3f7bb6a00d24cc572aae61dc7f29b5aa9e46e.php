@@ -1,0 +1,1 @@
+<?php /**PATH E:\src-laravel-test\example-app\resources\views/partial/header.blade.php ENDPATH**/ ?>
