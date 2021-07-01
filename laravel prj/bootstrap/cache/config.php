@@ -225,7 +225,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -396,12 +396,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\app',
+        'root' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\app/public',
+        'root' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -418,7 +418,7 @@
     ),
     'links' => 
     array (
-      'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\public\\storage' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\app/public',
+      'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\public\\storage' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -452,13 +452,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -509,7 +509,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -566,7 +566,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -649,7 +649,7 @@
     'lifetime' => '35791394',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -669,9 +669,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\resources\\views',
+      0 => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\resources\\views',
     ),
-    'compiled' => 'C:\\Users\\linh\\OneDrive\\Máy tính\\laravel prj\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\IVS1\\Desktop\\prj\\public\\laravel-prj\\laravel prj\\storage\\framework\\views',
   ),
   'flare' => 
   array (
