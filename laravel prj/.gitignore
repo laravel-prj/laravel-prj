@@ -1,5 +1,5 @@
 /vendor
 .env
 .env.backup
-/storage/logs/laravel.log
+/storage
 /bootstrap/cache/config.php
