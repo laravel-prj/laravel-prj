@@ -2,4 +2,3 @@
 .env
 .env.backup
 /storage/logs
-/bootstrap/cache
