@@ -2,4 +2,4 @@
 .env
 .env.backup
 /storage
-/bootstrap/cache/config.php
+/bootstrap/cache
