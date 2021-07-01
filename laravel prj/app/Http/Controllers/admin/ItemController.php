@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function index()
+    {
+        $listItem = ItemModel::with('type.brand','item_details','images')->get();
+        return ($listItem);
+        return view('admin/pages/items/index');
+    }
     public function create(Request $request)
     {
         if($request->hasfile('img'))

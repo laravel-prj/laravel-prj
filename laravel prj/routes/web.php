@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\TopAdmin;
 use App\Http\Controllers\admin\AuthAdmin;
 use App\Http\Controllers\admin\BandController;
 use App\Http\Controllers\admin\TypeController;
+use App\Http\Controllers\admin\ItemController;
 // customer
 use App\Http\Controllers\customer\TopController;
 use App\Http\Controllers\customer\CartController;
@@ -72,6 +73,15 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('create', [TypeController::class, 'create']);
         Route::post('store', [TypeController::class, 'store']);
         Route::get('delete/{id}', [TypeController::class, 'delete']);
+    });
+
+    Route::prefix('item')->group(function () {
+        Route::get('index', [ItemController::class, 'index']);
+        Route::get('update/{id}', [ItemController::class, 'edit']);
+        Route::post('update/{id}', [ItemController::class, 'update']);
+        Route::get('create', [ItemController::class, 'create']);
+        Route::post('store', [ItemController::class, 'store']);
+        Route::get('delete/{id}', [ItemController::class, 'delete']);
     });
 });
 

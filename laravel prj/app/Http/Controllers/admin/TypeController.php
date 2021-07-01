@@ -57,15 +57,20 @@ class TypeController extends Controller
 
     public function store(ItemTypeRequest $request)
     {
-        $brand = BrandModel::all();
-        $type = new ItemTypesModel;
-        $type->brand_id = $request->brand_id;
-        $type->name = $request->name;
-        if ($type ->save()) {
-            return redirect('admin-mo/itemType/index')->with('success', 'Tạo thành công');
-        }else{
-            return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+        try {
+            $brand = BrandModel::all();
+            $type = new ItemTypesModel;
+            $type->brand_id = $request->brand_id;
+            $type->name = $request->name;
+            if ($type ->save()) {
+                return redirect('admin-mo/itemType/index')->with('success', 'Tạo thành công');
+            }else{
+                return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back();
         }
+
     }
 
     public function delete($id)

@@ -72,9 +72,6 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="product_name_fr" name="name" value="">
                         </div>
-                        @error('name')
-                            <small class="form-text text-muted">{{ $message }}</small>
-                        @enderror
 
                     </div>
                     <div class="form-group row">
