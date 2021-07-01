@@ -9,7 +9,7 @@
         .btn-create {
             padding: 4px 8px;
             margin-right: 16px;
-            border-radius: 50%
+            border-radius: 12%
         }
 
         .t-alert {
@@ -29,7 +29,16 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                {!! \Session::get('success') !!}
+            </div>
+        @endif
+        @if (\Session::has('error'))
+            <div class="alert alert-danger">
+                {!! \Session::get('error') !!}
+            </div>
+        @endif
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">

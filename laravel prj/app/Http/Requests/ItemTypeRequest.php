@@ -2,9 +2,6 @@
 
 namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ItemTypeRequest extends FormRequest
 {
@@ -34,14 +31,9 @@ class ItemTypeRequest extends FormRequest
     public function messages()
     {
         return [
-           'name.required' => 'Chua nhap name',
-           'name.min' => 'name phai co it nhat 5 ky tu',
-           'name.max' => 'name phai it hon 10 ky tu',
+           'name.required' => 'Chưa nhập Name',
+           'name.min' => 'Name phải có ít nhất 5 ký tự',
+           'name.max' => 'Name không được quá 10 ký tự',
         ];
     }
-
-    // protected function failedValidation(Validator $validator)
-    // {
-    //     returnErrors($validator);
-    // }
 }

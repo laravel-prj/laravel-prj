@@ -9,7 +9,6 @@
         .create {
             margin-top: 30px;
             margin-left: 50px;
-
         }
 
         .brand {
@@ -19,8 +18,16 @@
     </style>
 @stop
 @section('content')
-
     <div class="content-wrapper">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -43,7 +50,7 @@
         <section class="content">
             <div class="container-fluid">
                 <!------ Include the above in your HEAD tag ---------->
-                <form method="POST" action="/admin-mo/brand/create">
+                <form method="POST" action="/admin-mo/brand/store">
                     <div class="form-group row">
                         <label for="staticEmail" class="col-auto col-form-label">Name</label>
                         <div class="col-sm-10">

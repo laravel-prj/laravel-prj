@@ -61,7 +61,7 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('update/{id}', [BandController::class, 'edit']);
         Route::post('update/{id}', [BandController::class, 'update']);
         Route::get('create', [BandController::class, 'create']);
-        Route::post('create', [BandController::class, 'create']);
+        Route::post('store', [BandController::class, 'store']);
         Route::get('delete/{id}', [BandController::class, 'delete']);
     });
 
