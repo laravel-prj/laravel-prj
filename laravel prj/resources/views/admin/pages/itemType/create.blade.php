@@ -19,8 +19,16 @@
     </style>
 @stop
 @section('content')
-
     <div class="content-wrapper">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -42,19 +50,19 @@
         <!-- Main content -->
         <section class="content">
             @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
             @endif
 
             <div class="container-fluid">
                 <!------ Include the above in your HEAD tag ---------->
-                <form method="POST" action="/admin-mo/itemType/create">
+                <form method="POST" action="/admin-mo/itemType/store">
 
                     <div class="form-group row">
                         Brand:<select name="brand_id">
                             @foreach ($brand as $item)
-                            <option value={{$item->id}} name="brand_id">{{$item->name}}</option>
+                                <option value={{ $item->id }}>{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -65,7 +73,7 @@
                             <input type="text" class="form-control" id="product_name_fr" name="name" value="">
                         </div>
                         @error('name')
-                        <small class="form-text text-muted">{{ $message }}</small>
+                            <small class="form-text text-muted">{{ $message }}</small>
                         @enderror
 
                     </div>

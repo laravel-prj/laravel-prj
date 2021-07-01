@@ -23,7 +23,8 @@ class ItemTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:10'
+            'name' => 'required|max:50',
+            'brand_id' => 'required|numeric'
         ];
     }
 
@@ -32,8 +33,9 @@ class ItemTypeRequest extends FormRequest
     {
         return [
            'name.required' => 'Chưa nhập Name',
-           'name.min' => 'Name phải có ít nhất 5 ký tự',
            'name.max' => 'Name không được quá 10 ký tự',
+           'brand_id.required' => 'Bạn chưa chọn Brand',
+           'brand_id.max' => 'Brand phải có dạng number',
         ];
     }
 }

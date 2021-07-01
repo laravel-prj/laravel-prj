@@ -65,6 +65,6 @@ class BandController extends Controller
     public function delete($id)
     {
         $brand = BrandModel::deleteBand($id);
-        return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");;
+        return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");
     }
 }

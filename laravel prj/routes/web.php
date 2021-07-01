@@ -69,8 +69,8 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('index', [TypeController::class, 'index']);
         Route::get('update/{id}', [TypeController::class, 'edit']);
         Route::post('update/{id}', [TypeController::class, 'update']);
-        Route::get('getCreate', [TypeController::class, 'getCreate']);
-        Route::post('create', [TypeController::class, 'create']);
+        Route::get('create', [TypeController::class, 'create']);
+        Route::post('store', [TypeController::class, 'store']);
         Route::get('delete/{id}', [TypeController::class, 'delete']);
     });
 });

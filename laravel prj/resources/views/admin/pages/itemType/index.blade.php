@@ -29,7 +29,16 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                {!! \Session::get('success') !!}
+            </div>
+        @endif
+        @if (\Session::has('error'))
+            <div class="alert alert-danger">
+                {!! \Session::get('error') !!}
+            </div>
+        @endif
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -56,7 +65,7 @@
                     <h3 class="card-title">Item Type</h3>
                     <div class="card-tools">
                         <a class="btn btn-primary btn-sm btn-create"
-                            href="{{ asset('admin-mo/itemType/getCreate') }}">Create</a>
+                            href="{{ asset('admin-mo/itemType/create') }}">Create</a>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -77,9 +86,9 @@
                         <tbody>
                             @foreach ($type as $item)
                                 <tr>
-                                    <td>{{ $item->id}}</td>
-                                    <td>{{ $item->brand->name}}</td>
-                                    <td>{{ $item->name}}</td>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->brand->name }}</td>
+                                    <td>{{ $item->name }}</td>
 
                                     <td class="project-actions text-right">
                                         <a class="btn btn-info btn-sm"

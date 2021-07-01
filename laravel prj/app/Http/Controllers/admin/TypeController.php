@@ -14,6 +14,9 @@ use Redirect;
 
 class TypeController extends Controller
 {
+    private $__key ='';
+    private $__value='';
+
     public function index()
     {   $type = ItemTypesModel::with('brand')->get();
         return view('admin/pages/itemType/index', compact('type'));
@@ -26,36 +29,48 @@ class TypeController extends Controller
         return view('admin/pages/itemType/edit', compact('type','brands'));
     }
 
-    public function update($id, Request $request)
+    public function update($id, ItemTypeRequest $request)
     {
         if ($id) {
             $type = ItemTypesModel::find($id);
             $type->name = $request->get('name');
             $type->brand_id = $request->get('brand_id');
-            $type->save();
+            if ($type->save()) {
+                $this->__key = 'success';
+                $this->__value = "Cập nhật id: $id thành công";
+            }else{
+                $this->__key = 'error';
+                $this->__value = "Cập nhật id: $id không thành công, lỗi CSDL";
+            }
+        }else{
+            $this->__key = 'error';
+            $this->__value = "Không tìm thấy id: $id";
         }
-        return redirect('admin-mo/itemType/index');
+        return redirect('admin-mo/itemType/index')->with($this->__key, $this->__value);
     }
 
-    public function getCreate()
+    public function create()
     {
         $brand = BrandModel::all();
         return view('admin/pages/itemType/create', compact('brand'));
     }
 
-    public function create(Request $request)
+    public function store(ItemTypeRequest $request)
     {
         $brand = BrandModel::all();
         $type = new ItemTypesModel;
         $type->brand_id = $request->brand_id;
         $type->name = $request->name;
-        $type ->save();
-        return redirect('admin-mo/itemType/index');
+        if ($type ->save()) {
+            return redirect('admin-mo/itemType/index')->with('success', 'Tạo thành công');
+        }else{
+            return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+        }
     }
 
     public function delete($id)
     {
         $type = ItemTypesModel::deleteType($id);
-        return Redirect::back();
+        return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");
     }
 }
