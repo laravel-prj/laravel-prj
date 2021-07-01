@@ -63,69 +63,57 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        <a class="btn btn-primary btn-sm btn-create"
-                            href="{{ asset('admin-mo/brand/create') }}">Create</a>
+                        <a class="btn btn-primary btn-sm btn-create" href="{{ asset('admin-mo/item/create') }}">Create</a>
                     </div>
                 </div>
                 <div class="card-body p-0">
                     <table class="table table-striped projects">
                         <thead>
                             <tr>
-                                <th>
-                                    Brand
-                                </th>
-                                <th>
-                                    Type
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Image
-                                </th>
-                                <th>
-                                    Price
-                                </th>
-                                <th>
-                                    Size
-                                </th>
-                                <th>
-                                    Quantity
-                                </th>
-                                <th>
-                                    Feature
-                                </th>
-                                <th>
-                                    Discount(%)
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
+                                <th>Brand</th>
+                                <th>Type</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Feature</th>
+                                <th>Discount(%)</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>cc</td>
-                                <td>cc</td>
-                                <td>cc</td>
-                                <td>
-                                    <img src="{{asset('admin/images/no_image.png')}}" alt="" width="50px" height="50px">
-                                </td>
-                                <td>cc</td>
-                                <td>cc</td>
-                                <td>cc</td>
-                                <td>cc</td>
-                                <td>cc</td>
-                                <td>
-                                    <a class="btn btn-info btn-sm"
-                                        href="#">
-                                        <i class="fas fa-pencil-alt"></i>Edit
-                                    </a>
-                                    <a class="btn btn-danger btn-sm" href="javascript:void(0);">
-                                        <i class="fas fa-trash"></i>Delete
-                                    </a>
-                                </td>
-                            </tr>
+                            @foreach ($items as $item)
+                                <tr>
+                                    <td>{{ $item->type->brand->name }}</td>
+                                    <td>{{ $item->type->name }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    @if ($item->images[0]->img)
+                                        <td><img src="{{ asset('customer/img') . '/' . $item->images[0]->img }}" alt=""
+                                                width="50px" height="50px">
+                                        </td>
+                                    @else
+                                        <td><img src="{{ asset('admin/images') . '/no_image.png' }}" alt="" width="50px"
+                                                height="50px">
+                                        </td>
+                                    @endif
+                                    <td>{{ $item->price }}</td>
+                                    <td>
+                                        @if ($item->feature == 1)
+                                            <b>hot</b>
+                                        @else
+                                            normal
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->discout_item }}%</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="#">
+                                            <i class="fas fa-pencil-alt"></i>Edit
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+                                            <i class="fas fa-trash"></i>Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

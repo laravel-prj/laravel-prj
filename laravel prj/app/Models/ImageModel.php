@@ -19,6 +19,7 @@ class ImageModel extends Model
     protected $fillable = [
         'item_id',
         'img',
+        'default_img',
         'created_at',
         'updated_at',
         'deleted_at',
