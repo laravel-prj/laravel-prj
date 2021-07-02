@@ -39,9 +39,9 @@ Route::get('ajaxGetItemById', [TopController::class, 'ajaxGetItemById']);
 Route::delete('ajaxRemoveItemById', [CartController::class, 'ajaxRemoveItemById']);
 Route::post('ajaxUpdateCart', [CartController::class, 'ajaxUpdateCart']);
 Route::get('ajaxGetAllItem', [CartController::class, 'ajaxGetAllItem']);
-
-
 Route::get('ajaxGetSizeById', [TopController::class, 'ajaxGetSizeById']);
+
+Route::get('ajaxGetTypeByBrandId', [ItemController::class, 'ajaxGetTypeByBrandId']);
 
 // test xoa session
 Route::get('ajaxDeleteSession', [CartController::class, 'ajaxDeleteSession']);
