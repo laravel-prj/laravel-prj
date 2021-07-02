@@ -144,33 +144,6 @@
                         </li>
 
                         @endforeach
-
-                        {{-- <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"
-                              ><img
-                                src="{{asset('customer/img/giay.jpg')}}"
-                                alt="polo shirt img"
-                            /></a>
-                            <a
-                              class="aa-add-card-btn"
-                              data-product-id="33"
-                              href="#"
-                              ><span class="fa fa-shopping-cart"></span>Details</a
-                            >
-                            <figcaption>
-                              <h4 class="aa-product-title">
-                                <a href="#">Polo T-Shirt</a>
-                              </h4>
-                              <span class="aa-product-price">$45.50</span
-                              ><span class="aa-product-price"
-                                ><del>$65.50</del></span
-                              >
-                            </figcaption>
-                          </figure>
-                        </li> --}}
-
-
                       </ul>
                       <a class="aa-browse-btn" href="#"
                         >Browse all Product
@@ -210,13 +183,9 @@
                                 src="{{asset("customer/img/$saleitem->image")}}"
                                 alt="polo shirt img"
                             /></a>
-                            <a
-                              class="aa-add-card-btn"
-                              data-product-id="33"
-                              href="#"
-                              ><span class="fa fa-shopping-cart"></span>Add To
-                              Cart</a
-                            >
+                            <a class="aa-add-card-btn" data-product-id="{{$saleitem->id}}" href="{{asset("detail/$saleitem->id")}}"><span class="fa fa-shopping-cart">
+                            </span>Details
+                          </a>
                             <figcaption>
                               <h4 class="aa-product-title">
                                 <a href="#">{{$saleitem->name}}</a>

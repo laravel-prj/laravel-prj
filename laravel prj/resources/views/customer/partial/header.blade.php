@@ -16,7 +16,7 @@
                         <!-- / header top left -->
                         <div class="aa-header-top-right">
                             <ul class="aa-head-top-nav-right">
-                                <li><a href="account.html">My Account</a></li>
+                                <li><a href="{{asset('editAcc')}}">My Account</a></li>
                                 <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
                                 <li class="hidden-xs"><a href="{{ asset('cart') }}">My Cart</a></li>
                                 <li class="hidden-xs"><a href="{{ asset('checkout') }}">Checkout</a></li>

@@ -233,8 +233,9 @@
                                     <figure>
                                         <a class="aa-product-img" href="#"><img src="{{asset("customer/img/$top->image")}}"
                                                ></a>
-                                        <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To
-                                            Cart</a>
+                                        <a class="aa-add-card-btn" data-product-id="{{$top->id}}" href="{{asset("detail/$top->id")}}"><span class="fa fa-shopping-cart">
+                                            </span>Details
+                                        </a>
                                         <figcaption>
                                             <h4 class="aa-product-title"><a href="#">{{$top->name}}</a></h4>
                                             <span class="aa-product-price">${{$top->price}}</span>

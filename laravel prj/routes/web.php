@@ -98,6 +98,10 @@ Route::get('/about', [TopController::class, 'about']);
 Route::get('/contact', [TopController::class, 'contact']);
 Route::get('/register', [TopController::class, 'register']);
 Route::post('/post_register', [TopController::class, 'post_register']);
+Route::get('/forgot', [TopController::class, 'forgot']);
+Route::get('/editAcc', [TopController::class, 'editAcc'])->middleware('verfiy-account-customer');
+Route::get('/updateAcc/{id}', [TopController::class, 'updateAcc']);
+Route::post('/updateAcc/{id}', [TopController::class, 'postUpdateCusAcc']);
 
 Route::get('/band/{id}', [TopController::class, 'band']);
 Route::get('/band/type/{id}', [TopController::class, 'band']);
