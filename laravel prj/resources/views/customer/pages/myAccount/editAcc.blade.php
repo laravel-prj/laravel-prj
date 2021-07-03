@@ -21,7 +21,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="checkout-area">
-                    <form method="get" action="/updateAcc/{{$cus->id}}">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="checkout-left">
@@ -49,9 +48,9 @@
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill"><Strong>Gender:
                                                                     @if ($cus->gender == 0)
-                                                                        <span>Female</span>
-                                                                    @else
                                                                         <span>Male</span>
+                                                                    @else
+                                                                        <span>FeMale</span>
                                                                     @endif
                                                                 </Strong>
                                                             </div>
@@ -88,7 +87,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <strong><input type="submit" name="View order" value="View Order"></strong>
+                                                                <input type="submit" name="View order" value="View Order">
 
                                                             </div>
                                                         </div>
@@ -105,8 +104,6 @@
                                 </div>
                             </div>
                         </div>
-                        @csrf
-                    </form>
                 </div>
             </div>
         </div>

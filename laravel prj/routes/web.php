@@ -17,6 +17,7 @@ use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\CheckOutController;
 use App\Http\Controllers\customer\AuthCustomerController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\customer\MyAccountController;
 
 
 /*
@@ -99,9 +100,12 @@ Route::get('/contact', [TopController::class, 'contact']);
 Route::get('/register', [TopController::class, 'register']);
 Route::post('/post_register', [TopController::class, 'post_register']);
 Route::get('/forgot', [TopController::class, 'forgot']);
-Route::get('/editAcc', [TopController::class, 'editAcc'])->middleware('verfiy-account-customer');
-Route::get('/updateAcc/{id}', [TopController::class, 'updateAcc']);
-Route::post('/updateAcc/{id}', [TopController::class, 'postUpdateCusAcc']);
+
+Route::get('/editAcc', [MyAccountController::class, 'editAcc'])->middleware('verfiy-account-customer');
+Route::get('/updateAcc/{id}', [MyAccountController::class, 'updateAcc']);
+Route::post('/updateAcc/{id}', [MyAccountController::class, 'postUpdateCusAcc']);
+Route::get('/updatePass', [MyAccountController::class, 'updatePass']);
+Route::post('/updatePass', [MyAccountController::class, 'postUpdatePass']);
 
 Route::get('/band/{id}', [TopController::class, 'band']);
 Route::get('/band/type/{id}', [TopController::class, 'band']);

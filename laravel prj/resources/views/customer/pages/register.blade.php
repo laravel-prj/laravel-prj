@@ -114,7 +114,7 @@
         </div>
       </div>
     </div>
-  </section>
+</section>
   <!-- / Cart view section -->
 @stop
 @section('scripts')

@@ -176,33 +176,5 @@ class TopController extends Controller
 
     }
 
-    //edit account
-    public function editAcc()
-    {
-        $cus = Auth::guard('loyal_customer')->user();
-        return view('customer/pages/editAcc', compact('cus'));
-
-    }
-
-    public function updateAcc($id)
-    {
-        $cus = CustomerModel::find($id);
-        return view('customer/pages/updateCusAcc',compact('cus'));
-    }
-
-    public function postUpdateCusAcc(Request $request)
-    {
-           // $cus = Auth::guard('loyal_customer')->user();
-            $cus = new CustomerModel;
-            $cus->first_name = $request->get('first_name');
-            $cus->last_name = $request->get('last_name');
-            $cus->password = $request->get('password');
-            $cus->gender = $request->get('gender');
-            $cus->birthday = $request->get('birthday');
-            $cus->city = $request->get('city');
-            $cus->address = $request->get('address');
-            $cus->tel = $request->get('tel');
-
-        return redirect('customer/pages/editAcc');
-    }
+    
 }
