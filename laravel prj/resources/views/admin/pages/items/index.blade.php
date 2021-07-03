@@ -60,7 +60,6 @@
 
         <!-- Main content -->
         <section class="content">
-
             <!-- Default box -->
             <div class="card">
                 <div class="card-tools">
@@ -88,7 +87,7 @@
                         <div class="col-sm-3">
                             <div class="row"></div>
                             <label for="nameSearch">Name</label>
-                            <input type="text" class="form-control" name="nameSearch">
+                            <input id="nameSearch" type="text" class="form-control" name="nameSearch" onkeyup="return onSearchName();">
                         </div>
                         <div class="col-sm-3">
                             <a class="btn btn-primary float-right" href="{{ asset('admin-mo/item/create') }}">Create</a>
@@ -108,7 +107,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="bodyTable">
                                 @foreach ($items as $item)
                                     <tr>
                                         <td>{{ $item->type->brand->name }}</td>
@@ -148,7 +147,7 @@
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -169,22 +168,13 @@
 
         $("#brandSearch")
             .change(function() {
-                var str = "";
-                $("select option:selected").each(function() {
-                    str += $(this).val() + "/";
-                });
-                str = str.rtrim('/');
-                strArr = str.split("/");
-
-                brandSearch = strArr[0];
-                typeSearch = strArr[1];
-
+                $('#nameSearch').val('');
+                brandSearch = $(this).val();
                 $.ajax({
                     type: "GET",
                     url: window.location.origin + "/api/ajaxGetTypeByBrandId",
                     data: {
-                        brandSearch: brandSearch,
-                        typeSearch: typeSearch
+                        brandSearch: brandSearch
                     },
                     success: function(response) {
                         if (response) {
@@ -192,8 +182,68 @@
                         }
                     }
                 });
+
+                $.ajax({
+                    type: "GET",
+                    url: window.location.origin + "/api/ajaxSearchBrandById",
+                    data: {
+                        brandSearch: brandSearch
+                    },
+                    success: function (response) {
+                        if (response) {
+                            $('#bodyTable').html(response);
+                        }
+                    }
+                });
             })
             .change();
+
+        $("#typeSearch")
+        .change(function() {
+            $('#nameSearch').val('');
+            typeSearch = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: window.location.origin + "/api/ajaxSearchTypeById",
+                data: {
+                    typeSearch: typeSearch,
+                    brandSearch: brandSearch
+                },
+                success: function(response) {
+                    if (response) {
+                        $('#bodyTable').html(response);
+                    }
+                },
+                error: function (request, status, error) {
+                    $('#bodyTable').html('');
+                }
+            });
+        });
+
+        function onSearchName() {
+            brandSearch = $('#brandSearch').val();
+            typeSearch = $('#typeSearch').val();
+            nameSearch = $('#nameSearch').val();
+
+            $.ajax({
+                type: "GET",
+                url: window.location.origin + "/api/ajaxSearchName",
+                data: {
+                    brandSearch: brandSearch,
+                    typeSearch: typeSearch,
+                    nameSearch: nameSearch
+                },
+                success: function(response) {
+                    if (response) {
+                        $('#bodyTable').html(response);
+                        console.log(response);
+                    }
+                },
+                error: function (request, status, error) {
+                    $('#bodyTable').html('');
+                }
+            });
+        }
 
         function onDeleteBrand(id) {
             var ok = confirm('Are you sure about that !!!!!!');

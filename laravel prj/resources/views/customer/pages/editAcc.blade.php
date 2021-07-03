@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="checkout-area">
-                    <form method="post" action="/order">
+                    <form method="get" action="/updateAcc/{{$cus->id}}">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="checkout-left">
@@ -89,13 +89,12 @@
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
                                                                 <strong><input type="submit" name="View order" value="View Order"></strong>
-                                                                
+
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <a href="{{ asset('customer/pages/updateAcc') }}"><input type="submit" name="Update Account" value="Update Account"></a>
-                                                                
+                                                                <a href="{{ asset("updateAcc/$cus->id") }}"><input type="button" name="Update Account" value="Update Account"></a>
                                                             </div>
                                                         </div>
                                                     </div>

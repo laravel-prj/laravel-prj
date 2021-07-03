@@ -42,6 +42,9 @@ Route::get('ajaxGetAllItem', [CartController::class, 'ajaxGetAllItem']);
 Route::get('ajaxGetSizeById', [TopController::class, 'ajaxGetSizeById']);
 
 Route::get('ajaxGetTypeByBrandId', [ItemController::class, 'ajaxGetTypeByBrandId']);
+Route::get('ajaxSearchBrandById', [ItemController::class, 'ajaxSearchBrandById']);
+Route::get('ajaxSearchTypeById', [ItemController::class, 'ajaxSearchTypeById']);
+Route::get('ajaxSearchName', [ItemController::class, 'ajaxSearchName']);
 
 // test xoa session
 Route::get('ajaxDeleteSession', [CartController::class, 'ajaxDeleteSession']);

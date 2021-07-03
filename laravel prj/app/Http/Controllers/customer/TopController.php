@@ -178,7 +178,7 @@ class TopController extends Controller
 
     //edit account
     public function editAcc()
-    {   
+    {
         $cus = Auth::guard('loyal_customer')->user();
         return view('customer/pages/editAcc', compact('cus'));
 
@@ -202,7 +202,7 @@ class TopController extends Controller
             $cus->city = $request->get('city');
             $cus->address = $request->get('address');
             $cus->tel = $request->get('tel');
-        
+
         return redirect('customer/pages/editAcc');
     }
 }

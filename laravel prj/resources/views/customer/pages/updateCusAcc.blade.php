@@ -107,7 +107,7 @@
                                </div>
                              </div>
                            </div>
-                                <input type="submit" value="update" style="margin-left:200px; width:100px">
+                                <input type="submit" value="update" style="margin-left:150px; width:100px">
                             </div>
                           </div>
                          </div>
