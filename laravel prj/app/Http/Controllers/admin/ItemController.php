@@ -24,7 +24,26 @@ class ItemController extends Controller
     {
         return view('admin/pages/items/create');
     }
-    // public function create(Request $request)
+
+    public function store(Request $request)
+    {
+        $images = $request->file('files');
+        if ($request->hasFile('files')){
+            foreach ($images as $item){
+                $var = date_create();
+                $time = date_format($var, 'YmdHis');
+                $imageName = $time . '-' . $item->getClientOriginalName();
+                $item->move('customer/img/', $imageName);
+                $arr[] = $imageName;
+            }
+            $image = implode(",", $arr);
+        }
+        else{
+            $image = '';
+        }
+    }
+
+    // public function test(Request $request)
     // {
     //     if($request->hasfile('img'))
     //     {
