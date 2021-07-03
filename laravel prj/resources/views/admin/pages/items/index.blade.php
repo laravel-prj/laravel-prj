@@ -8,8 +8,10 @@
     <style>
         .btn-create {
             padding: 4px 8px;
-            margin-right: 16px;
-            border-radius: 12%
+            margin-right: 19px;
+            border-radius: 12%;
+            right: 0;
+            position: absolute;
         }
 
         .t-alert {
@@ -61,65 +63,91 @@
 
             <!-- Default box -->
             <div class="card">
+                <div class="card-tools">
+                </div>
                 <div class="card-header">
-                    <div class="card-tools">
-                        <a class="btn btn-primary btn-sm btn-create" href="{{ asset('admin-mo/item/create') }}">Create</a>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="brandSearch">Brand</label>
+                            <select id="brandSearch" class="form-control" name="brandSearch">
+                                <option value="0">All</option>
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="typeSearch">Type</label>
+                            <select id="typeSearch" class="form-control" name="typeSearch">
+                                <option value="0">All</option>
+                                {{-- @foreach ($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach --}}
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row"></div>
+                            <label for="nameSearch">Name</label>
+                            <input type="text" class="form-control" name="nameSearch">
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="btn btn-primary float-right" href="{{ asset('admin-mo/item/create') }}">Create</a>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body p-0">
-                    <table class="table table-striped projects">
-                        <thead>
-                            <tr>
-                                <th>Brand</th>
-                                <th>Type</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Price</th>
-                                <th>Feature</th>
-                                <th>Discount(%)</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($items as $item)
+                    <div class="card-body p-0">
+                        <table class="table table-striped projects">
+                            <thead>
                                 <tr>
-                                    <td>{{ $item->type->brand->name }}</td>
-                                    <td>{{ $item->type->name }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    @if ($item->images[0]->img)
-                                        <td><img src="{{ asset('customer/img') . '/' . $item->images[0]->img }}" alt=""
-                                                width="50px" height="50px">
-                                        </td>
-                                    @else
-                                        <td><img src="{{ asset('admin/images') . '/no_image.png' }}" alt="" width="50px"
-                                                height="50px">
-                                        </td>
-                                    @endif
-                                    <td>{{ $item->price }}</td>
-                                    <td>
-                                        @if ($item->feature == 1)
-                                            <b>hot</b>
-                                        @else
-                                            normal
-                                        @endif
-                                    </td>
-                                    <td>{{ $item->discout_item }}%</td>
-                                    <td>
-                                        <a class="btn btn-info btn-sm" href="#">
-                                            <i class="fas fa-pencil-alt"></i>Edit
-                                        </a>
-                                        <a class="btn btn-danger btn-sm" href="javascript:void(0);">
-                                            <i class="fas fa-trash"></i>Delete
-                                        </a>
-                                    </td>
+                                    <th>Brand</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Price</th>
+                                    <th>Feature</th>
+                                    <th>Discount(%)</th>
+                                    <th>Actions</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($items as $item)
+                                    <tr>
+                                        <td>{{ $item->type->brand->name }}</td>
+                                        <td>{{ $item->type->name }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        @if ($item->images[0]->img)
+                                            <td><img src="{{ asset('customer/img') . '/' . $item->images[0]->img }}"
+                                                    alt="" width="50px" height="50px">
+                                            </td>
+                                        @else
+                                            <td><img src="{{ asset('admin/images') . '/no_image.png' }}" alt=""
+                                                    width="50px" height="50px">
+                                            </td>
+                                        @endif
+                                        <td>{{ $item->price }}</td>
+                                        <td>
+                                            @if ($item->feature == 1)
+                                                <b>hot</b>
+                                            @else
+                                                normal
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->discout_item }}%</td>
+                                        <td>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt"></i>Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+                                                <i class="fas fa-trash"></i>Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                <!-- /.card -->
 
         </section>
         <!-- /.content -->
@@ -131,6 +159,42 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script> --}}
     {{-- quick defined --}}
     <script>
+        var brandSearch;
+        var typeSearch;
+        var nameSearch;
+
+        String.prototype.rtrim = function(s) {
+            return this.replace(new RegExp(s + "*$"), '');
+        };
+
+        $("#brandSearch")
+            .change(function() {
+                var str = "";
+                $("select option:selected").each(function() {
+                    str += $(this).val() + "/";
+                });
+                str = str.rtrim('/');
+                strArr = str.split("/");
+
+                brandSearch = strArr[0];
+                typeSearch = strArr[1];
+
+                $.ajax({
+                    type: "GET",
+                    url: window.location.origin + "/api/ajaxGetTypeByBrandId",
+                    data: {
+                        brandSearch: brandSearch,
+                        typeSearch: typeSearch
+                    },
+                    success: function(response) {
+                        if (response) {
+                            $('#typeSearch').html(response);
+                        }
+                    }
+                });
+            })
+            .change();
+
         function onDeleteBrand(id) {
             var ok = confirm('Are you sure about that !!!!!!');
             if (ok) {
