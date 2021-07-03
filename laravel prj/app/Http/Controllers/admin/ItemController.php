@@ -61,12 +61,10 @@ class ItemController extends Controller
         $html = '';
         if ($brandId == 0) {
             $html .='<option value="0">All</option>';
-            // return response($html, 404)
-            // ->header('Content-Type', 'text/plain');
         }else{
             $html .='<option value="0">All</option>';
-            $brand = BrandModel::with('type')->find($brandId);
-            foreach ($brand->type as $key => $type) {
+            $types = ItemTypesModel::whereHas('item')->where('brand_id',$brandId)->get();
+            foreach ($types as $key => $type) {
                 $html .= '<option value=\''.$type->id.'\'>'.$type->name.'</option>';
             }
         }
