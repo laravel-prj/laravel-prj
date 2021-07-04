@@ -5,9 +5,12 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\ItemModel;
 use App\Models\BrandModel;
+use App\Models\ShopModel;
 use App\Models\ItemTypesModel;
+use App\Models\ImageModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -22,25 +25,90 @@ class ItemController extends Controller
 
     public function create(Request $request)
     {
-        return view('admin/pages/items/create');
+        $brands = BrandModel::all();
+        $types = ItemTypesModel::where('brand_id', $brands[0]['id'])->get();
+        $currentUser = Auth::guard('loyal_admin')->user();
+        $currentUserId = $currentUser->id;
+        $shop = ShopModel::where('user_id', $currentUserId)->first();
+        return view('admin/pages/items/create',compact('brands','types','shop'));
     }
 
     public function store(Request $request)
     {
         $images = $request->file('files');
-        if ($request->hasFile('files')){
+        $image_default = $request->file('file');
+        $imageDefault;
+
+
+        $itemData = ItemModel::create([
+            'item_type_id' => $request->type,
+            'shop_id' => $request->shop_id,
+            // 'img' => $filename,
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'feature' => $request->feature,
+            'discout_item' => $request->discout_item
+        ]);
+
+        if ($request->hasFile('files') && $request->hasFile('file')){
             foreach ($images as $item){
                 $var = date_create();
                 $time = date_format($var, 'YmdHis');
                 $imageName = $time . '-' . $item->getClientOriginalName();
                 $item->move('customer/img/', $imageName);
                 $arr[] = $imageName;
+
+                $imagesData = new ImageModel;
+                $imagesData->item_id = $itemData->id;
+                $imagesData->img =  $imageName;
+                $imagesData->save();
             }
             $image = implode(",", $arr);
+
+            $varDefault = date_create();
+            $timeDefault = date_format($varDefault, 'YmdHis');
+            $imageDefault = $timeDefault . '-' . $image_default->getClientOriginalName();
+            $image_default->move('customer/img/', $imageDefault);
+
+            $imageDefaultData = new ImageModel;
+            $imageDefaultData->item_id = $itemData->id;
+            $imageDefaultData->img =  $imageDefault;
+            $imageDefaultData->default_img = 1;
+            $imageDefaultData->save();
         }
         else{
             $image = '';
+            $image_default = '';
         }
+
+
+
+            // NOTE
+        // $imagesData = ImageModel::createMany([
+        //     [
+        //         'item_type_id'=>$itemData->id,
+        //         'img'=>$emailsettingstype->id,
+        //         'created_at'=>'',
+        //         'updated_at'=>'',
+
+        //     ],
+        //     [
+        //         'name'=>'mail_port',
+        //         'type'=>$emailsettingstype->id,
+        //         'created_at'=>'',
+        //         'updated_at'=>'',
+
+        //     ],
+        //     [
+        //         'name'=>'mail_username',
+        //         'type'=>$emailsettingstype->id,
+        //         'created_at'=>'',
+        //         'updated_at'=>'',
+        //     ],
+        // ]);
+
+        return $itemData;
     }
 
     // public function test(Request $request)
@@ -78,15 +146,23 @@ class ItemController extends Controller
     {
         $brandId = $request->brandSearch;
         $html = '';
-        if ($brandId == 0) {
-            $html .='<option value="0">All</option>';
-        }else{
-            $html .='<option value="0">All</option>';
-            $types = ItemTypesModel::whereHas('item')->where('brand_id',$brandId)->get();
+        if (isset($request->flg) && !empty($request->flg)) {
+            $types = ItemTypesModel::where('brand_id',$brandId)->get();
             foreach ($types as $key => $type) {
                 $html .= '<option value=\''.$type->id.'\'>'.$type->name.'</option>';
             }
+        }else{
+            if ($brandId == 0) {
+                $html .='<option value="0">All</option>';
+            }else{
+                $html .='<option value="0">All</option>';
+                $types = ItemTypesModel::whereHas('item')->where('brand_id',$brandId)->get();
+                foreach ($types as $key => $type) {
+                    $html .= '<option value=\''.$type->id.'\'>'.$type->name.'</option>';
+                }
+            }
         }
+
         return response($html, 200)
         ->header('Content-Type', 'text/plain');
     }
