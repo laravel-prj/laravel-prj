@@ -87,7 +87,7 @@
                         <div class="col-sm-3">
                             <select id="brandSearch" class="form-control" name="brand">
                                 @foreach ($brands as $brand)
-                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="col-sm-3">
                             <select id="typeSearch" class="form-control" name="type">
                                 @foreach ($types as $type)
-                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -113,9 +113,12 @@
                         <input required type="file" class="form-control-file px-0" id="file" name="file">
                         <div id="defaultThumbnail"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="fileImages">
                         <label for="files" class="col-2 col-form-label px-0">Images</label>
                         <input required type="file" class="form-control-file px-0" id="files" name="files[]" multiple>
+                    </div>
+                    <div class="form-group">
+                        <a id="removeAll" type="button" class="btn btn-danger">Remove All</a>
                     </div>
                     <div class="form-group row">
                         <label for="description" class="col-2 col-form-label">Description</label>
@@ -141,12 +144,13 @@
                     <div class="form-group row">
                         <label for="description" class="col-2 col-form-label">Discout Item(%)</label>
                         <div class="col-sm-3">
-                            <input type="number" min="0" max="100" class="form-control" id="discount" name="discout_item" value="">
+                            <input type="number" min="0" max="100" class="form-control" id="discount" name="discout_item"
+                                value="">
                         </div>
                     </div>
             </div>
             <div class="form-group row">
-                <input type="hidden" name="shop_id" value="{{$shop->id}}">
+                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                 <div class="col-md-12">
                     <input type="submit" value="Create" class="btn btn-success">
                 </div>
@@ -162,6 +166,15 @@
     <script>
         $(document).ready(function() {
             if (window.File && window.FileList && window.FileReader) {
+                $("#files").click(function(e) {
+                    if ($("#files").val() !== '') {
+                        alert('Hành động này sẽ clear toàn bộ Images');
+                        $('#fileImages .pip').remove();
+                        $('#files').val("");
+                    }
+                });
+
+
                 $("#files").on("change", function(e) {
                     var files = e.target.files,
                         filesLength = files.length;
@@ -173,11 +186,11 @@
                             $("<span class=\"pip\">" +
                                 "<img class=\"imageThumb\" src=\"" + e.target.result +
                                 "\" title=\"" + file.name + "\"/>" +
-                                "<br/><span class=\"remove\">Remove image</span>" +
-                                "</span>").insertAfter("#files");
+                                "<br/>").insertAfter("#files");
                             $(".remove").click(function() {
                                 $(this).parent(".pip").remove();
-                                $('#files').val("");
+                                // console.log($('#files'));
+                                // $('#files').val("");
                             });
 
                             // Old code here
@@ -193,16 +206,17 @@
                 });
 
                 $("#file").on("change", function(e) {
-
-                    console.log(e.target.files);
                     var files = e.target.files,
-                    fileLength = files.length;
+                        fileLength = files.length;
                     for (var i = 0; i < fileLength; i++) {
                         var f = files[i]
                         var fileReader = new FileReader();
                         fileReader.onload = (function(e) {
                             var file = e.target;
-                            $defaultImg = "<span class=\"pip\">" + "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" + "<br/><span class=\"remove\">Remove image</span>" + "</span>";
+                            $defaultImg = "<span class=\"pip\">" +
+                                "<img class=\"imageThumb\" src=\"" + e.target.result +
+                                "\" title=\"" + file.name + "\"/>" +
+                                "<br/><span class=\"remove\">Remove image</span>" + "</span>";
                             $('#defaultThumbnail').html($defaultImg);
 
                             $(".remove").click(function() {
@@ -213,6 +227,11 @@
                         fileReader.readAsDataURL(f);
                     }
                 });
+
+                $("#removeAll").click(function() {
+                    $('#fileImages .pip').remove();
+                    $('#files').val("");
+                });
             } else {
                 alert("Your browser doesn't support to File API")
             }
@@ -222,7 +241,6 @@
         $("#brandSearch")
             .change(function() {
                 brandSearch = $(this).val();
-                console.log(brandSearch);
                 $.ajax({
                     type: "GET",
                     url: window.location.origin + "/api/ajaxGetTypeByBrandId",

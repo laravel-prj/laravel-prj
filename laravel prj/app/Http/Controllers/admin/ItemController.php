@@ -11,6 +11,7 @@ use App\Models\ImageModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ImageRequest;
 
 class ItemController extends Controller
 {
@@ -33,7 +34,7 @@ class ItemController extends Controller
         return view('admin/pages/items/create',compact('brands','types','shop'));
     }
 
-    public function store(Request $request)
+    public function store(ImageRequest $request)
     {
         $images = $request->file('files');
         $image_default = $request->file('file');
