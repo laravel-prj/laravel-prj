@@ -93,10 +93,12 @@
                                         <td>{{ $itemDetail->size }}</td>
                                         <td>{{ $itemDetail->quantity }}</td>
                                         <td style="width: 220px">
-                                            <a class="btn btn-info btn-sm" href="#">
+                                            <a class="btn btn-info btn-sm"
+                                                href="{{ asset("admin-mo/itemDetail/update/$item->id/$itemDetail->id") }}">
                                                 <i class="fas fa-pencil-alt"></i>Edit
                                             </a>
-                                            <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+                                            <a class="btn btn-danger btn-sm" href="javascript:void(0);"
+                                                onclick="return onDeteleDetail({{ $itemDetail->id }});">
                                                 <i class="fas fa-trash"></i>Delete
                                             </a>
                                         </td>
@@ -115,6 +117,11 @@
 @stop
 @section('scripts')
     <script>
-
+        function onDeteleDetail(detailId) {
+            var ok = confirm('Are you sure about that !!!!!!');
+            if (ok) {
+                location.href = '/admin-mo/itemDetail/delete/' + detailId;
+            }
+        }
     </script>
 @stop

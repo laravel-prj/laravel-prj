@@ -87,12 +87,19 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
     });
 
     Route::prefix('itemDetail')->group(function () {
-        Route::get('item/{id}', [ItemDetailController::class, 'index']);
-        Route::get('update/{id}', [ItemDetailController::class, 'edit']);
-        Route::post('update/{id}', [ItemDetailController::class, 'update']);
+        Route::get('item/{item_id}', [ItemDetailController::class, 'index']);
+        // Route::get('update/{id}', [ItemDetailController::class, 'edit']);
+        // Route::post('update/{id}', [ItemDetailController::class, 'update']);
         Route::get('create/{id}', [ItemDetailController::class, 'create']);
         Route::post('store', [ItemDetailController::class, 'store']);
-        Route::get('delete/{id}', [ItemDetailController::class, 'delete']);
+        // Route::get('delete/{id}', [ItemDetailController::class, 'delete']);
+
+        Route::get('update/{item_id}/{detail_id}', [ItemDetailController::class, 'editDetail']);
+        Route::post('update/{item_id}/{detail_id}', [ItemDetailController::class, 'updateDetail']);
+        Route::get('delete/{id}', [ItemDetailController::class, 'deleteDetail']);
+
+        // Route::post('item/{item_id}/{detail_id}', [ItemDetailController::class, 'editDetail']);
+        // Route::get('item/{item_id}/{detail_id}', [ItemDetailController::class, 'indexDetail']);
     });
 });
 

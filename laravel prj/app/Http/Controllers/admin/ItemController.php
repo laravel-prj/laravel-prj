@@ -211,7 +211,7 @@ class ItemController extends Controller
         <td>'.$itemDiscount.'%</td>
         <td>
             <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-                <i class="fas fa-pencil-alt"></i>Add Info
+                <i class="fas fa-pencil-alt"></i>Info
             </a>
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt"></i>Edit
@@ -266,7 +266,7 @@ class ItemController extends Controller
     <td>'.$itemDiscount.'%</td>
     <td>
         <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-            <i class="fas fa-pencil-alt"></i>Add Info
+            <i class="fas fa-pencil-alt"></i>Info
         </a>
         <a class="btn btn-info btn-sm" href="#">
             <i class="fas fa-pencil-alt"></i>Edit
@@ -342,7 +342,7 @@ class ItemController extends Controller
             <td>'.$itemDiscount.'%</td>
             <td>
                 <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-                    <i class="fas fa-pencil-alt"></i>Add Info
+                    <i class="fas fa-pencil-alt"></i>Info
                 </a>
                 <a class="btn btn-info btn-sm" href="#">
                     <i class="fas fa-pencil-alt"></i>Edit
@@ -400,7 +400,7 @@ class ItemController extends Controller
         <td>'.$itemDiscount.'%</td>
         <td>
             <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-                <i class="fas fa-pencil-alt"></i>Add Info
+                <i class="fas fa-pencil-alt"></i>Info
             </a>
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt"></i>Edit
@@ -476,7 +476,7 @@ class ItemController extends Controller
     <td>'.$itemDiscount.'%</td>
     <td>
         <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-            <i class="fas fa-pencil-alt"></i>Add Info
+            <i class="fas fa-pencil-alt"></i>Info
         </a>
         <a class="btn btn-info btn-sm" href="#">
             <i class="fas fa-pencil-alt"></i>Edit
@@ -537,7 +537,7 @@ class ItemController extends Controller
             <td>'.$itemDiscount.'%</td>
             <td>
                 <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-                    <i class="fas fa-pencil-alt"></i>Add Info
+                    <i class="fas fa-pencil-alt"></i>Info
                 </a>
                 <a class="btn btn-info btn-sm" href="#">
                     <i class="fas fa-pencil-alt"></i>Edit
@@ -597,7 +597,7 @@ class ItemController extends Controller
         <td>'.$itemDiscount.'%</td>
         <td>
             <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
-                <i class="fas fa-pencil-alt"></i>Add Info
+                <i class="fas fa-pencil-alt"></i>Info
             </a>
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt"></i>Edit
