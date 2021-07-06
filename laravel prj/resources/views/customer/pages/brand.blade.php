@@ -9,22 +9,6 @@
 </style>
 @stop
 @section('content')
-  <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-      <div class="container">
-       <div class="aa-catg-head-banner-content">
-         <h2>Fashion</h2>
-         <ol class="breadcrumb">
-           <li><a href="index.html">Home</a></li>         
-         </ol>
-       </div>
-      </div>
-    </div>
-   </section>
-   <!-- / catg header banner section -->
- 
    <!-- product category -->
    <section id="aa-product-category">
      <div class="container">
@@ -37,7 +21,7 @@
                  @foreach ($data as $item)
                  <li>
                   <figure>
-                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}"></a>
                     <a class="aa-add-card-btn"href="{{asset("detail/$item->id")}}"><span class="fa fa-shopping-cart"></span>Detail</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="{{asset("detail/$item->id")}}">{{$item->name}}</a></h4>
@@ -84,7 +68,7 @@
                
                <ul class="aa-catg-nav">
                 @foreach ($navbar as $brand)
-                <li><a href="#">{{$brand->name}}</a></li>
+                <li><a href="{{asset("band/$brand->id")}}">{{$brand->name}}</a></li>
                 @endforeach
                </ul>
                
@@ -94,7 +78,7 @@
                <h3>Tags</h3>
                <div class="tag-cloud">
                  @foreach ($type as $typee)
-                 <a href="#">{{$typee->name}}</a>
+                 <a href="{{asset("band/type/$typee->id")}}">{{$typee->name}}</a>
                  @endforeach
                </div>
              </div>

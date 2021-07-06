@@ -9,21 +9,6 @@
 </style>
 @stop
 @section('content')
-  <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-      <div class="container">
-       <div class="aa-catg-head-banner-content">
-         <h2>Top</h2>
-         <ol class="breadcrumb">
-           <li><a href="index.html">Home</a></li>         
-         </ol>
-       </div>
-      </div>
-    </div>
-   </section>
-   <!-- / catg header banner section -->
  
    <!-- product category -->
    <section id="aa-product-category">
@@ -76,65 +61,64 @@
            </div>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
-           <aside class="aa-sidebar">
-             <!-- single sidebar -->
-             <div class="aa-sidebar-widget">
-               <h3>Brands</h3>
-              
+            <aside class="aa-sidebar">
+              <!-- single sidebar -->
+              <div class="aa-sidebar-widget">
+                <h3>Brands</h3>
                
-               <ul class="aa-catg-nav">
-                @foreach ($navbar as $brand)
-                <li><a href="#">{{$brand->name}}</a></li>
-                @endforeach
-               </ul>
-               
-             </div>
-             <!-- single sidebar -->
-             <div class="aa-sidebar-widget">
-               <h3>Tags</h3>
-               <div class="tag-cloud">
-                 @foreach ($type as $typee)
-                 <a href="#">{{$typee->name}}</a>
+                
+                <ul class="aa-catg-nav">
+                 @foreach ($navbar as $brand)
+                 <li><a href="{{asset("band/$brand->id")}}">{{$brand->name}}</a></li>
                  @endforeach
-               </div>
-             </div>
-             <!-- single sidebar -->
-             <div class="aa-sidebar-widget">
-               <h3>Top Products</h3>
-               <div class="aa-recently-views">
-                 <ul>
-                     @foreach ($top as $topPro)
-                     <li>
-                        <a href="{{asset("detail/$topPro->id")}}" class="aa-cartbox-img"><img src="{{ asset("customer/img/$topPro->image")}}"></a>
-                        <div class="aa-cartbox-info">
-                          <h4><a href="{{asset("detail/$topPro->id")}}">{{ $topPro->name }}</a></h4>
-                          <p>${{ $topPro->price }}</p>
-                        </div>                    
-                      </li>
-                     @endforeach                               
-                 </ul>
-               </div>                            
-             </div>
-             <!-- single sidebar -->
-             <div class="aa-sidebar-widget">
-               <h3>Sale Products</h3>
-               <div class="aa-recently-views">
-                 <ul>
-                     @foreach ($sale as $sales)
-                     <li>
-                        <a href="{{asset("detail/$sales->id")}}" class="aa-cartbox-img"><img alt="img" src="{{ asset("customer/img/$sales->image")}}"></a>
-                        <div class="aa-cartbox-info">
-                          <h4><a href="{{asset("detail/$sales->id")}}">{{ $sales->name }}</a></h4>
-                          <p>${{($sales['price'] - (($sales['price']* $sales['discout_item'])/100))}}</p>
-                        </div>                    
-                      </li>
-                     @endforeach                              
-                 </ul>
-               </div>                            
-             </div>
-           </aside>
-         </div>
-        
+                </ul>
+                
+              </div>
+              <!-- single sidebar -->
+              <div class="aa-sidebar-widget">
+                <h3>Tags</h3>
+                <div class="tag-cloud">
+                  @foreach ($type as $typee)
+                  <a href="{{asset("band/type/$typee->id")}}">{{$typee->name}}</a>
+                  @endforeach
+                </div>
+              </div>
+              <!-- single sidebar -->
+              <div class="aa-sidebar-widget">
+                <h3>Top Products</h3>
+                <div class="aa-recently-views">
+                  <ul>
+                      @foreach ($top as $topPro)
+                      <li>
+                         <a href="{{asset("detail/$topPro->id")}}" class="aa-cartbox-img"><img src="{{ asset("customer/img/$topPro->image")}}"></a>
+                         <div class="aa-cartbox-info">
+                           <h4><a href="{{asset("detail/$topPro->id")}}">{{ $topPro->name }}</a></h4>
+                           <p>${{ $topPro->price }}</p>
+                         </div>                    
+                       </li>
+                      @endforeach                               
+                  </ul>
+                </div>                            
+              </div>
+              <!-- single sidebar -->
+              <div class="aa-sidebar-widget">
+                <h3>Sale Products</h3>
+                <div class="aa-recently-views">
+                  <ul>
+                      @foreach ($sale as $sales)
+                      <li>
+                         <a href="{{asset("detail/$sales->id")}}" class="aa-cartbox-img"><img alt="img" src="{{ asset("customer/img/$sales->image")}}"></a>
+                         <div class="aa-cartbox-info">
+                           <h4><a href="{{asset("detail/$sales->id")}}">{{ $sales->name }}</a></h4>
+                           <p>${{($sales['price'] - (($sales['price']* $sales['discout_item'])/100))}}</p>
+                         </div>                    
+                       </li>
+                      @endforeach                              
+                  </ul>
+                </div>                            
+              </div>
+            </aside>
+          </div>
        </div>
      </div>
    </section>

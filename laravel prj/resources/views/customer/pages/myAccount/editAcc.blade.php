@@ -87,8 +87,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <input type="submit" name="View order" value="View Order">
-
+                                                                <a href="{{ asset("viewOrder") }}"><input type="submit" name="View order" value="View Order"></a>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">

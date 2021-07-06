@@ -39,7 +39,7 @@
                     <img data-seq src="{{asset('customer/img/sale.jpg')}}" style="height: 500px" />
                   </div>
                   <div class="seq-title">
-                    <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn"
+                    <a data-seq href="{{ asset('/shop') }}" class="aa-shop-now-btn aa-secondary-btn"
                       >SHOP NOW</a
                     >
                   </div>
