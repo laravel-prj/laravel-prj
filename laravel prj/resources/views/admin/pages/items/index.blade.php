@@ -137,10 +137,12 @@
                                                 onclick="return onAddInfo({{ $item->id }});">
                                                 <i class="fas fa-pencil-alt"></i>Add Info
                                             </a>
-                                            <a class="btn btn-info btn-sm" href="#">
+                                            <a class="btn btn-info btn-sm" href="javascript:void(0);"
+                                                onclick="return onEditItem({{ $item->id }});">
                                                 <i class="fas fa-pencil-alt"></i>Edit
                                             </a>
-                                            <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+                                            <a class="btn btn-danger btn-sm" href="javascript:void(0);"
+                                                onclick="return onDeleteItem({{ $item->id }});">
                                                 <i class="fas fa-trash"></i>Delete
                                             </a>
                                         </td>
@@ -259,6 +261,17 @@
 
         function onAddInfo(itemId) {
             location.href = '/admin-mo/itemDetail/item/' + itemId;
+        }
+
+        function onDeleteItem(itemId) {
+            var ok = confirm('Are you sure about that !!!!!!');
+            if (ok) {
+                location.href = '/admin-mo/item/delete/' + itemId;
+            }
+        }
+
+        function onEditItem(itemId) {
+            location.href = '/admin-mo/item/update/' + itemId;
         }
     </script>
 @stop

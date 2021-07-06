@@ -62,8 +62,18 @@ class ItemModel extends Model
     {
         return $this->hasMany('App\Models\ImageModel', 'item_id', 'id');
     }
-    public function image_default()
+    // public function image_default()
+    // {
+    //     return $this->hasMany('App\Models\ImageModel', 'item_id', 'id');
+    // }
+
+    public static function deleteItem($id)
     {
-        return $this->hasMany('App\Models\ImageModel', 'item_id', 'id');
+        $item = ItemModel::find($id);
+        if ($item) {
+            $item->item_details()->delete();
+            $item->images()->delete();
+            $item->delete();
+        }
     }
 }

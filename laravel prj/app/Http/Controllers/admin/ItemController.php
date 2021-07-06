@@ -11,13 +11,14 @@ use App\Models\ImageModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\ImageRequest;
+use App\Http\Requests\ItemRequest;
+use App\Http\Requests\ItemUpdateRequest;
 
 class ItemController extends Controller
 {
     public function index()
     {
-        $brands = BrandModel::all();
+        $brands = BrandModel::whereHas('item')->get();
         $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
             return $q->where('images.default_img', '=', 1);
         }])->get();
@@ -34,7 +35,7 @@ class ItemController extends Controller
         return view('admin/pages/items/create',compact('brands','types','shop'));
     }
 
-    public function store(ImageRequest $request)
+    public function store(ItemRequest $request)
     {
         $images = $request->file('files');
         $image_default = $request->file('file');
@@ -42,6 +43,7 @@ class ItemController extends Controller
         $itemData = ItemModel::create([
             'item_type_id' => $request->type,
             'shop_id' => $request->shop_id,
+            'description' => $request->description,
             // 'img' => $filename,
             'name' => $request->name,
             'quantity' => $request->quantity,
@@ -104,30 +106,6 @@ class ItemController extends Controller
         // ]);
     }
 
-    // public function test(Request $request)
-    // {
-    //     if($request->hasfile('img'))
-    //     {
-    //       $file = $request->file('img');
-    //       $extension = $file->getClientOriginalExtension();
-    //       $filename =time().'.'.$extension;
-    //       $file->move('admin/images/', $filename);
-    //     }
-
-    //     $data = ItemModel::create([
-    //         'item_type_id' => $request->item_type_id,
-    //         'shop_id' => $request->shop_id,
-    //         'img' => $filename,
-    //         'name' => $request->name,
-    //         'quantity' => $request->quantity,
-    //         'price' => $request->price,
-    //         'feature' => $request->feature,
-    //         'discout_item' => $request->discout_item
-    //     ]);
-
-    //     return $data;
-    // }
-
     public function getView($id)
     {
         $data = ItemModel::find($id);
@@ -140,9 +118,13 @@ class ItemController extends Controller
         $brandId = $request->brandSearch;
         $html = '';
         if (isset($request->flg) && !empty($request->flg)) {
-            $types = ItemTypesModel::where('brand_id',$brandId)->get();
+            $types = ItemTypesModel::where('brand_id', $brandId)->get();
             foreach ($types as $key => $type) {
-                $html .= '<option value=\''.$type->id.'\'>'.$type->name.'</option>';
+                if ($request->typeIdSearch == $type->id) {
+                    $html .= '<option value=\''.$type->id.'\' selected>'.$type->name.'</option>';
+                }else{
+                    $html .= '<option value=\''.$type->id.'\'>'.$type->name.'</option>';
+                }
             }
         }else{
             if ($brandId == 0) {
@@ -213,10 +195,10 @@ class ItemController extends Controller
             <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
                 <i class="fas fa-pencil-alt"></i>Info
             </a>
-            <a class="btn btn-info btn-sm" href="#">
+            <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
                 <i class="fas fa-pencil-alt"></i>Edit
             </a>
-            <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+            <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
                 <i class="fas fa-trash"></i>Delete
             </a>
         </td>
@@ -268,10 +250,10 @@ class ItemController extends Controller
         <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
             <i class="fas fa-pencil-alt"></i>Info
         </a>
-        <a class="btn btn-info btn-sm" href="#">
+        <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
             <i class="fas fa-pencil-alt"></i>Edit
         </a>
-        <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+        <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
             <i class="fas fa-trash"></i>Delete
         </a>
     </td>
@@ -344,10 +326,10 @@ class ItemController extends Controller
                 <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
                     <i class="fas fa-pencil-alt"></i>Info
                 </a>
-                <a class="btn btn-info btn-sm" href="#">
+                <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
                     <i class="fas fa-pencil-alt"></i>Edit
                 </a>
-                <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+                <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
                     <i class="fas fa-trash"></i>Delete
                 </a>
             </td>
@@ -402,10 +384,10 @@ class ItemController extends Controller
             <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
                 <i class="fas fa-pencil-alt"></i>Info
             </a>
-            <a class="btn btn-info btn-sm" href="#">
+            <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
                 <i class="fas fa-pencil-alt"></i>Edit
             </a>
-            <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+            <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
                 <i class="fas fa-trash"></i>Delete
             </a>
         </td>
@@ -478,10 +460,10 @@ class ItemController extends Controller
         <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
             <i class="fas fa-pencil-alt"></i>Info
         </a>
-        <a class="btn btn-info btn-sm" href="#">
+        <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
             <i class="fas fa-pencil-alt"></i>Edit
         </a>
-        <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+        <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
             <i class="fas fa-trash"></i>Delete
         </a>
     </td>
@@ -539,10 +521,10 @@ class ItemController extends Controller
                 <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
                     <i class="fas fa-pencil-alt"></i>Info
                 </a>
-                <a class="btn btn-info btn-sm" href="#">
+                <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
                     <i class="fas fa-pencil-alt"></i>Edit
                 </a>
-                <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+                <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
                     <i class="fas fa-trash"></i>Delete
                 </a>
             </td>
@@ -599,10 +581,10 @@ class ItemController extends Controller
             <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
                 <i class="fas fa-pencil-alt"></i>Info
             </a>
-            <a class="btn btn-info btn-sm" href="#">
+            <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="return onEditItem('.$item['id'].');">
                 <i class="fas fa-pencil-alt"></i>Edit
             </a>
-            <a class="btn btn-danger btn-sm" href="javascript:void(0);">
+            <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteItem('.$item['id'].');">
                 <i class="fas fa-trash"></i>Delete
             </a>
         </td>
@@ -612,5 +594,48 @@ class ItemController extends Controller
         }
         return response($html, 200)
         ->header('Content-Type', 'text/plain');
+    }
+
+    public function edit($id)
+    {
+        $currentUser = Auth::guard('loyal_admin')->user();
+        $currentUserId = $currentUser->id;
+        $shop = ShopModel::where('user_id', $currentUserId)->first();
+        $brands = BrandModel::all();
+        $types = ItemTypesModel::where('brand_id', $brands[0]['id'])->get();
+        $item = ItemModel::with('type.brand')->with(['images' => function($q){
+            return $q->orderBy('images.default_img', 'DESC');
+        }])->find($id);
+        return view('admin/pages/items/edit',compact('types','brands','item','shop'));
+    }
+
+    public function update($id, ItemUpdateRequest $request)
+    {
+        $item = ItemModel::find($id);
+        if ($item) {
+            $item->update([
+                'item_type_id' => $request->type,
+                'shop_id' => $request->shop_id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'feature' => $request->feature,
+                'discout_item' => $request->discout_item,
+            ]);
+            return redirect('admin-mo/item/index')->with('success', "Cập nhật thành công");
+        }else{
+            return redirect('admin-mo/item/index')->with('error', 'Co Loi Xay Ra');
+        }
+    }
+
+    public function delete($id)
+    {
+        $item = ItemModel::find($id);
+        if ($item) {
+            ItemModel::deleteItem($id);
+            return redirect()->back()->with('success', "Xóa id: $id cà các relationship thành công");
+        }else{
+            return redirect()->back()->withErrors('Khong Tim Thay Item');
+        }
     }
 }
