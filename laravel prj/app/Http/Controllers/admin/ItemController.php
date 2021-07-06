@@ -39,8 +39,6 @@ class ItemController extends Controller
         $images = $request->file('files');
         $image_default = $request->file('file');
         $imageDefault;
-
-
         $itemData = ItemModel::create([
             'item_type_id' => $request->type,
             'shop_id' => $request->shop_id,
@@ -51,7 +49,6 @@ class ItemController extends Controller
             'feature' => $request->feature,
             'discout_item' => $request->discout_item
         ]);
-
         if ($request->hasFile('files') && $request->hasFile('file')){
             foreach ($images as $item){
                 $var = date_create();
@@ -76,16 +73,13 @@ class ItemController extends Controller
             $imageDefaultData->item_id = $itemData->id;
             $imageDefaultData->img =  $imageDefault;
             $imageDefaultData->default_img = 1;
-            $imageDefaultData->save();
+            if ($imageDefaultData->save()) {
+                return redirect('admin-mo/item/index')->with('success', 'Tạo thành công');
+            }else{
+                return redirect('admin-mo/item/index')->with('error', 'Co Loi Xay Ra');
+            }
         }
-        else{
-            $image = '';
-            $image_default = '';
-        }
-
-
-
-            // NOTE
+        // NOTE
         // $imagesData = ImageModel::createMany([
         //     [
         //         'item_type_id'=>$itemData->id,
@@ -108,8 +102,6 @@ class ItemController extends Controller
         //         'updated_at'=>'',
         //     ],
         // ]);
-
-        return $itemData;
     }
 
     // public function test(Request $request)
@@ -218,6 +210,9 @@ class ItemController extends Controller
                         $html .='
         <td>'.$itemDiscount.'%</td>
         <td>
+            <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+                <i class="fas fa-pencil-alt"></i>Add Info
+            </a>
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt"></i>Edit
             </a>
@@ -270,6 +265,9 @@ class ItemController extends Controller
                     $html .='
     <td>'.$itemDiscount.'%</td>
     <td>
+        <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+            <i class="fas fa-pencil-alt"></i>Add Info
+        </a>
         <a class="btn btn-info btn-sm" href="#">
             <i class="fas fa-pencil-alt"></i>Edit
         </a>
@@ -343,6 +341,9 @@ class ItemController extends Controller
                             $html .='
             <td>'.$itemDiscount.'%</td>
             <td>
+                <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+                    <i class="fas fa-pencil-alt"></i>Add Info
+                </a>
                 <a class="btn btn-info btn-sm" href="#">
                     <i class="fas fa-pencil-alt"></i>Edit
                 </a>
@@ -398,6 +399,9 @@ class ItemController extends Controller
                         $html .='
         <td>'.$itemDiscount.'%</td>
         <td>
+            <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+                <i class="fas fa-pencil-alt"></i>Add Info
+            </a>
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt"></i>Edit
             </a>
@@ -471,6 +475,9 @@ class ItemController extends Controller
                     $html .='
     <td>'.$itemDiscount.'%</td>
     <td>
+        <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+            <i class="fas fa-pencil-alt"></i>Add Info
+        </a>
         <a class="btn btn-info btn-sm" href="#">
             <i class="fas fa-pencil-alt"></i>Edit
         </a>
@@ -529,6 +536,9 @@ class ItemController extends Controller
                             $html .='
             <td>'.$itemDiscount.'%</td>
             <td>
+                <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+                    <i class="fas fa-pencil-alt"></i>Add Info
+                </a>
                 <a class="btn btn-info btn-sm" href="#">
                     <i class="fas fa-pencil-alt"></i>Edit
                 </a>
@@ -586,6 +596,9 @@ class ItemController extends Controller
                         $html .='
         <td>'.$itemDiscount.'%</td>
         <td>
+            <a class="btn btn-success btn-sm" href="javascript:void(0);" onclick="return onAddInfo('.$item['id'].');">
+                <i class="fas fa-pencil-alt"></i>Add Info
+            </a>
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt"></i>Edit
             </a>

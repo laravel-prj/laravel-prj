@@ -87,7 +87,8 @@
                         <div class="col-sm-3">
                             <div class="row"></div>
                             <label for="nameSearch">Name</label>
-                            <input id="nameSearch" type="text" class="form-control" name="nameSearch" onkeyup="return onSearchName();">
+                            <input id="nameSearch" type="text" class="form-control" name="nameSearch"
+                                onkeyup="return onSearchName();">
                         </div>
                         <div class="col-sm-3">
                             <a class="btn btn-primary float-right" href="{{ asset('admin-mo/item/create') }}">Create</a>
@@ -132,6 +133,10 @@
                                         </td>
                                         <td>{{ $item->discout_item }}%</td>
                                         <td>
+                                            <a class="btn btn-success btn-sm" href="javascript:void(0);"
+                                                onclick="return onAddInfo({{ $item->id }});">
+                                                <i class="fas fa-pencil-alt"></i>Add Info
+                                            </a>
                                             <a class="btn btn-info btn-sm" href="#">
                                                 <i class="fas fa-pencil-alt"></i>Edit
                                             </a>
@@ -189,7 +194,7 @@
                     data: {
                         brandSearch: brandSearch
                     },
-                    success: function (response) {
+                    success: function(response) {
                         if (response) {
                             $('#bodyTable').html(response);
                         }
@@ -199,26 +204,26 @@
             .change();
 
         $("#typeSearch")
-        .change(function() {
-            $('#nameSearch').val('');
-            typeSearch = $(this).val();
-            $.ajax({
-                type: "GET",
-                url: window.location.origin + "/api/ajaxSearchTypeById",
-                data: {
-                    typeSearch: typeSearch,
-                    brandSearch: brandSearch
-                },
-                success: function(response) {
-                    if (response) {
-                        $('#bodyTable').html(response);
+            .change(function() {
+                $('#nameSearch').val('');
+                typeSearch = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: window.location.origin + "/api/ajaxSearchTypeById",
+                    data: {
+                        typeSearch: typeSearch,
+                        brandSearch: brandSearch
+                    },
+                    success: function(response) {
+                        if (response) {
+                            $('#bodyTable').html(response);
+                        }
+                    },
+                    error: function(request, status, error) {
+                        $('#bodyTable').html('');
                     }
-                },
-                error: function (request, status, error) {
-                    $('#bodyTable').html('');
-                }
+                });
             });
-        });
 
         function onSearchName() {
             brandSearch = $('#brandSearch').val();
@@ -239,17 +244,21 @@
                         console.log(response);
                     }
                 },
-                error: function (request, status, error) {
+                error: function(request, status, error) {
                     $('#bodyTable').html('');
                 }
             });
         }
 
-        function onDeleteBrand(id) {
-            var ok = confirm('Are you sure about that !!!!!!');
-            if (ok) {
-                location.href = '/admin-mo/brand/delete/' + id;
-            }
+        // function onDeleteBrand(id) {
+        //     var ok = confirm('Are you sure about that !!!!!!');
+        //     if (ok) {
+        //         location.href = '/admin-mo/brand/delete/' + id;
+        //     }
+        // }
+
+        function onAddInfo(itemId) {
+            location.href = '/admin-mo/itemDetail/item/' + itemId;
         }
     </script>
 @stop

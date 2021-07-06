@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\AuthAdmin;
 use App\Http\Controllers\admin\BandController;
 use App\Http\Controllers\admin\TypeController;
 use App\Http\Controllers\admin\ItemController;
+use App\Http\Controllers\admin\ItemDetailController;
 // customer
 use App\Http\Controllers\customer\TopController;
 use App\Http\Controllers\customer\CartController;
@@ -83,6 +84,15 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('create', [ItemController::class, 'create']);
         Route::post('store', [ItemController::class, 'store']);
         Route::get('delete/{id}', [ItemController::class, 'delete']);
+    });
+
+    Route::prefix('itemDetail')->group(function () {
+        Route::get('item/{id}', [ItemDetailController::class, 'index']);
+        Route::get('update/{id}', [ItemDetailController::class, 'edit']);
+        Route::post('update/{id}', [ItemDetailController::class, 'update']);
+        Route::get('create/{id}', [ItemDetailController::class, 'create']);
+        Route::post('store', [ItemDetailController::class, 'store']);
+        Route::get('delete/{id}', [ItemDetailController::class, 'delete']);
     });
 });
 

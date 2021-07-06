@@ -27,12 +27,12 @@ class ImageRequest extends FormRequest
             'brand' => 'required|numeric',
             'type' => 'required|numeric',
             'name' => 'required|max:50',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'files' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'required',
+            'files' => 'required',
             'description' => 'required|max:255',
             'price' => 'required|numeric',
             'feature' => 'required|numeric',
-            'discout_item' => 'required|integer|between:1,10',
+            'discout_item' => 'required|integer|between:1,50',
         ];
     }
 
