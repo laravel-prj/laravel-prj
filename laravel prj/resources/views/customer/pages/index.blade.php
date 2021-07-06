@@ -145,7 +145,7 @@
 
                         @endforeach
                       </ul>
-                      <a class="aa-browse-btn" href="#"
+                      <a class="aa-browse-btn" href="{{ asset('/topProduct')}}"
                         >Browse all Product
                         <span class="fa fa-long-arrow-right"></span
                       ></a>
@@ -178,17 +178,16 @@
                         @foreach ($sale as $saleitem)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"
+                            <a class="aa-product-img" href="{{asset("detail/$saleitem->id")}}"
                               ><img
                                 src="{{asset("customer/img/$saleitem->image")}}"
-                                alt="polo shirt img"
                             /></a>
                             <a class="aa-add-card-btn" data-product-id="{{$saleitem->id}}" href="{{asset("detail/$saleitem->id")}}"><span class="fa fa-shopping-cart">
                             </span>Details
                           </a>
                             <figcaption>
                               <h4 class="aa-product-title">
-                                <a href="#">{{$saleitem->name}}</a>
+                                <a href="{{asset("detail/$saleitem->id")}}">{{$saleitem->name}}</a>
                               </h4>
                               <span class="aa-product-price">{{($saleitem['price'] - (($saleitem['price']* $saleitem['discout_item'])/100))}}</span
                               ><span class="aa-product-price"
@@ -202,7 +201,7 @@
                         @endforeach
 
                       </ul>
-                      <a class="aa-browse-btn" href="#"
+                      <a class="aa-browse-btn" href="{{ asset('/saleProduct')}}"
                         >Browse all Product
                         <span class="fa fa-long-arrow-right"></span
                       ></a>
@@ -222,32 +221,14 @@
             <div class="col-md-12">
               <div class="aa-client-brand-area">
                 <ul class="aa-client-brand-slider">
+                  @foreach ($navbar as $brand)
                   <li>
-                    <a href="#"
-                      ><img src="{{asset('customer/img/brand/burberry.png')}}" width="100px" alt="java img"
+                    <a href="{{ asset("band/$brand->id")}}"
+                      ><img src="{{asset("customer/img/brand/$brand->img")}}" width="100px" 
                     /></a>
                   </li>
-                  <li>
-                    <a href="#"
-                      ><img src="{{asset('customer/img/brand/chanel.png')}}" width="100px" alt="jquery img"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><img src="{{asset('customer/img/brand/gucci.png')}}" width="100px" alt="html5 img"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><img src="{{asset('customer/img/brand/LV.png')}}" width="100px" alt="css3 img"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><img src="{{asset('customer/img/brand/yame.jpg')}}" width="100px" alt="joomla img"
-                    /></a>
-                  </li>
-
+                  @endforeach
+                  
                 </ul>
               </div>
             </div>

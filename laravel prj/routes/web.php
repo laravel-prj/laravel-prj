@@ -109,3 +109,6 @@ Route::post('/updatePass', [MyAccountController::class, 'postUpdatePass']);
 
 Route::get('/band/{id}', [TopController::class, 'band']);
 Route::get('/band/type/{id}', [TopController::class, 'band']);
+
+Route::get('/sale', [TopController::class, 'sale']);
+Route::get('/top', [TopController::class, 'top']);

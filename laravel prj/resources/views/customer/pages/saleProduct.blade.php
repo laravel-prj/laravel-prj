@@ -15,7 +15,7 @@
     <div class="aa-catg-head-banner-area">
       <div class="container">
        <div class="aa-catg-head-banner-content">
-         <h2>Fashion</h2>
+         <h2>Sale</h2>
          <ol class="breadcrumb">
            <li><a href="index.html">Home</a></li>         
          </ol>
@@ -34,7 +34,7 @@
              <div class="aa-product-catg-body">
                <ul class="aa-product-catg">
                  <!-- start single product item -->
-                 @foreach ($data as $item)
+                 @foreach ($sale as $item)
                  <li>
                   <figure>
                     <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}" alt="polo shirt img"></a>

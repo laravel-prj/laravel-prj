@@ -60,7 +60,14 @@ class TopController extends Controller
     }
     public function shop()
     {
-        $data = ItemModel::all();
+        $data = ItemModel::with('images')->get();
+        foreach ($data as $sale_item) {
+            foreach ($sale_item->images as $image) {
+                if ($image->default_img == 1) {
+                    $sale_item['image'] = $image->img;
+                }
+            }
+        }
         return view('customer/pages/shop', compact('data'));
     }
     public function detail($id)
@@ -165,8 +172,58 @@ class TopController extends Controller
         $band = BrandModel::with('item')->find($id);
        $bra = ItemModel::where('item_type_id',$id)->get();
         $data = $band->item;
-        return view('customer/pages/brand', compact('data','bra'));
+        foreach ($data as $sale_item) {
+            foreach ($sale_item->images as $image) {
+                if ($image->default_img == 1) {
+                    $sale_item['image'] = $image->img;
+                }
+            }
+        }
+        $sale = ItemModel::with('images')->where('discout_item','>',0)->take(3)->get();
+        foreach ($sale as $sale_item) {
+            foreach ($sale_item->images as $image) {
+                if ($image->default_img == 1) {
+                    $sale_item['image'] = $image->img;
+                }
+            }
+        }
 
+        $top = ItemModel::with('images')->where('feature',1)->take(3)->get();
+        foreach ($top as $item) {
+            foreach ($item->images as $image) {
+                if ($image->default_img == 1) {
+                    $item['image'] = $image->img;
+                }
+            }
+        }
+        return view('customer/pages/brand', compact('data','bra', 'sale', 'top'));
+
+    }
+
+    //top Product
+    public function top(){
+        $top = ItemModel::with('images')->where('feature',1)->take(3)->get();
+        foreach ($top as $item) {
+            foreach ($item->images as $image) {
+                if ($image->default_img == 1) {
+                    $item['image'] = $image->img;
+                }
+            }
+        }
+        return view('customer/pages/topProduct', compact('top'));
+    }
+
+    //sale Product
+    public function sale(){
+        $sale = ItemModel::with('images')->where('discout_item','>',0)->get();
+        foreach ($sale as $sale_item) {
+            foreach ($sale_item->images as $image) {
+                if ($image->default_img == 1) {
+                    $sale_item['image'] = $image->img;
+                }
+            }
+        }
+        return view('customer/pages/saleProduct', compact('sale'));
     }
 
     //forgot password

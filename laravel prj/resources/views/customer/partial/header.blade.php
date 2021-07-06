@@ -146,43 +146,7 @@
                                 </a>
                                 <div class="aa-cartbox-summary">
                                     <ul id="cartHeader">
-                                        {{-- @if ($cart)
-                            @foreach ($cart as $key => $item)
-                            <li>
-                                <a class="aa-cartbox-img" href="#"><img src="{{asset('/customer/img/' . $item['image'])}}" alt="img"></a>
-                                <div class="aa-cartbox-info">
-                                <h4><a href="#">{{$item['name']}}</a></h4>
-                                <p>{{$item['current_quantity']}} x {{$item['price']}}</p>
-                                </div>
-                                <a onclick="removeItem({{$key}})" class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                            </li>
-                            @endforeach
-                          @endif --}}
-
-                                        {{-- <li>
-                          <a class="aa-cartbox-img" href="#"><img src="{{asset('customer/img/woman-small-2.jpg')}}" alt="img"></a>
-                          <div class="aa-cartbox-info">
-                            <h4><a href="#">Product Name</a></h4>
-                            <p>1 x $250</p>
-                          </div>
-                          <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                        </li>
-                        <li>
-                          <a class="aa-cartbox-img" href="#"><img src="{{asset('customer/img/woman-small-1.jpg')}}" alt="img"></a>
-                          <div class="aa-cartbox-info">
-                            <h4><a href="#">Product Name</a></h4>
-                            <p>1 x $250</p>
-                          </div>
-                          <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                        </li>
-                        <li>
-                          <span class="aa-cartbox-total-title">
-                            Total
-                          </span>
-                          <span class="aa-cartbox-total-price">
-                            $500
-                          </span>
-                        </li> --}}
+                                       
                                     </ul>
                                     <a class="aa-cartbox-checkout aa-primary-btn" href="{{asset('checkout')}}">Checkout</a>
                                 </div>
@@ -221,7 +185,7 @@
                 <div class="navbar-collapse collapse">
                     <!-- Left nav -->
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{asset('/')}}">Home</a></li>
                         <li>
                             <a href="#">Brands <span class="caret"></span></a>
 
