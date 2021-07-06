@@ -46,7 +46,7 @@ class ItemDetailController extends Controller
         $info->size = $request->size;
         $info->quantity = $request->quantity;
         if ($info->save()) {
-            return redirect('/admin-mo/itemDetail/item'.$request->item_id)->with('success', 'Tao Thanh Cong');
+            return redirect('/admin-mo/itemDetail/item/'.$request->item_id)->with('success', 'Tao Thanh Cong');
         }else {
             return redirect()->back()->withErrors("Khong Thanh Cong")->withInput();
         }
