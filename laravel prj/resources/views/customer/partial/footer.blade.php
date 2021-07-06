@@ -10,10 +10,10 @@
                   <div class="aa-footer-widget">
                     <h3>Main Menu</h3>
                     <ul class="aa-footer-nav">
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">Our Products</a></li>
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Contact Us</a></li>
+                      <li><a href="{{ asset('/') }}">Home</a></li>
+                      <li><a href="{{ asset('/shop') }}">Our Products</a></li>
+                      <li><a href="{{ asset('/about') }}">About Us</a></li>
+                      <li><a href="{{ asset('/contact') }}">Contact Us</a></li>
                     </ul>
                   </div>
                 </div>
@@ -22,10 +22,10 @@
                     <div class="aa-footer-widget">
                       <h3>Knowledge Base</h3>
                       <ul class="aa-footer-nav">
-                        <li><a href="#">Delivery</a></li>
-                        <li><a href="#">Shop Page</a></li>
-                        <li><a href="#">My Cart</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="{{ asset('/shop') }}">Shop Page</a></li>
+                        <li><a href="{{ asset('/cart') }}">My Cart</a></li>
+                        <li><a href="{{ asset('/saleProduct') }}">Sale</a></li>
+                        <li><a href="{{ asset('/topProduct') }}">Top</a></li>
                       </ul>
                     </div>
                   </div>
@@ -35,8 +35,8 @@
                     <div class="aa-footer-widget">
                       <h3>Useful Links</h3>
                       <ul class="aa-footer-nav">
-                        <li><a href="#">Site Map</a></li>
-                        <li><a href="#">Search</a></li>
+                        <li><a href="">Site Map</a></li>
+                        <li><a href="">Search</a></li>
                       </ul>
                     </div>
                   </div>

@@ -68,7 +68,24 @@ class TopController extends Controller
                 }
             }
         }
-        return view('customer/pages/shop', compact('data'));
+        $sale = ItemModel::with('images')->where('discout_item','>',0)->take(3)->get();
+        foreach ($sale as $sale_item) {
+            foreach ($sale_item->images as $image) {
+                if ($image->default_img == 1) {
+                    $sale_item['image'] = $image->img;
+                }
+            }
+        }
+
+        $top = ItemModel::with('images')->where('feature',1)->take(3)->get();
+        foreach ($top as $item) {
+            foreach ($item->images as $image) {
+                if ($image->default_img == 1) {
+                    $item['image'] = $image->img;
+                }
+            }
+        }
+        return view('customer/pages/shop', compact('data', 'sale', 'top'));
     }
     public function detail($id)
     {
@@ -210,7 +227,15 @@ class TopController extends Controller
                 }
             }
         }
-        return view('customer/pages/topProduct', compact('top'));
+        $sale = ItemModel::with('images')->where('discout_item','>',0)->get();
+        foreach ($sale as $sale_item) {
+            foreach ($sale_item->images as $image) {
+                if ($image->default_img == 1) {
+                    $sale_item['image'] = $image->img;
+                }
+            }
+        }
+        return view('customer/pages/topProduct', compact('top', 'sale'));
     }
 
     //sale Product
@@ -223,7 +248,15 @@ class TopController extends Controller
                 }
             }
         }
-        return view('customer/pages/saleProduct', compact('sale'));
+        $top = ItemModel::with('images')->where('feature',1)->take(3)->get();
+        foreach ($top as $item) {
+            foreach ($item->images as $image) {
+                if ($image->default_img == 1) {
+                    $item['image'] = $image->img;
+                }
+            }
+        }
+        return view('customer/pages/saleProduct', compact('sale', 'top'));
     }
 
     //forgot password

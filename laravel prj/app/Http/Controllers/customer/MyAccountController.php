@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CustomerModel;
 use Illuminate\Support\Facades\Auth;
+use App\Models\OderModel;
 use Validator;
 
 
@@ -77,5 +78,12 @@ class MyAccountController extends Controller
             return redirect()->to('/editAcc');
         }    
         return view('customer/pages/myAccount/pass');
+        }
+
+        //view order
+        public function viewOrder() {
+            $cus = Auth::guard('loyal_customer')->user();
+            $orders = OderModel::where('customer_id', $cus['id'])->get();
+            return view('customer/pages/viewOrder', compact('orders', 'cus'));
         }
 }

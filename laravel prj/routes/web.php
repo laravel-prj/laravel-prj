@@ -111,14 +111,16 @@ Route::get('/register', [TopController::class, 'register']);
 Route::post('/post_register', [TopController::class, 'post_register']);
 Route::get('/forgot', [TopController::class, 'forgot']);
 
+
 Route::get('/editAcc', [MyAccountController::class, 'editAcc'])->middleware('verfiy-account-customer');
 Route::get('/updateAcc/{id}', [MyAccountController::class, 'updateAcc']);
 Route::post('/updateAcc/{id}', [MyAccountController::class, 'postUpdateCusAcc']);
 Route::get('/updatePass', [MyAccountController::class, 'updatePass']);
 Route::post('/updatePass', [MyAccountController::class, 'postUpdatePass']);
+Route::get('/viewOrder', [MyAccountController::class, 'viewOrder']);
 
 Route::get('/band/{id}', [TopController::class, 'band']);
 Route::get('/band/type/{id}', [TopController::class, 'band']);
 
-Route::get('/sale', [TopController::class, 'sale']);
-Route::get('/top', [TopController::class, 'top']);
+Route::get('/saleProduct', [TopController::class, 'sale']);
+Route::get('/topProduct', [TopController::class, 'top']);

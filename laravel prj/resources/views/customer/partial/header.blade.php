@@ -17,7 +17,6 @@
                         <div class="aa-header-top-right">
                             <ul class="aa-head-top-nav-right">
                                 <li><a href="{{asset('editAcc')}}">My Account</a></li>
-                                <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
                                 <li class="hidden-xs"><a href="{{ asset('cart') }}">My Cart</a></li>
                                 <li class="hidden-xs"><a href="{{ asset('checkout') }}">Checkout</a></li>
                                 @if (Auth::guard('loyal_customer')->check())
@@ -187,7 +186,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{asset('/')}}">Home</a></li>
                         <li>
-                            <a href="#">Brands <span class="caret"></span></a>
+                            <a href="{{asset('/shop')}}">Brands <span class="caret"></span></a>
 
                             <ul class="dropdown-menu">
                                 @foreach ($navbar as $item)
@@ -207,13 +206,14 @@
 
                         </li>
                     </ul>
-                    <li><a href="{{ asset('contact') }}">Contact</a></li>
-                    <li><a href="{{ asset('about') }}">About Us</a></li>
+                    <li><a href="{{ asset('/contact') }}">Contact</a></li>
+                    <li><a href="{{ asset('/about') }}">About Us</a></li>
                     <li>
                         <a href="#">Pages <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="">Shop Page</a></li>
-                            <li><a href="">Top Products</a></li>
+                            <li><a href="{{asset('/shop')}}">Shop Page</a></li>
+                            <li><a href="{{asset('/topProduct')}}">Top Products</a></li>
+                            <li><a href="{{asset('/saleProduct')}}">Sale Products</a></li>
                         </ul>
                     </li>
                     </ul>
