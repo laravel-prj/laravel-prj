@@ -205,7 +205,7 @@
             .change();
 
         function onEditImages(itemId) {
-            location.href = '/admin-mo/item/images/' + itemId;
+            location.href = '/admin-mo/images/item/' + itemId;
         }
     </script>
 @stop

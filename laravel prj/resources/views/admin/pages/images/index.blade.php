@@ -80,127 +80,70 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
-                <!------ Include the above in your HEAD tag ---------->
-                <form enctype="multipart/form-data" method="post" action="/admin-mo/item/updateImages">
-                    <div class="form-group">
-                        <label for="file" class="col-auto col-form-label px-0">Image Default</label>
-                        <input required type="file" class="form-control-file px-0" id="file" name="file">
-                        <div id="defaultThumbnail">
-                            <span class="pip"><img class="imageThumb"
-                                    src="{{ asset("customer/img/$imageDefault->img") }}"></span>
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-tools">
+                </div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a class="btn btn-primary float-right"
+                                href="{{ asset("admin-mo/images/create/item/$itemId") }}">Create</a>
                         </div>
                     </div>
-                    <div class="form-group" id="fileImages">
-                        <label for="files" class="col-2 col-form-label px-0">Images</label>
-                        <input required type="file" class="form-control-file px-0" id="files" name="files[]" multiple
-                            disabled>
-                        <div id="imagesThumbnail">
-                            @foreach ($images as $image)
-                                <span class="pip"><img class="imageThumb"
-                                        src="{{ asset("customer/img/$image->img") }}"></span>
-                            @endforeach
-                            <a id="removeAll" type="button" class="btn btn-danger">Clear Images</a>
-                        </div>
+                    <div class="card-body p-0">
+                        <table class="table table-striped projects">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyTable">
+                                @foreach ($images as $image)
+                                    <tr>
+                                        @if ($image->default_img == 1)
+                                            <td>Default</td>
+                                        @else
+                                            <td>Normal</td>
+                                        @endif
+                                        <td><img src="{{ asset('customer/img') . '/' . $image->img }}" alt="" width="200"
+                                                height="300px">
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info btn-sm" href="javascript:void(0);"
+                                                onclick="return onEditImage({{ $itemId }}, {{ $image->id }});">
+                                                <i class="fas fa-pencil-alt"></i>Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="javascript:void(0);"
+                                                onclick="return onDeleteImage({{ $image->id }});">
+                                                <i class="fas fa-trash"></i>Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="form-group row">
-                        {{-- <input type="hidden" name="shop_id" value="{{ $shop->id }}"> --}}
-                        <div class="col-md-12">
-                            <input type="submit" value="Save" class="btn btn-success">
-                        </div>
-                    </div>
-                    @csrf
-                </form>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
             </div>
         </section>
     </div>
 @stop
 @section('scripts')
-    {{-- jquery.autocomplete.js --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script> --}}
-    {{-- quick defined --}}
     <script>
-        $(document).ready(function() {
-            if (window.File && window.FileList && window.FileReader) {
-                $("#files").click(function(e) {
-                    if ($("#files").val() !== '') {
-                        $('#fileImages .pip').remove();
-                        $('#files').val("");
-                    }
-                    if ($('imagesThumbnail').html() !== '') {
-                        $('#fileImages .pip').remove();
-                        $('#files').val("");
-                    }
-                });
+        function onEditImage(itemId, imageId) {
+            location.href = '/admin-mo/images/update/item/' + itemId + '/' + imageId;
+        }
 
-
-                $("#files").on("change", function(e) {
-                    $('#files').attr('disabled', true);
-
-                    var files = e.target.files,
-                        filesLength = files.length;
-                    for (var i = 0; i < filesLength; i++) {
-                        var f = files[i]
-                        var fileReader = new FileReader();
-                        fileReader.onload = (function(e) {
-                            var file = e.target;
-                            $("<span class=\"pip\">" +
-                                "<img class=\"imageThumb\" src=\"" + e.target.result +
-                                "\" title=\"" + file.name + "\"/>" +
-                                "<br/>").insertAfter("#files");
-                            $(".remove").click(function() {
-                                $(this).parent(".pip").remove();
-                                // console.log($('#files'));
-                                // $('#files').val("");
-                            });
-
-                            // Old code here
-                            /*$("<img></img>", {
-                              class: "imageThumb",
-                              src: e.target.result,
-                              title: file.name + " | Click to remove"
-                            }).insertAfter("#files").click(function(){$(this).remove();});*/
-
-                        });
-                        fileReader.readAsDataURL(f);
-                    }
-                });
-
-                $("#file").on("change", function(e) {
-                    var files = e.target.files,
-                        fileLength = files.length;
-                    for (var i = 0; i < fileLength; i++) {
-                        var f = files[i]
-                        var fileReader = new FileReader();
-                        fileReader.onload = (function(e) {
-                            var file = e.target;
-                            $defaultImg = "<span class=\"pip\">" +
-                                "<img class=\"imageThumb\" src=\"" + e.target.result +
-                                "\" title=\"" + file.name + "\"/>" +
-                                "<br/>";
-                            $('#defaultThumbnail').html($defaultImg);
-
-                            $(".remove").click(function() {
-                                $(this).parent(".pip").remove();
-                                $('#file').val("");
-                            });
-                        });
-                        fileReader.readAsDataURL(f);
-                    }
-                });
-
-                $("#removeAll").click(function() {
-                    var ok = confirm('Hành động này sẽ xóa tất cả Images');
-                    if (ok) {
-                        $('#fileImages .pip').remove();
-                        $('#files').val("");
-                        $('#files').attr('disabled', false);
-                    }
-
-                });
-            } else {
-                alert("Your browser doesn't support to File API")
+        function onDeleteImage(imageId) {
+            var ok = confirm('Are you sure about that !!!!!!');
+            if (ok) {
+                location.href = '/admin-mo/images/delete/' + imageId;
             }
-        });
+        }
     </script>
 @stop

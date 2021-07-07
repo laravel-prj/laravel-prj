@@ -21,7 +21,8 @@ class TopController extends Controller
         // $loadCart = loadCart();
         // $cart = $loadCart[0];
         // $totalCurrentQuantity = $loadCart[1];
-        $sale = ItemModel::with('images')->where('discout_item','>',0)->take(8)->get();
+        // $sale = ItemModel::with('images')->where('discout_item','>',0)->take(8)->get();
+        $sale = ItemModel::with('images')->whereHas('item_details')->whereHas('images')->where('discout_item','>',0)->get();
         foreach ($sale as $sale_item) {
             foreach ($sale_item->images as $image) {
                 if ($image->default_img == 1) {
@@ -30,7 +31,8 @@ class TopController extends Controller
             }
         }
 
-        $data = ItemModel::with('images')->where('feature',1)->take(8)->get();
+        // $data = ItemModel::with('images')->where('feature',1)->take(8)->get();
+        $data = ItemModel::with('images')->whereHas('item_details')->whereHas('images')->where('feature',1)->get();
         foreach ($data as $item) {
             foreach ($item->images as $image) {
                 if ($image->default_img == 1) {

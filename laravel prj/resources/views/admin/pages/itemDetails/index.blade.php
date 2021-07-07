@@ -59,7 +59,7 @@
             <div class="row">
                 @foreach ($item->images as $img)
                     <div class="col-sm-2">
-                        <img src="{{ asset('customer/img') . '/' . $img->img }}" alt="" width="250px" height="300px">
+                        <img src="{{ asset('customer/img') . '/' . $img->img }}" alt="" width="200px" height="300px">
                     </div>
                 @endforeach
             </div>

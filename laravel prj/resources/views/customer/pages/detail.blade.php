@@ -32,7 +32,7 @@
                                                     <a data-lens-image="{{ asset("customer/img/$item->image") }}"
                                                         class="simpleLens-lens-image"><img
                                                             src="{{ asset("customer/img/$item->image") }}"
-                                                            class="simpleLens-big-image"></a>
+                                                            class="simpleLens-big-image" width="100%"></a>
                                                 </div>
                                             </div>
                                             <div class="simpleLens-thumbnails-container">
@@ -40,7 +40,8 @@
                                                     <a data-big-image="{{ asset("customer/img/$image") }}"
                                                         data-lens-image="{{ asset("customer/img/$image") }}"
                                                         class="simpleLens-thumbnail-wrapper" href="#">
-                                                        <img src="{{ asset("customer/img/$image") }}" class="image">
+                                                        <img src="{{ asset("customer/img/$image") }}" class="image"
+                                                            width="100%">
                                                     </a>
                                                 @endforeach
 
@@ -229,21 +230,22 @@
                             <ul class="aa-product-catg aa-related-item-slider">
                                 <!-- start single product item -->
                                 @foreach ($data as $top)
-                                <li>
-                                    <figure>
-                                        <a class="aa-product-img" href="#"><img src="{{asset("customer/img/$top->image")}}"
-                                               ></a>
-                                        <a class="aa-add-card-btn" data-product-id="{{$top->id}}" href="{{asset("detail/$top->id")}}"><span class="fa fa-shopping-cart">
-                                            </span>Details
-                                        </a>
-                                        <figcaption>
-                                            <h4 class="aa-product-title"><a href="#">{{$top->name}}</a></h4>
-                                            <span class="aa-product-price">${{$top->price}}</span>
-                                        </figcaption>
-                                    </figure>
-                                </li>
+                                    <li>
+                                        <figure>
+                                            <a class="aa-product-img" href="#"><img
+                                                    src="{{ asset("customer/img/$top->image") }}" width="100%"></a>
+                                            <a class="aa-add-card-btn" data-product-id="{{ $top->id }}"
+                                                href="{{ asset("detail/$top->id") }}"><span class="fa fa-shopping-cart">
+                                                </span>Details
+                                            </a>
+                                            <figcaption>
+                                                <h4 class="aa-product-title"><a href="#">{{ $top->name }}</a></h4>
+                                                <span class="aa-product-price">${{ $top->price }}</span>
+                                            </figcaption>
+                                        </figure>
+                                    </li>
                                 @endforeach
-                                
+
                             </ul>
                             <!-- quick view modal -->
                             <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"

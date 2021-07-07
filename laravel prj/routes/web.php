@@ -90,6 +90,17 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('updateImages/{id}', [ImageController::class, 'update']);
     });
 
+    Route::prefix('images')->group(function () {
+        Route::get('item/{id}', [ImageController::class, 'index']);
+        Route::get('create/item/{id}', [ImageController::class, 'create']);
+        Route::post('create/item/{id}', [ImageController::class, 'store']);
+        Route::get('update/item/{id}/{imageId}', [ImageController::class, 'edit']);
+        Route::post('update/item/{id}/{imageId}', [ImageController::class, 'update']);
+
+        Route::get('delete/{id}', [ImageController::class, 'delete']);
+
+    });
+
     Route::prefix('itemDetail')->group(function () {
         Route::get('item/{item_id}', [ItemDetailController::class, 'index']);
         // Route::get('update/{id}', [ItemDetailController::class, 'edit']);

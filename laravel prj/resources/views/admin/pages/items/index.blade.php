@@ -114,7 +114,7 @@
                                         <td>{{ $item->type->brand->name }}</td>
                                         <td>{{ $item->type->name }}</td>
                                         <td>{{ $item->name }}</td>
-                                        @if ($item->images[0]->img)
+                                        @if (isset($item->images[0]->img))
                                             <td><img src="{{ asset('customer/img') . '/' . $item->images[0]->img }}"
                                                     alt="" width="50px" height="50px">
                                             </td>

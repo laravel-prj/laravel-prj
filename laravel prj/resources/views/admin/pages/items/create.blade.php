@@ -108,7 +108,7 @@
                             <input type="text" class="form-control" id="product_name_fr" name="name" value="">
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="file" class="col-auto col-form-label px-0">Image Default</label>
                         <input required type="file" class="form-control-file px-0" id="file" name="file">
                         <div id="defaultThumbnail"></div>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="form-group">
                         <a id="removeAll" type="button" class="btn btn-danger">Remove All</a>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label for="description" class="col-2 col-form-label">Description</label>
                         <div class="col-sm-3">

@@ -27,7 +27,7 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:50|unique:brand'
+            'name' => 'required|min:3|max:50'
         ];
     }
 
@@ -38,7 +38,6 @@ class BrandRequest extends FormRequest
            'name.required' => 'Chua nhap name',
            'name.min' => 'name phai co it nhat 5 ky tu',
            'name.max' => 'name phai it hon 10 ky tu',
-           'name.unique' => 'Brand đã tồn tại',
         ];
     }
 }

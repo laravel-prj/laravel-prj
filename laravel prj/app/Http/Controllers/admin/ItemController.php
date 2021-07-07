@@ -37,50 +37,51 @@ class ItemController extends Controller
 
     public function store(ItemRequest $request)
     {
-        $images = $request->file('files');
-        $image_default = $request->file('file');
-        $imageDefault;
+        // $images = $request->file('files');
+        // $image_default = $request->file('file');
+        // $imageDefault;
         $itemData = ItemModel::create([
             'item_type_id' => $request->type,
             'shop_id' => $request->shop_id,
             'description' => $request->description,
-            // 'img' => $filename,
             'name' => $request->name,
             'quantity' => $request->quantity,
             'price' => $request->price,
             'feature' => $request->feature,
             'discout_item' => $request->discout_item
         ]);
-        if ($request->hasFile('files') && $request->hasFile('file')){
-            foreach ($images as $item){
-                $var = date_create();
-                $time = date_format($var, 'YmdHis');
-                $imageName = $time . '-' . $item->getClientOriginalName();
-                $item->move('customer/img/', $imageName);
-                $arr[] = $imageName;
+        return redirect('admin-mo/item/index')->with('success', 'Tạo thành công');
 
-                $imagesData = new ImageModel;
-                $imagesData->item_id = $itemData->id;
-                $imagesData->img =  $imageName;
-                $imagesData->save();
-            }
-            $image = implode(",", $arr);
+        // if ($request->hasFile('files') && $request->hasFile('file')){
+        //     foreach ($images as $item){
+        //         $var = date_create();
+        //         $time = date_format($var, 'YmdHis');
+        //         $imageName = $time . '-' . $item->getClientOriginalName();
+        //         $item->move('customer/img/', $imageName);
+        //         $arr[] = $imageName;
 
-            $varDefault = date_create();
-            $timeDefault = date_format($varDefault, 'YmdHis');
-            $imageDefault = $timeDefault . '-' . $image_default->getClientOriginalName();
-            $image_default->move('customer/img/', $imageDefault);
+        //         $imagesData = new ImageModel;
+        //         $imagesData->item_id = $itemData->id;
+        //         $imagesData->img =  $imageName;
+        //         $imagesData->save();
+        //     }
+        //     $image = implode(",", $arr);
 
-            $imageDefaultData = new ImageModel;
-            $imageDefaultData->item_id = $itemData->id;
-            $imageDefaultData->img =  $imageDefault;
-            $imageDefaultData->default_img = 1;
-            if ($imageDefaultData->save()) {
-                return redirect('admin-mo/item/index')->with('success', 'Tạo thành công');
-            }else{
-                return redirect('admin-mo/item/index')->with('error', 'Co Loi Xay Ra');
-            }
-        }
+        //     $varDefault = date_create();
+        //     $timeDefault = date_format($varDefault, 'YmdHis');
+        //     $imageDefault = $timeDefault . '-' . $image_default->getClientOriginalName();
+        //     $image_default->move('customer/img/', $imageDefault);
+
+        //     $imageDefaultData = new ImageModel;
+        //     $imageDefaultData->item_id = $itemData->id;
+        //     $imageDefaultData->img =  $imageDefault;
+        //     $imageDefaultData->default_img = 1;
+        //     if ($imageDefaultData->save()) {
+        //         return redirect('admin-mo/item/index')->with('success', 'Tạo thành công');
+        //     }else{
+        //         return redirect('admin-mo/item/index')->with('error', 'Co Loi Xay Ra');
+        //     }
+        // }
         // NOTE
         // $imagesData = ImageModel::createMany([
         //     [
