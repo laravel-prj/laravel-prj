@@ -23,8 +23,8 @@
                                     <li>
                                         <figure>
                                             <a class="aa-product-img" href="{{ asset("detail/$item->id") }}"><img
-                                                    src="{{ asset("customer/img/$item->image") }}"
-                                                    alt="polo shirt img"></a>
+                                                    src="{{ asset("customer/img/$item->image") }}" alt="polo shirt img"
+                                                    width="100%" height="300px"></a>
                                             <a class="aa-add-card-btn" href="{{ asset("detail/$item->id") }}"><span
                                                     class="fa fa-shopping-cart"></span>Detail</a>
                                             <figcaption>

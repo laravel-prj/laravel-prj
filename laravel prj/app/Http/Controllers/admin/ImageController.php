@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ImageModel;
+use App\Models\ItemModel;
 use App\Http\Requests\ImageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
@@ -13,14 +14,15 @@ class ImageController extends Controller
     public function index($itemId)
     {
         // $q->orderBy('images.default_img', 'DESC');
+        $item = ItemModel::find($itemId);
         $images = ImageModel::where('item_id', $itemId)->orderBy('default_img', 'DESC')->get();
-        return view('admin/pages/images/index',compact('images','itemId'));
+        return view('admin/pages/images/index',compact('images','itemId','item'));
     }
 
     public function createMul($itemId, Request $request)
     {
+        $item = ItemModel::find($itemId);
         return view('admin/pages/images/create-mul');
-
     }
 
     public function storeMul($itemId, Request $request)
@@ -46,6 +48,7 @@ class ImageController extends Controller
 
     public function create($itemId, Request $request)
     {
+        $item = ItemModel::find($itemId);
         $hasDefault = ImageModel::where([['item_id', $itemId],['default_img',1]])->first();
         if (isset($hasDefault) && !empty($hasDefault)) {
             $flg = false;
@@ -78,6 +81,7 @@ class ImageController extends Controller
 
     public function edit($itemId, $imageId)
     {
+        $item = ItemModel::find($itemId);
         $hasDefault = ImageModel::where([['item_id', $itemId],['default_img',1]])->first();
         if (isset($hasDefault) && !empty($hasDefault)) {
             $flg = false;
@@ -86,7 +90,7 @@ class ImageController extends Controller
         }
         $img = ImageModel::find($imageId);
         if ($img) {
-            return view('admin/pages/images/update',compact('img','flg'));
+            return view('admin/pages/images/update',compact('img','flg','item'));
         }else{
             return redirect()->back()->withErrors('Khong tim thay Id');
         }

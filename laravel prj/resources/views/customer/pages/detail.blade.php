@@ -233,7 +233,8 @@
                                     <li>
                                         <figure>
                                             <a class="aa-product-img" href="#"><img
-                                                    src="{{ asset("customer/img/$top->image") }}" width="100%"></a>
+                                                    src="{{ asset("customer/img/$top->image") }}" width="100%"
+                                                    height="300px"></a>
                                             <a class="aa-add-card-btn" data-product-id="{{ $top->id }}"
                                                 href="{{ asset("detail/$top->id") }}"><span class="fa fa-shopping-cart">
                                                 </span>Details
