@@ -23,12 +23,14 @@
                                     <li>
                                         <figure>
                                             <a class="aa-product-img" href="{{ asset("detail/$item->id") }}"><img
-                                                    src="{{ asset("customer/img/$item->image") }}" alt="polo shirt img"></a>
+                                                    src="{{ asset("customer/img/$item->image") }}" alt="polo shirt img"
+                                                    width="100%" height="300px"></a>
                                             <a class="aa-add-card-btn" href="{{ asset("detail/$item->id") }}"><span
                                                     class="fa fa-shopping-cart"></span>Detail</a>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
-                                                        href="{{ asset("detail/$item->id") }}">{{ $item->name }}</a></h4>
+                                                        href="{{ asset("detail/$item->id") }}">{{ $item->name }}</a>
+                                                </h4>
                                                 <span class="aa-product-price">{{ $item->price }}</span>
                                             </figcaption>
                                         </figure>
@@ -42,7 +44,9 @@
                         </div>
                         <div class="aa-product-catg-pagination">
                             <nav>
-                                <ul class="pagination">
+                                {!! $top->links() !!}
+
+                                {{-- <ul class="pagination">
                                     <li>
                                         <a href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
@@ -58,7 +62,7 @@
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </nav>
                         </div>
                     </div>
@@ -96,7 +100,8 @@
                                             <a href="{{ asset("detail/$topPro->id") }}" class="aa-cartbox-img"><img
                                                     src="{{ asset("customer/img/$topPro->image") }}"></a>
                                             <div class="aa-cartbox-info">
-                                                <h4><a href="{{ asset("detail/$topPro->id") }}">{{ $topPro->name }}</a>
+                                                <h4><a
+                                                        href="{{ asset("detail/$topPro->id") }}">{{ $topPro->name }}</a>
                                                 </h4>
                                                 <p>${{ $topPro->price }}</p>
                                             </div>

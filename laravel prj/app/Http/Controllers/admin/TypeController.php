@@ -18,7 +18,8 @@ class TypeController extends Controller
     private $__value='';
 
     public function index()
-    {   $type = ItemTypesModel::with('brand')->get();
+    {   
+        $type = ItemTypesModel::with('brand')->get();
         return view('admin/pages/itemType/index', compact('type'));
     }
 
@@ -52,6 +53,10 @@ class TypeController extends Controller
     public function create()
     {
         $brand = BrandModel::all();
+        
+        if (count($brand)<1) {
+            return redirect()->back()->with('error','Chua co Brand');
+        }
         return view('admin/pages/itemType/create', compact('brand'));
     }
 

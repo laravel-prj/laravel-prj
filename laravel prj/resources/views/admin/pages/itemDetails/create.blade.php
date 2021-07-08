@@ -102,19 +102,18 @@
                                 value="">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                        <div class="col-md-12">
+                            <input type="submit" value="Create" class="btn btn-success">
+                        </div>
+                    </div>
+                    @csrf
+                </form>
             </div>
-            <div class="form-group row">
-                <input type="hidden" name="item_id" value="{{ $item->id }}">
-                <div class="col-md-12">
-                    <input type="submit" value="Create" class="btn btn-success">
-                </div>
-            </div>
-            @csrf
-            </form>
+        </section>
     </div><!-- /.container-fluid -->
-    </section>
     <!-- /.content -->
-    </div>
 @stop
 @section('scripts')
     <script>

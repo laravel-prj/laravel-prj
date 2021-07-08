@@ -66,12 +66,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Manager Images</h1>
+                        <h1>Manager Images {{ $item->name }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Manager Images</li>
+                            <li class="breadcrumb-item active">Manager Images {{ $item->name }}</li>
                         </ol>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                                     aria-hidden="true"></i> Multi Images</a>
                         </div>
                         <div class="col-sm-auto">
-                            <a class="btn btn-primary" href="{{ asset("admin-mo/images/createMul/item/$itemId") }}"><i
+                            <a class="btn btn-primary" href="{{ asset("admin-mo/images/create/item/$itemId") }}"><i
                                     class="fa fa-plus" aria-hidden="true"></i> Create</a>
                         </div>
                     </div>

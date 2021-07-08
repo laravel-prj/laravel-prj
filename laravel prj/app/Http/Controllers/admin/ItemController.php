@@ -28,7 +28,14 @@ class ItemController extends Controller
     public function create(Request $request)
     {
         $brands = BrandModel::all();
+        if (count($brands) < 1) {
+            return redirect()->back()->with('error','Chua co Brand')->withInput();
+        }
         $types = ItemTypesModel::where('brand_id', $brands[0]['id'])->get();
+        if (count($types) < 1) {
+            return redirect()->back()->with('error','Chua co Type')->withInput();
+        }
+
         $currentUser = Auth::guard('loyal_admin')->user();
         $currentUserId = $currentUser->id;
         $shop = ShopModel::where('user_id', $currentUserId)->first();

@@ -148,15 +148,15 @@
                                 value="">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                        <div class="col-md-12">
+                            <input type="submit" value="Create" class="btn btn-success">
+                        </div>
+                    </div>
+                    @csrf
+                </form>
             </div>
-            <div class="form-group row">
-                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <div class="col-md-12">
-                    <input type="submit" value="Create" class="btn btn-success">
-                </div>
-            </div>
-            @csrf
-            </form>
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->

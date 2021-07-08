@@ -32,7 +32,7 @@ class ItemRequest extends FormRequest
             'description' => 'required|max:255',
             'price' => 'required|numeric',
             'feature' => 'required|numeric',
-            'discout_item' => 'required|integer|between:1,50',
+            'discout_item' => 'required|integer|between:0,50',
         ];
     }
 
