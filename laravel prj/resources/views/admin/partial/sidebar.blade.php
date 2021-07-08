@@ -31,7 +31,7 @@
                       </a>
 
                   <li class="nav-item">
-                      <a href="{{asset('admin-mo/admin-mng')}}" class="nav-link">
+                      <a href="{{ asset('admin-mo/admin-mng') }}" class="nav-link">
                           <i class="nav-icon fa fa-user-circle"></i>
                           <p>
                               Manager Admins
@@ -39,7 +39,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{asset('admin-mo/customer-mng')}}" class="nav-link">
+                      <a href="{{ asset('admin-mo/customer-mng') }}" class="nav-link">
                           <i class="nav-icon fa fa-id-card"></i>
                           <p>
                               Manager Customers
@@ -47,7 +47,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="pages/kanban.html" class="nav-link">
+                      <a href="{{ asset('admin-mo/order/index') }}" class="nav-link">
                           <i class="nav-icon fa fa-shopping-bag"></i>
                           <p>
                               Manager Orders

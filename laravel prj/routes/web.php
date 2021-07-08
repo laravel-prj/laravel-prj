@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\TypeController;
 use App\Http\Controllers\admin\ItemController;
 use App\Http\Controllers\admin\ItemDetailController;
 use App\Http\Controllers\admin\ImageController;
+use App\Http\Controllers\admin\OrderController;
 // customer
 use App\Http\Controllers\customer\TopController;
 use App\Http\Controllers\customer\CartController;
@@ -117,6 +118,9 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
 
         // Route::post('item/{item_id}/{detail_id}', [ItemDetailController::class, 'editDetail']);
         // Route::get('item/{item_id}/{detail_id}', [ItemDetailController::class, 'indexDetail']);
+    });
+    Route::prefix('order')->group(function () {
+        Route::get('index', [OrderController::class, 'index']);
     });
 });
 

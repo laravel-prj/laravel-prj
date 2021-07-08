@@ -49,4 +49,9 @@ class OderModel extends Model
     {
         return $this->hasMany('App\Models\OderItemModel', 'order_id', 'id');
     }
+
+    public function customer()
+    {
+       return $this->belongsTo('App\Models\CustomerModel', 'customer_id', 'id');
+    }
 }
