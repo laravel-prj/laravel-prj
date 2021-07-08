@@ -85,8 +85,8 @@
                     @if ($flg)
                         <div class="form-group">
                             <select id="default_img" class="form-control" name="default_img">
-                                <option value="1">Default</option>
-                                <option value="0">Normal</option>
+                                <option value="1" @if ($img->default_img == 1) selected @endif>Default</option>
+                                <option value="0" @if ($img->default_img == 0) selected @endif>Normal</option>
                             </select>
                         </div>
                     @endif

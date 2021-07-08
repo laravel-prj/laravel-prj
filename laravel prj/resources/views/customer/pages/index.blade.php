@@ -99,10 +99,10 @@
                                                     <a class="aa-product-img" href="{{ asset("detail/$item->id") }}">
                                                         @if (isset($item->image))
                                                             <img src="{{ asset("customer/img/$item->image") }}"
-                                                                alt="polo shirt img" width="100%" />
+                                                                alt="polo shirt img" width="100%" height="300px" />
                                                         @else
                                                             <img src="{{ asset('customer/img/no_image.png') }}"
-                                                                alt="polo shirt img" width="100%" />
+                                                                alt="polo shirt img" width="100%" height="300px" />
                                                         @endif
 
                                                     </a>
@@ -158,7 +158,7 @@
                                                     <a class="aa-product-img"
                                                         href="{{ asset("detail/$saleitem->id") }}"><img
                                                             src="{{ asset("customer/img/$saleitem->image") }}"
-                                                            width="100%" /></a>
+                                                            width="100%" height="300px" /></a>
                                                     <a class="aa-add-card-btn" data-product-id="{{ $saleitem->id }}"
                                                         href="{{ asset("detail/$saleitem->id") }}"><span
                                                             class="fa fa-shopping-cart">

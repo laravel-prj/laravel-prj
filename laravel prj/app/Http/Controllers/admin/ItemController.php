@@ -171,12 +171,12 @@ class ItemController extends Controller
                         if ($itemImage) {
                             $html .='
         <td><img src="'.$rootURL."customer/img/$itemImage".'"
-            alt="" width="50px" height="50px">
+            alt="" width="66.6666px" height="100px">
         </td>';
                         } else {
                             $html .= `
         <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-        width="50px" height="50px">
+        width="66.6666px" height="100px">
         </td>`;
                         }
                         $html .="<td>$itemPrice</td>";
@@ -228,12 +228,12 @@ class ItemController extends Controller
                     if ($itemImage) {
                         $html .='
     <td><img src="'.$rootURL."customer/img/$itemImage".'"
-        alt="" width="50px" height="50px">
+        alt="" width="66.6666px" height="100px">
     </td>';
                     } else {
                         $html .= `
     <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-    width="50px" height="50px">
+    width="66.6666px" height="100px">
     </td>`;
                     }
                     $html .="<td>$itemPrice</td>";
@@ -302,12 +302,12 @@ class ItemController extends Controller
                             if ($itemImage) {
                                 $html .='
             <td><img src="'.$rootURL."customer/img/$itemImage".'"
-                alt="" width="50px" height="50px">
+                alt="" width="66.6666px" height="100px">
             </td>';
                             } else {
                                 $html .= `
             <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-            width="50px" height="50px">
+            width="66.6666px" height="100px">
             </td>`;
                             }
                             $html .="<td>$itemPrice</td>";
@@ -360,12 +360,12 @@ class ItemController extends Controller
                         if ($itemImage) {
                             $html .='
         <td><img src="'.$rootURL."customer/img/$itemImage".'"
-            alt="" width="50px" height="50px">
+            alt="" width="66.6666px" height="100px">
         </td>';
                         } else {
                             $html .= `
         <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-        width="50px" height="50px">
+        width="66.6666px" height="100px">
         </td>`;
                         }
                         $html .="<td>$itemPrice</td>";
@@ -436,12 +436,12 @@ class ItemController extends Controller
                     if ($itemImage) {
                         $html .='
     <td><img src="'.$rootURL."customer/img/$itemImage".'"
-        alt="" width="50px" height="50px">
+        alt="" width="66.6666px" height="100px">
     </td>';
                     } else {
                         $html .= `
     <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-    width="50px" height="50px">
+    width="66.6666px" height="100px">
     </td>`;
                     }
                     $html .="<td>$itemPrice</td>";
@@ -497,12 +497,12 @@ class ItemController extends Controller
                             if ($itemImage) {
                                 $html .='
             <td><img src="'.$rootURL."customer/img/$itemImage".'"
-                alt="" width="50px" height="50px">
+                alt="" width="66.6666px" height="100px">
             </td>';
                             } else {
                                 $html .= `
             <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-            width="50px" height="50px">
+            width="66.6666px" height="100px">
             </td>`;
                             }
                             $html .="<td>$itemPrice</td>";
@@ -557,12 +557,12 @@ class ItemController extends Controller
                         if ($itemImage) {
                             $html .='
         <td><img src="'.$rootURL."customer/img/$itemImage".'"
-            alt="" width="50px" height="50px">
+            alt="" width="66.6666px" height="100px">
         </td>';
                         } else {
                             $html .= `
         <td><img src="'.$rootURL.'admin/images/no_image.png'.'" alt=""
-        width="50px" height="50px">
+        width="66.6666px" height="100px">
         </td>`;
                         }
                         $html .="<td>$itemPrice</td>";

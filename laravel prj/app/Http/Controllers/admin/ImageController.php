@@ -17,6 +17,33 @@ class ImageController extends Controller
         return view('admin/pages/images/index',compact('images','itemId'));
     }
 
+    public function createMul($itemId, Request $request)
+    {
+        return view('admin/pages/images/create-mul');
+
+    }
+
+    public function storeMul($itemId, Request $request)
+    {
+        $images = $request->file('files');
+        
+        if ($request->hasFile('files')){
+            foreach ($images as $item){
+                $var = date_create();
+                $time = date_format($var, 'YmdHis');
+                $imageName = $time . '-' . $item->getClientOriginalName();
+                $item->move('customer/img/', $imageName);
+
+                $imagesData = new ImageModel;
+                $imagesData->item_id = $itemId;
+                $imagesData->img =  $imageName;
+                $imagesData->default_img = 0;
+                $imagesData->save();
+            }
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Them Images thanh cong');
+        }
+    }
+
     public function create($itemId, Request $request)
     {
         $hasDefault = ImageModel::where([['item_id', $itemId],['default_img',1]])->first();

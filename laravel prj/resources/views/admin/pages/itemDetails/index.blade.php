@@ -58,7 +58,7 @@
             </div><!-- /.container-fluid -->
             <div class="row">
                 @foreach ($item->images as $img)
-                    <div class="col-sm-2">
+                    <div class="col-sm-auto">
                         <img src="{{ asset('customer/img') . '/' . $img->img }}" alt="" width="200px" height="300px">
                     </div>
                 @endforeach

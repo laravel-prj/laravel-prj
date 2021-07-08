@@ -116,11 +116,11 @@
                                         <td>{{ $item->name }}</td>
                                         @if (isset($item->images[0]->img))
                                             <td><img src="{{ asset('customer/img') . '/' . $item->images[0]->img }}"
-                                                    alt="" width="50px" height="50px">
+                                                    alt="" width="66.6666px" height="100px">
                                             </td>
                                         @else
                                             <td><img src="{{ asset('admin/images') . '/no_image.png' }}" alt=""
-                                                    width="50px" height="50px">
+                                                    width="66.6666px" height="100px">
                                             </td>
                                         @endif
                                         <td>{{ $item->price }}</td>

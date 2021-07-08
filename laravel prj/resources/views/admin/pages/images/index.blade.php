@@ -85,10 +85,15 @@
                 <div class="card-tools">
                 </div>
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <a class="btn btn-primary float-right"
-                                href="{{ asset("admin-mo/images/create/item/$itemId") }}">Create</a>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-auto">
+                            <a class="btn btn-warning" href="{{ asset("admin-mo/images/createMul/item/$itemId") }}"><i
+                                    class="fa fa-plus-square" aria-hidden="true"></i> <i class="fa fa-plus-square"
+                                    aria-hidden="true"></i> Multi Images</a>
+                        </div>
+                        <div class="col-sm-auto">
+                            <a class="btn btn-primary" href="{{ asset("admin-mo/images/createMul/item/$itemId") }}"><i
+                                    class="fa fa-plus" aria-hidden="true"></i> Create</a>
                         </div>
                     </div>
                     <div class="card-body p-0">
