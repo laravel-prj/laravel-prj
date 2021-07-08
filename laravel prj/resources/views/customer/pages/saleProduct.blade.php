@@ -44,7 +44,9 @@
                         </div>
                         <div class="aa-product-catg-pagination">
                             <nav>
-                                <ul class="pagination">
+                                {!! $sale->links() !!}
+
+                                {{-- <ul class="pagination">
                                     <li>
                                         <a href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
@@ -60,7 +62,7 @@
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </nav>
                         </div>
                     </div>
