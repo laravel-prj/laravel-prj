@@ -92,7 +92,7 @@
                                     aria-hidden="true"></i> Multi Images</a>
                         </div>
                         <div class="col-sm-auto">
-                            <a class="btn btn-primary" href="{{ asset("admin-mo/images/createMul/item/$itemId") }}"><i
+                            <a class="btn btn-primary" href="{{ asset("admin-mo/images/create/item/$itemId") }}"><i
                                     class="fa fa-plus" aria-hidden="true"></i> Create</a>
                         </div>
                     </div>

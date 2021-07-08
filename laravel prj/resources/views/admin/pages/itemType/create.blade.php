@@ -60,7 +60,8 @@
                 <form method="POST" action="/admin-mo/itemType/store">
 
                     <div class="form-group row">
-                        Brand:<select name="brand_id">
+                        <label for="Brand" class="col-sm-auto col-form-label">Brand</label>
+                        <select name="brand_id" class="form-control col-sm-4" style="margin-left: 7px">
                             @foreach ($brand as $item)
                                 <option value={{ $item->id }}>{{ $item->name }}</option>
                             @endforeach
@@ -68,7 +69,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="staticEmail" class="col-auto col-form-label">Name</label>
+                        <label for="staticEmail" class="col-sm-auto col-form-label">Name</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="product_name_fr" name="name" value="">
                         </div>
