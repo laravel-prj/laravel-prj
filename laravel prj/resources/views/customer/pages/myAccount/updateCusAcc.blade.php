@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-md-12">
          <div class="checkout-area">
-           <form method="POST" action="/updateAcc/{{$cus->id}}"  style="margin-left: 300px">
+           <form method="POST" action="/updateAcc"  style="margin-left: 300px">
              <div class="row">
                <div class="col-md-8">
                  <div class="checkout-left">
@@ -50,7 +50,7 @@
                              </div>
                            </div>
 
-                           
+
                            <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
@@ -83,9 +83,9 @@
                                      <option value="1">Female</option> --}}
                                    </select>
                                   </b>
-                                  
+
                                 </strong>
-                                 
+
                               </div>
                             </div>
                           </div>
@@ -102,11 +102,11 @@
                              </div>
                            </div>
                            <input type="submit" value="update" name="update" style="width: 200px;">
-                           <span> <a href="{{ asset('/updatePass') }}"> <input type="button" name="password"  value="edit password" ></a> </span>
-                           
-                            
-                                
-                             
+                           <span> <a href="{{ asset("/updatePass") }}"> <input type="button" name="password"  value="edit password" ></a> </span>
+
+
+
+
                             </div>
                           </div>
                          </div>

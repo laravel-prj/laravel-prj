@@ -21,20 +21,20 @@
                  @foreach ($data as $item)
                  <li>
                   <figure>
-                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}"></a>
+                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}" width="100%" height="300px"></a>
                     <a class="aa-add-card-btn"href="{{asset("detail/$item->id")}}"><span class="fa fa-shopping-cart"></span>Detail</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="{{asset("detail/$item->id")}}">{{$item->name}}</a></h4>
                       <span class="aa-product-price">{{$item->price}}</span>
                     </figcaption>
-                  </figure>   
+                  </figure>
                   <!-- product badge -->
                   <span class="aa-badge aa-sale" href="#">SALE!</span>
-                </li>  
+                </li>
                  @endforeach
-                                                     
+
                </ul>
-               
+
              </div>
              <div class="aa-product-catg-pagination">
                <nav>
@@ -64,14 +64,14 @@
              <!-- single sidebar -->
              <div class="aa-sidebar-widget">
                <h3>Brands</h3>
-              
-               
+
+
                <ul class="aa-catg-nav">
                 @foreach ($navbar as $brand)
                 <li><a href="{{asset("band/$brand->id")}}">{{$brand->name}}</a></li>
                 @endforeach
                </ul>
-               
+
              </div>
              <!-- single sidebar -->
              <div class="aa-sidebar-widget">
@@ -93,11 +93,11 @@
                         <div class="aa-cartbox-info">
                           <h4><a href="{{asset("detail/$topPro->id")}}">{{ $topPro->name }}</a></h4>
                           <p>${{ $topPro->price }}</p>
-                        </div>                    
+                        </div>
                       </li>
-                     @endforeach                               
+                     @endforeach
                  </ul>
-               </div>                            
+               </div>
              </div>
              <!-- single sidebar -->
              <div class="aa-sidebar-widget">
@@ -110,15 +110,15 @@
                         <div class="aa-cartbox-info">
                           <h4><a href="{{asset("detail/$sales->id")}}">{{ $sales->name }}</a></h4>
                           <p>${{($sales['price'] - (($sales['price']* $sales['discout_item'])/100))}}</p>
-                        </div>                    
+                        </div>
                       </li>
-                     @endforeach                              
+                     @endforeach
                  </ul>
-               </div>                            
+               </div>
              </div>
            </aside>
          </div>
-        
+
        </div>
      </div>
    </section>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CustomerModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OderModel;
-use Validator;
+use App\Http\Requests\myAccountRequest;
 
 
 class MyAccountController extends Controller
@@ -20,16 +20,16 @@ class MyAccountController extends Controller
 
     }
 
-    public function updateAcc($id)
+    public function updateAcc()
     {
-        $cus = CustomerModel::find($id);
+        $cus = Auth::guard('loyal_customer')->user();
         // $cus = Auth::guard('loyal_customer')->user();
         return view('customer/pages/myAccount/updateCusAcc',compact('cus'));
     }
 
-    public function postUpdateCusAcc($id, Request $request)
+    public function postUpdateCusAcc(Request $request)
     {
-        $cus = CustomerModel::find($id);
+        $cus = Auth::guard('loyal_customer')->user();
         $newData = $request->only(['first_name', 'last_name', 'address', 'birthday', 'gender', 'city', 'tel']);
         if ($cus) {
             $cus->update($newData);
@@ -40,44 +40,36 @@ class MyAccountController extends Controller
 
     }
 
-    public function updatePass($id)
+    public function updatePass()
     {
         return view('customer/pages/myAccount/pass');
     }
 
-    public function postUpdatePass($id, Request $request)
+    public function postUpdatePass(myAccountRequest $request)
         {
-        if(Auth::Check())
-        {
-            $request_data = $request->All();
-            $validator = $this->admin_credential_rules($request_data);
-            if($validator->fails())
+            if (Auth::guard('loyal_customer')->check()) {
+                $cus = Auth::guard('loyal_customer')->user();
+                $arr = [
+                    'email' => $cus->email,
+                    'password' => $request->current_password,
+                ];
+                if (Auth::guard('loyal_customer')->attempt($arr)) {
+                    if ($request->password == $request->password_confirmation) {
+                        $customer = CustomerModel::find($cus->id);
+                        $customer->update([
+                            'password'=>bcrypt($request->password)
+                        ]);
+                        return redirect('editAcc')->with('success','Cap nhat mat khau thanh cong');
+                    }else{
+                        return redirect()->back()->withErrors('Password moi chua giong nhau')->withInput();
+                    }
+                }else{
+                    return redirect()->back()->withErrors('Khong dung Password cu')->withInput();
+                }
+            } else
             {
-            return response()->json(array('error' => $validator->getMessageBag()->toArray()), 400);
+                return redirect()->to('/editAcc');
             }
-            else
-            {  
-            $current_password = Auth::User()->password;
-            if(Hash::check($request_data['current-password'], $current_password))
-            {           
-                $user_id = Auth::User()->id;                       
-                $obj_user = CustomerModel::find($user_id);
-                $obj_user->password = Hash::make($request_data['password']);
-                $obj_user->save(); 
-                return "ok";
-            }
-            else
-            {           
-                $error = array('current-password' => 'Please enter correct current password');
-                return response()->json(array('error' => $error), 400);   
-            }
-            }        
-        }
-        else
-        {
-            return redirect()->to('/editAcc');
-        }    
-        return view('customer/pages/myAccount/pass');
         }
 
         //view order

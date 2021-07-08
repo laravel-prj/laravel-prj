@@ -17,6 +17,16 @@
 @section('content')
  <!-- Cart view section -->
  <section id="checkout">
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        {!! \Session::get('success') !!}
+    </div>
+    @endif
+    @if (\Session::has('error'))
+        <div class="alert alert-danger">
+            {!! \Session::get('error') !!}
+        </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -92,7 +102,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="aa-checkout-single-bill">
-                                                                <a href="{{ asset("updateAcc/$cus->id") }}"><input type="button" name="Update Account" value="Update Account"></a>
+                                                                <a href="{{ asset("updateAcc") }}"><input type="button" name="Update Account" value="Update Account"></a>
                                                             </div>
                                                         </div>
                                                     </div>

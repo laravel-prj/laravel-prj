@@ -17,3 +17,9 @@ function loadCart()
 
     return [$cart, $totalCurrentQuantity, $totalMoney,$totalDiscount];
 }
+
+// forgot
+function rand_pass( $length = 10 ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return substr(str_shuffle($chars),0,$length);
+}

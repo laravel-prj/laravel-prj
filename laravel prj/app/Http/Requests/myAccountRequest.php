@@ -23,17 +23,10 @@ class myAccountRequest extends FormRequest
      */
     public function rules()
     {
-        $messages = [
-            'current-password.required' => 'Please enter current password',
-            'password.required' => 'Please enter password',
-          ];
-        
-          $validator = Validator::make($data, [
-            'current-password' => 'required',
-            'password' => 'required|same:password',
-            'password_confirmation' => 'required|same:password',     
-          ], $messages);
-        
-          return $validator;
+        return [
+            'current_password' => 'required',
+            'password' => 'required',
+            'password_confirmation' => 'required|same:password',
+        ];
     }
 }
