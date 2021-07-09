@@ -92,18 +92,21 @@
                     @endif
                     <div class="form-group">
                         <label for="file" class="col-auto col-form-label px-0">Image Default</label>
-                        <input required type="file" class="form-control-file px-0" id="file" name="file">
+                        {{-- <input required type="file" class="form-control-file px-0" id="file" name="file"> --}}
                         <div id="defaultThumbnail">
                             <span class="pip"><img class="imageThumb" src="{{ asset('customer/img') . '/' . $img->img }}"
-                                    width="200px" height="300px">
-                                {{-- <img src="{{ asset('customer/img') . '/' . $img->img }}" alt="" width="250px" height="300px"> --}}
+                                    width="200px" height="300px"><br /><span class="remove"
+                                    onclick="return onEditImage({{ $item->id }},{{ $img->id }});">Edit Image</span>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group row">
                         {{-- <input type="hidden" name="item_id" value="{{ $itemId }}"> --}}
-                        <div class="col-md-12">
-                            <input type="submit" value="Update" class="btn btn-success">
-                        </div>
+                        @if ($flg)
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="btn btn-success">
+                            </div>
+                        @endif
                     </div>
                     @csrf
                 </form>
@@ -138,5 +141,9 @@
                 alert("Your browser doesn't support to File API")
             }
         });
+
+        function onEditImage(itemId, imgId) {
+            location.href = `/admin-mo/images/updateImg/${itemId}/${imgId}`;
+        }
     </script>
 @stop

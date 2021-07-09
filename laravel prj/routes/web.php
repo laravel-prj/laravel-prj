@@ -104,6 +104,9 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('update/item/{id}/{imageId}', [ImageController::class, 'edit']);
         Route::post('update/item/{id}/{imageId}', [ImageController::class, 'update']);
 
+        Route::get('updateImg/{itemId}/{imageId}', [ImageController::class, 'getUpdateImg']);
+        Route::post('updateImg/{itemId}/{imageId}', [ImageController::class, 'postUpdateImg']);
+
         Route::get('delete/{id}', [ImageController::class, 'delete']);
 
     });

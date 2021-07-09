@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ImageModel;
 use App\Models\ItemModel;
 use App\Http\Requests\ImageRequest;
+use App\Http\Requests\ImageDefaultRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 
@@ -96,7 +97,31 @@ class ImageController extends Controller
         }
     }
 
-    public function update($itemId, $imageId, ImageRequest $request)
+    public function update($itemId, $imageId, ImageDefaultRequest $request)
+    {
+        $img = ImageModel::find($imageId);
+        if ($img) {
+            $img->update([
+                'default_img'=>$request->default_img
+            ]);
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Update Image thanh cong');
+        }else{
+            return redirect()->back()->withErrors('Khong tim thay Id');
+        }
+    }
+
+    
+    public function getUpdateImg($itemId, $imgId, Request $request)
+    {
+        $img = ImageModel::find($imgId);
+        if ($img) {
+            return view('admin/pages/images/update-img',compact('img','itemId'));
+        }else{
+            return redirect()->back()->withErrors('Khong tim thay Image');
+        }
+    }
+
+    public function postUpdateImg($itemId, $imageId, ImageRequest $request)
     {
         $img = ImageModel::find($imageId);
         if ($img) {
@@ -113,11 +138,10 @@ class ImageController extends Controller
                 // $img->img = $imageName;
                 $default_img = ($request->default_img) ? $request->default_img : 0 ;
                 $img->update([
-                    'img'=>$imageName,
-                    'default_img'=>$default_img
+                    'img'=>$imageName
                 ]);
             }
-            return redirect('admin-mo/images/item/'.$itemId)->with('success','Them Image thanh cong');
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Update Image thanh cong');
         }else{
             return redirect()->back()->withErrors('Khong tim thay Id');
         }
@@ -135,4 +159,5 @@ class ImageController extends Controller
             return redirect()->back()->withErrors("K tim thay image"); 
         }
     }
+
 }
