@@ -8,8 +8,10 @@ use App\Models\ItemDetailModel;
 use App\Models\BrandModel;
 use App\Models\ImageModel;
 use App\Http\Requests\BrandRequest;
+use App\Http\Requests\ImageRequest;
 use Session;
 use Redirect;
+use File;
 
 class BandController extends Controller
 {
@@ -52,19 +54,61 @@ class BandController extends Controller
     }
     
     public function store(BrandRequest $request)
-    {
-        $brand = new BrandModel;
-        $brand->name = $request->name;
-        if ($brand ->save()) {
-            return redirect('admin-mo/brand/index')->with('success', 'Tạo thành công');
+    {   
+        $image = $request->file('file');
+        if ($request->hasFile('file')) {
+            $var = date_create();
+            $time = date_format($var, 'YmdHis');
+            $imageName = $time . '-' . $image->getClientOriginalName();
+            $image->move('customer/img/', $imageName);
+
+            $brand = new BrandModel;
+            $brand->name = $request->name;
+            $brand->img = $imageName;
+            if ($brand ->save()) {
+                return redirect('admin-mo/brand/index')->with('success', 'Tạo thành công');
+            }else{
+                return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+            }
         }else{
-            return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+            return redirect()->back()->withErrors('vui long nhap image');
         }
+
     }
 
     public function delete($id)
     {
         $brand = BrandModel::deleteBand($id);
         return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");
+    }
+
+    public function editImage($brandId, Request $request)
+    {
+        $brand = BrandModel::find($brandId);
+        return view('admin/pages/brands/update-image', compact('brand'));
+    }
+
+    public function updateImage($brandId, ImageRequest $request)
+    {
+        $brand = BrandModel::find($brandId);
+        if ($brand) {
+            $image = $request->file('file');
+            if ($request->hasFile('file')) {
+                $var = date_create();
+                $time = date_format($var, 'YmdHis');
+                $imageName = $time . '-' . $image->getClientOriginalName();
+                $image->move('customer/img/', $imageName);
+
+                $file_path = public_path().'\customer\img\\'.$brand->img;
+                File::delete($file_path);
+
+                $brand->update([
+                    'img'=>$imageName
+                ]);
+            }
+            return redirect("/admin-mo/brand/update/$brandId")->with('success', 'Cap nhat image thanh cong');
+        }else{
+            return redirect()->back()->withErrors('Khong tim thay Id');
+        }
     }
 }

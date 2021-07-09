@@ -58,11 +58,18 @@
 
         <!-- Main content -->
         <section class="content">
-
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Item Type</h3>
+                    <h3 class="card-title">
+                        BRAND:
+                        <select name="brand" id="SearchBrandType">
+                            <option value="0">All</option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
+                        </select>
+                    </h3>
                     <div class="card-tools">
                         <a class="btn btn-primary btn-sm btn-create"
                             href="{{ asset('admin-mo/itemType/create') }}">Create</a>
@@ -83,7 +90,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="bodyType">
                             @foreach ($type as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
@@ -123,6 +130,28 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script> --}}
     {{-- quick defined --}}
     <script>
+        var brandSearch;
+
+        $("#SearchBrandType")
+            .change(function() {
+                brandSearch = $(this).val();
+
+                $.ajax({
+                    type: "GET",
+                    url: window.location.origin + "/api/ajaxGetBrandType",
+                    data: {
+                        brandSearch: brandSearch
+                    },
+                    success: function(response) {
+                        if (response) {
+                            console.log(response);
+                            $('#bodyType').html(response);
+                        }
+                    }
+                });
+            })
+            .change();
+
         function onDeleteType(id) {
             var ok = confirm('Are you sure about that !!!!!!');
             if (ok) {

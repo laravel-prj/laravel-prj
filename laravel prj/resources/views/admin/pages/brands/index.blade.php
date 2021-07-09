@@ -72,11 +72,14 @@
                     <table class="table table-striped projects">
                         <thead>
                             <tr>
-                                <th style="width: 25%">
-                                    id
+                                <th>
+                                    Id
                                 </th>
-                                <th style="width: 25%;">
-                                    brand
+                                <th>
+                                    Brand
+                                </th>
+                                <th>
+                                    Image
                                 </th>
                             </tr>
                         </thead>
@@ -85,6 +88,8 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td> <img src="{{ asset("customer/img/$item->img") }}" alt=""
+                                            style="max-width: 200px; max-height: 300px"></td>
                                     <td class="project-actions text-right">
                                         <a class="btn btn-info btn-sm"
                                             href="{{ asset("admin-mo/brand/update/$item->id") }}">
@@ -114,9 +119,6 @@
     <!-- /.content-wrapper -->
 @stop
 @section('scripts')
-    {{-- jquery.autocomplete.js --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script> --}}
-    {{-- quick defined --}}
     <script>
         function onDeleteBrand(id) {
             var ok = confirm('Are you sure about that !!!!!!');

@@ -34,12 +34,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">BRANDS</h1>
+                        <h1 class="m-0">TYPE</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Manager Brands</li>
+                            <li class="breadcrumb-item active">Manager TYPE</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -53,7 +53,8 @@
                 <!------ Include the above in your HEAD tag ---------->
                 <form method="POST" action="/admin-mo/itemType/update/{{ $type->id }}">
                     <div class="form-group row">
-                        Brand:<select name="brand_id">
+                        <label for="staticEmail" class="col-auto col-form-label">Brand</label>
+                        <select name="brand_id" style="margin-left: 7px">
                             @foreach ($brands as $brand)
                                 <option value={{ $brand->id }} @if ($type->brand_id == $brand->id) selected @endif>{{ $brand->name }}</option>
                             @endforeach

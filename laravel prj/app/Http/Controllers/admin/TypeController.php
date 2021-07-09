@@ -19,8 +19,9 @@ class TypeController extends Controller
 
     public function index()
     {   
+        $brands = BrandModel::whereHas('type')->get();
         $type = ItemTypesModel::with('brand')->get();
-        return view('admin/pages/itemType/index', compact('type'));
+        return view('admin/pages/itemType/index', compact('type', 'brands'));
     }
 
     public function edit($id)
@@ -82,5 +83,32 @@ class TypeController extends Controller
     {
         $type = ItemTypesModel::deleteType($id);
         return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");
+    }
+
+    public function ajaxGetBrandType(Request $request)
+    {
+        $brandId = $request->brandSearch;
+        if ($brandId == 0) {
+            $types = ItemTypesModel::all();
+        }else{
+            $types = ItemTypesModel::where('brand_id', $brandId)->get();
+        }
+        $result = $this->renderBodyType($types);
+        return $result;
+    }
+
+    public function renderBodyType($list=[])
+    {
+        $html = '';
+        $rootURL = asset('');
+        foreach ($list as $key => $item) {
+            $html .= '<tr>';
+            $html .= "<td>$item->id</td><td>".$item->brand->name."</td><td>$item->name</td>";
+            $html .= '<td class="project-actions text-right">';
+            $html .= '<a class="btn btn-info btn-sm" href="'.$rootURL."admin-mo/itemType/update/$item->id".'"><i class="fas fa-pencil-alt"></i>Edit</a>';
+            $html .= '<a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="return onDeleteType('. $item->id .');"><i class="fas fa-trash"></i>Delete</a></td>';
+            $html .= '</tr>';
+        }
+        return $html;
     }
 }

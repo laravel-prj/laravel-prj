@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\TopAdmin;
 use App\Http\Controllers\admin\ItemController;
+use App\Http\Controllers\admin\TypeController;
+
 use App\Http\Controllers\customer\TopController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\CheckOutController;
@@ -45,6 +47,8 @@ Route::get('ajaxGetTypeByBrandId', [ItemController::class, 'ajaxGetTypeByBrandId
 Route::get('ajaxSearchBrandById', [ItemController::class, 'ajaxSearchBrandById']);
 Route::get('ajaxSearchTypeById', [ItemController::class, 'ajaxSearchTypeById']);
 Route::get('ajaxSearchName', [ItemController::class, 'ajaxSearchName']);
+
+Route::get('ajaxGetBrandType', [TypeController::class, 'ajaxGetBrandType']);
 
 // test xoa session
 Route::get('ajaxDeleteSession', [CartController::class, 'ajaxDeleteSession']);

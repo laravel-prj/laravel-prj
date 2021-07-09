@@ -68,6 +68,10 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
         Route::get('create', [BandController::class, 'create']);
         Route::post('store', [BandController::class, 'store']);
         Route::get('delete/{id}', [BandController::class, 'delete']);
+
+        Route::get('editImage/{id}', [BandController::class, 'editImage']);
+        Route::post('updateImage/{id}', [BandController::class, 'updateImage']);
+
     });
 
     Route::prefix('itemType')->group(function () {

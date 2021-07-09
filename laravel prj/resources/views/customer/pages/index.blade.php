@@ -201,7 +201,7 @@
                             @foreach ($navbar as $brand)
                                 <li>
                                     <a href="{{ asset("band/$brand->id") }}"><img
-                                            src="{{ asset("customer/img/brand/$brand->img") }}" width="100px" /></a>
+                                            src="{{ asset("customer/img/$brand->img") }}" width="100px" /></a>
                                 </li>
                             @endforeach
 
