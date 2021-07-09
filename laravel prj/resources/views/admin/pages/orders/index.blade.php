@@ -60,23 +60,20 @@
         <section class="content">
             <div class="card-header">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="4"
                         checked>
                     <label class="form-check-label" for="inlineRadio1">All</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="option2">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0">
                     <label class="form-check-label" for="inlineRadio2">Waiting</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="option2">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1">
                     <label class="form-check-label" for="inlineRadio2">Approve</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="option2">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
                     <label class="form-check-label" for="inlineRadio2">Reject</label>
                 </div>
             </div>
@@ -99,33 +96,38 @@
                                     Order Date
                                 </th>
                                 <th>
-                                    Delivery Time
+                                    Total Price ($)
+                                </th>
+                                <th>
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="oderBody">
                             @foreach ($orders as $order)
                                 <tr>
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $order->customer->first_name }} {{ $order->customer->last_name }}</td>
-                                    <td class="project-actions text-right" style="text-align: center !important;">
-                                        <iframe src="https://giphy.com/embed/Wodg2kOPJRLbw3Pfjh" width="50" height="50"
+                                    <td class="project-actions text-right" style="text-align: left !important;">
+                                        <iframe id="gifLoad{{ $order->id }}"
+                                            src="https://giphy.com/embed/Wodg2kOPJRLbw3Pfjh" width="50" height="50"
                                             frameBorder="0" class="giphy-embed" allowFullScreen
                                             style="display: none"></iframe>
                                         <select id="status{{ $order->id }}" class="form-control" name="status"
-                                            onchange="return onChangeStatus({{ $order->id }});">
+                                            onchange="return onChangeStatus(this,{{ $order->id }});">
                                             <option value="0" @if ($order->status == 0) selected @endif>Waiting</option>
                                             <option value="1" @if ($order->status == 1) selected @endif>Approve</option>
                                             <option value="2" @if ($order->status == 2) selected @endif>Reject</option>
-                                            <option value="3" @if ($order->status == 3) selected @endif>All</option>
                                         </select>
                                     </td>
                                     <td>{{ $order->order_date }}</td>
-                                    @if ($order->delivery_time)
-                                        <td id="delivery_time{{ $order->id }}">{{ $order->delivery_time }}</td>
-                                    @else
-                                        <td id="delivery_time{{ $order->id }}">ーーーーーー</td>
-                                    @endif
+                                    <td>{{ $order->total_price }}<b>$</b></td>
+                                    <td>
+                                        <a href="{{ asset("admin-mo/order/view/$order->id") }}" type="button"
+                                            class="btn btn-primary">View</a>
+                                        <a href="javascript:void(0);" type="button" class="btn btn-danger"
+                                            onclick="return onDeleteOrder({{ $order->id }});">Delete</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -141,14 +143,53 @@
     <!-- /.content-wrapper -->
 @stop
 @section('scripts')
-    {{-- jquery.autocomplete.js --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script> --}}
-    {{-- quick defined --}}
     <script>
-        function onDeleteBrand(id) {
+        $('input[type=radio][name=inlineRadioOptions]').change(function() {
+            console.log(this.value);
+            $.ajax({
+                type: "post",
+                url: window.location.origin + "/api/ajaxSearchOrder",
+                data: {
+                    status: this.value
+                },
+                success: function(response) {
+                    $('#oderBody').html(response);
+                },
+                error: function(xhr) {
+                    alert('Co Loi Xay Ra');
+                    location.reload();
+                }
+            });
+        });
+
+        function onChangeStatus(selectObject, orderId) {
+            $('#gifLoad' + orderId).attr('style', 'display: inline-block');
+            $('#status' + orderId).attr('style', 'display: none');
+            $.ajax({
+                    type: "post",
+                    url: window.location.origin + "/api/ajaxUpdateStatusOrder",
+                    data: {
+                        status: selectObject.value,
+                        orderId: orderId
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        alert('Co Loi Xay Ra');
+                        // location.reload();
+                    }
+                })
+                .done(function(response) {
+                    $('#gifLoad' + orderId).attr('style', 'display: none');
+                    $('#status' + orderId).attr('style', 'display: inline-block');
+                });
+        }
+
+        function onDeleteOrder(orderId) {
             var ok = confirm('Are you sure about that !!!!!!');
             if (ok) {
-                location.href = '/admin-mo/brand/delete/' + id;
+                location.href = '/admin-mo/order/delete/' + orderId;
             }
         }
     </script>
