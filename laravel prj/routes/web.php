@@ -128,6 +128,8 @@ Route::group(['middleware' => ['verfiy-account-admin'], 'prefix' => 'admin-mo'],
     });
     Route::prefix('order')->group(function () {
         Route::get('index', [OrderController::class, 'index']);
+        Route::get('view/{id}', [OrderController::class, 'view']);
+        Route::get('delete/{id}', [OrderController::class, 'delete']);
     });
 });
 
