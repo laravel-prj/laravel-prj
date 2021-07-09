@@ -39,8 +39,21 @@ class ItemDetailController extends Controller
         }
     }
 
+    public function checkDuplicateSize($itemId, $size)
+    {
+        $itemDetails = ItemDetailModel::where(['item_id'=>$itemId,'size'=>$size])->get();
+        if (count($itemDetails) > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function store(ItemDetailRequest $request)
     {
+        $check = $this->checkDuplicateSize($request->item_id, $request->size);
+        if ($check) {
+            return redirect()->back()->withErrors("Size da ton tai")->withInput();
+        }
         $info = new ItemDetailModel;
         $info->item_id = $request->item_id;
         $info->size = $request->size;

@@ -54,18 +54,19 @@
                                     <div class="aa-product-view-content">
                                         <h3 id="itemName">{{ $item->name }}</h3>
                                         <div class="aa-price-block">
-                                            <span class="aa-product-view-price">{{ $item->price }}</span>
+                                            <span class="aa-product-view-price">Price : ${{ $item->price }}</span>
                                             <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                                         </div>
                                         <form id="formItemDetail">
                                             <div class="aa-prod-quantity">
-                                                <h4>Size</h4>
+                                                <h4>Size:</h4>
                                                 @foreach ($listSize as $size)
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" class="custom-control-input" @if ($loop->index == 0) checked @endif name="size" value="{{ $size->id }}"
                                                             onchange="sizechange({{ $size->id }})">
                                                         <label class="custom-control-label"
                                                             for="defaultInline1">{{ $size->size }}</label>
+
                                                     </div>
                                                 @endforeach
 
@@ -183,9 +184,7 @@
                                                     </svg>
                                                 </div>
 
-                                                <p class="aa-prod-category">
-                                                    Category: <a href="#">name</a>
-                                                </p>
+
                                             </div>
                                             <div class="aa-prod-view-bottom">
                                                 @if ($firstValue == 0)
@@ -201,10 +200,6 @@
                                                     <a id="addToCart" class="aa-add-to-cart-btn" onclick="addToCart()">Add
                                                         To Cart</a>
                                                 @endif
-
-
-
-                                                <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                                             </div>
                                         </form>
 
@@ -226,7 +221,7 @@
                         </div>
                         <!-- Top product -->
                         <div class="aa-product-related-item">
-                            <h3>Top Products</h3>
+                            <h3> related products</h3>
                             <ul class="aa-product-catg aa-related-item-slider">
                                 <!-- start single product item -->
                                 @foreach ($data as $top)
@@ -241,95 +236,30 @@
                                             </a>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a href="#">{{ $top->name }}</a></h4>
-                                                <span class="aa-product-price">${{ $top->price }}</span>
+                                                @if ($top->discout_item > 0)
+                                                <span
+                                                class="aa-product-price">{{ $top['price'] - ($top['price'] * $top['discout_item']) / 100 }}</span><span
+                                                class="aa-product-price"><del>${{ $top->price }}</del></span>
+                                                @else
+                                                  @if ($top->feature == 1)
+                                                  <span class="aa-product-price">${{ $top->price }}</span>
+                                                  @endif
+                                                @endif
                                             </figcaption>
                                         </figure>
+                                          <!-- product badge -->
+                                            @if ($top->discout_item > 0)
+                                                 <span class="aa-badge aa-sale" href="#">SALE!</span>
+                                            @else
+                                                @if ($top->feature == 1)
+                                                <span class="aa-badge aa-sold-out" href="#">HOT!</span>
+                                                @endif
+                                            @endif
                                     </li>
                                 @endforeach
 
                             </ul>
-                            <!-- quick view modal -->
-                            <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">&times;</button>
-                                            <div class="row">
-                                                <!-- Modal view slider -->
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="aa-product-view-slider">
-                                                        <div class="simpleLens-gallery-container" id="demo-1">
-                                                            <div class="simpleLens-container">
-                                                                <div class="simpleLens-big-image-container">
-                                                                    <a class="simpleLens-lens-image"
-                                                                        data-lens-image="img/view-slider/large/polo-shirt-1.png">
-                                                                        <img src="img/view-slider/medium/polo-shirt-1.png"
-                                                                            class="simpleLens-big-image">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="simpleLens-thumbnails-container">
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="img/view-slider/large/polo-shirt-1.png"
-                                                                    data-big-image="img/view-slider/medium/polo-shirt-1.png">
-                                                                    <img src="img/view-slider/thumbnail/polo-shirt-1.png">
-                                                                </a>
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="img/view-slider/large/polo-shirt-3.png"
-                                                                    data-big-image="img/view-slider/medium/polo-shirt-3.png">
-                                                                    <img src="img/view-slider/thumbnail/polo-shirt-3.png">
-                                                                </a>
 
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="img/view-slider/large/polo-shirt-4.png"
-                                                                    data-big-image="img/view-slider/medium/polo-shirt-4.png">
-                                                                    <img src="img/view-slider/thumbnail/polo-shirt-4.png">
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Modal view content -->
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="aa-product-view-content">
-                                                        <h3>T-Shirt</h3>
-                                                        <div class="aa-price-block">
-                                                            <span class="aa-product-view-price">$34.99</span>
-                                                            <p class="aa-product-avilability">Avilability: <span>In
-                                                                    stock</span></p>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Officiis animi, veritatis quae repudiandae quod nulla porro
-                                                            quidem, itaque quis quaerat!</p>
-                                                        <h4>Size</h4>
-                                                        <div class="aa-prod-view-size">
-                                                            <a href="#">S</a>
-                                                            <a href="#">M</a>
-                                                            <a href="#">L</a>
-                                                            <a href="#">XL</a>
-                                                        </div>
-                                                        <div class="aa-prod-quantity">
-                                                            <form action="">
-                                                                <select name="" id="">
-                                                                    <option value="0" selected="1">1</option>
-                                                                    <option value="1">2</option>
-                                                                    <option value="2">3</option>
-                                                                    <option value="3">4</option>
-                                                                    <option value="4">5</option>
-                                                                    <option value="5">6</option>
-                                                                </select>
-                                                            </form>
-                                                            <p class="aa-prod-category">
-                                                                Category: <a href="#">Polo T-Shirt</a>
-                                                            </p>
-                                                        </div>
-                                                        <div class="aa-prod-view-bottom">
-                                                            <a href="#" class="aa-add-to-cart-btn"><span
-                                                                    class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                                            <a href="#" class="aa-add-to-cart-btn">View Details</a>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

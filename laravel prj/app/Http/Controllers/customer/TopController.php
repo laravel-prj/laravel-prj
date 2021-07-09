@@ -62,7 +62,7 @@ class TopController extends Controller
     }
     public function shop()
     {
-        $data = ItemModel::with('images')->get();
+        $data = ItemModel::with('images')->paginate(12);
         foreach ($data as $sale_item) {
             foreach ($sale_item->images as $image) {
                 if ($image->default_img == 1) {
@@ -221,7 +221,7 @@ class TopController extends Controller
 
     //top Product
     public function top(){
-        $top = ItemModel::with('images')->where('feature',1)->paginate(20);
+        $top = ItemModel::with('images')->where('feature',1)->paginate(12);
         foreach ($top as $item) {
             foreach ($item->images as $image) {
                 if ($image->default_img == 1) {
@@ -242,7 +242,7 @@ class TopController extends Controller
 
     //sale Product
     public function sale(){
-        $sale = ItemModel::with('images')->where('discout_item','>',0)->paginate(20);
+        $sale = ItemModel::with('images')->where('discout_item','>',0)->paginate(12);
         foreach ($sale as $sale_item) {
             foreach ($sale_item->images as $image) {
                 if ($image->default_img == 1) {

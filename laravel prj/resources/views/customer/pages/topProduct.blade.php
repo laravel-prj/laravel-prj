@@ -31,11 +31,19 @@
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ asset("detail/$item->id") }}">{{ $item->name }}</a>
                                                 </h4>
-                                                <span class="aa-product-price">{{ $item->price }}</span>
+                                                @if ($item->discout_item > 0)
+                                                <span
+                                                class="aa-product-price">{{ $item['price'] - ($item['price'] * $item['discout_item']) / 100 }}</span><span
+                                                class="aa-product-price"><del>${{ $item->price }}</del></span>
+                                                @else
+                                                  @if ($item->feature == 1)
+                                                  <span class="aa-product-price">${{ $item->price }}</span>
+                                                  @endif
+                                                @endif
                                             </figcaption>
                                         </figure>
                                         <!-- product badge -->
-                                        <span class="aa-badge aa-sale" href="#">SALE!</span>
+                                        <span class="aa-badge aa-sold-out" href="#">HOT!</span>
                                     </li>
                                 @endforeach
 

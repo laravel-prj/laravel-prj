@@ -31,7 +31,7 @@
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ asset("detail/$item->id") }}">{{ $item->name }}</a>
                                                 </h4>
-                                                <span class="aa-product-price">{{ $item->price }}</span>
+                                                <span class="aa-product-price">${{ $item->price }}</span>
                                             </figcaption>
                                         </figure>
                                         <!-- product badge -->

@@ -29,7 +29,7 @@ class ItemRequest extends FormRequest
             'name' => 'required|max:50',
             // 'file' => 'required',
             // 'files' => 'required',
-            'description' => 'required|max:255',
+            'description' => 'required',
             'price' => 'required|numeric',
             'feature' => 'required|numeric',
             'discout_item' => 'required|integer|between:0,50',

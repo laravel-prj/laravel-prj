@@ -20,7 +20,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{asset('/')}}">Home</a></li>
               <li class="breadcrumb-item active">Manager Customers</li>
             </ol>
           </div>
@@ -43,10 +43,10 @@
                       <th style="width: 1%">
                           id
                       </th>
-                      <th style="width: 15%;">
+                      <th style="width: 10%;">
                           first name
                       </th>
-                      <th style="width: 15%">
+                      <th style="max-width: 10%">
                           last name
                       </th>
 
@@ -65,7 +65,7 @@
                       <th style="width: 10%;">
                       email
                       </th>
-                      <th style="width: 10%">
+                      <th style="max-width: 10%">
                         city
                       </th>
                   </tr>
@@ -101,7 +101,7 @@
                         <td>
                             {{$item->city}}
                         </td>
-                        <td class="project-actions text-right" style="width:30%">
+                        <td class="project-actions text-right" >
                             <a class="btn btn-primary btn-sm" href="#">
                                 <i class="fas fa-folder">
                                 </i>

@@ -9,7 +9,7 @@
 </style>
 @stop
 @section('content')
- 
+
    <!-- product category -->
    <section id="aa-product-category">
      <div class="container">
@@ -22,42 +22,57 @@
                  @foreach ($data as $item)
                  <li>
                   <figure>
-                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}" ></a>
+                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}"  width="100%" height="300px"></a>
                     <a class="aa-add-card-btn"href="{{asset("detail/$item->id")}}"><span class="fa fa-shopping-cart"></span>Detail</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="{{asset("detail/$item->id")}}">{{$item->name}}</a></h4>
-                      <span class="aa-product-price">{{$item->price}}</span>
+
+                      @if ($item->discout_item > 0)
+                      <span
+                      class="aa-product-price">{{ $item['price'] - ($item['price'] * $item['discout_item']) / 100 }}</span><span
+                      class="aa-product-price"><del>${{ $item->price }}</del></span>
+                      @else
+                        @if ($item->feature == 1)
+                        <span class="aa-product-price">${{ $item->price }}</span>
+                        @endif
+                      @endif
                     </figcaption>
-                  </figure>  
+                  </figure>
                   <!-- product badge -->
+                  @if ($item->discout_item > 0)
                   <span class="aa-badge aa-sale" href="#">SALE!</span>
-                </li>  
+                  @else
+                    @if ($item->feature == 1)
+                    <span class="aa-badge aa-sold-out" href="#">HOT!</span>
+                    @endif
+                  @endif
+                </li>
                  @endforeach
-                                                     
                </ul>
-              
              </div>
              <div class="aa-product-catg-pagination">
-               <nav>
-                 <ul class="pagination">
-                   <li>
-                     <a href="#" aria-label="Previous">
-                       <span aria-hidden="true">&laquo;</span>
-                     </a>
-                   </li>
-                   <li><a href="#">1</a></li>
-                   <li><a href="#">2</a></li>
-                   <li><a href="#">3</a></li>
-                   <li><a href="#">4</a></li>
-                   <li><a href="#">5</a></li>
-                   <li>
-                     <a href="#" aria-label="Next">
-                       <span aria-hidden="true">&raquo;</span>
-                     </a>
-                   </li>
-                 </ul>
-               </nav>
-             </div>
+                <nav>
+                    {!! $data->links() !!}
+
+                    {{-- <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul> --}}
+                </nav>
+            </div>
            </div>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
@@ -65,14 +80,14 @@
             <!-- single sidebar -->
             <div class="aa-sidebar-widget">
               <h3>Brands</h3>
-             
-              
+
+
               <ul class="aa-catg-nav">
                @foreach ($navbar as $brand)
                <li><a href="{{asset("band/$brand->id")}}">{{$brand->name}}</a></li>
                @endforeach
               </ul>
-              
+
             </div>
             <!-- single sidebar -->
             <div class="aa-sidebar-widget">
@@ -94,11 +109,11 @@
                        <div class="aa-cartbox-info">
                          <h4><a href="{{asset("detail/$topPro->id")}}">{{ $topPro->name }}</a></h4>
                          <p>${{ $topPro->price }}</p>
-                       </div>                    
+                       </div>
                      </li>
-                    @endforeach                               
+                    @endforeach
                 </ul>
-              </div>                            
+              </div>
             </div>
             <!-- single sidebar -->
             <div class="aa-sidebar-widget">
@@ -111,15 +126,15 @@
                        <div class="aa-cartbox-info">
                          <h4><a href="{{asset("detail/$sales->id")}}">{{ $sales->name }}</a></h4>
                          <p>${{($sales['price'] - (($sales['price']* $sales['discout_item'])/100))}}</p>
-                       </div>                    
+                       </div>
                      </li>
-                    @endforeach                              
+                    @endforeach
                 </ul>
-              </div>                            
+              </div>
             </div>
           </aside>
         </div>
-        
+
        </div>
      </div>
    </section>
