@@ -52,16 +52,16 @@ class ItemDetailController extends Controller
     {
         $check = $this->checkDuplicateSize($request->item_id, $request->size);
         if ($check) {
-            return redirect()->back()->withErrors("Size da ton tai")->withInput();
+            return redirect()->back()->withErrors("Already have this Size")->withInput();
         }
         $info = new ItemDetailModel;
         $info->item_id = $request->item_id;
         $info->size = $request->size;
         $info->quantity = $request->quantity;
         if ($info->save()) {
-            return redirect('/admin-mo/itemDetail/item/'.$request->item_id)->with('success', 'Tao Thanh Cong');
+            return redirect('/admin-mo/itemDetail/item/'.$request->item_id)->with('success', 'success');
         }else {
-            return redirect()->back()->withErrors("Khong Thanh Cong")->withInput();
+            return redirect()->back()->withErrors("fail")->withInput();
         }
     }
 
@@ -75,7 +75,7 @@ class ItemDetailController extends Controller
         if ($detail) {
             return view('admin/pages/itemDetails/info', compact('itemDetails','item','detail'));
         }else{
-            return redirect()->back()->withErrors("Khong Tim Thay Detail");
+            return redirect()->back()->withErrors("Detail not found");
         }
     }
 
@@ -87,12 +87,12 @@ class ItemDetailController extends Controller
             $detail->size = $request->size;
             $detail->quantity = $request->quantity;
             if ($detail->save()) {
-                return redirect('/admin-mo/itemDetail/item/'.$itemId)->with('success', 'Tao Thanh Cong');
+                return redirect('/admin-mo/itemDetail/item/'.$itemId)->with('success', 'success');
             }else {
-                return redirect()->back()->withErrors("Khong Thanh Cong")->withInput();
+                return redirect()->back()->withErrors("fail")->withInput();
             }
         }else{
-            return redirect()->back()->withErrors("Khong Tim Thay Detail");
+            return redirect()->back()->withErrors("detail not found");
         }
     }
 
@@ -101,9 +101,9 @@ class ItemDetailController extends Controller
         $detail = ItemDetailModel::find($detailId);
         if ($detail) {
             $detail->delete();
-            return redirect()->back()->with('success', "Xóa id: $detailId thành công");
+            return redirect()->back()->with('success', "Delete id: $detailId successfully");
         }else{
-            return redirect()->back()->withErrors("Khong Tim Thay Detail");
+            return redirect()->back()->withErrors("detail not found");
         }
     }
 }

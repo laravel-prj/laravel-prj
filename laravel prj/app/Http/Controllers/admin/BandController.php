@@ -36,14 +36,14 @@ class BandController extends Controller
             $brand->name = $request->get('name');
             if ($brand->save()) {
                 $this->__key = 'success';
-                $this->__value = "Cập nhật id: $id thành công";
+                $this->__value = "Update id: $id success";
             }else{
                 $this->__key = 'error';
-                $this->__value = "Cập nhật id: $id không thành công, lỗi CSDL";
+                $this->__value = "Update id: $id fail, CSDL error";
             }
         }else{
             $this->__key = 'error';
-            $this->__value = "Không tìm thấy id: $id";
+            $this->__value = " not found: $id";
         }
         return redirect('admin-mo/brand/index')->with($this->__key, $this->__value);
     }
@@ -52,9 +52,9 @@ class BandController extends Controller
     {
         return view('admin/pages/brands/create');
     }
-    
+
     public function store(BrandRequest $request)
-    {   
+    {
         $image = $request->file('file');
         if ($request->hasFile('file')) {
             $var = date_create();
@@ -66,12 +66,12 @@ class BandController extends Controller
             $brand->name = $request->name;
             $brand->img = $imageName;
             if ($brand ->save()) {
-                return redirect('admin-mo/brand/index')->with('success', 'Tạo thành công');
+                return redirect('admin-mo/brand/index')->with('success', 'success');
             }else{
-                return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+                return redirect()->back()->with('error', 'cannot save data, CSDL error');
             }
         }else{
-            return redirect()->back()->withErrors('vui long nhap image');
+            return redirect()->back()->withErrors('Please add image');
         }
 
     }
@@ -79,7 +79,7 @@ class BandController extends Controller
     public function delete($id)
     {
         $brand = BrandModel::deleteBand($id);
-        return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");
+        return Redirect::back()->with('success', "Delete id: $id and relationships successfully");
     }
 
     public function editImage($brandId, Request $request)
@@ -106,9 +106,9 @@ class BandController extends Controller
                     'img'=>$imageName
                 ]);
             }
-            return redirect("/admin-mo/brand/update/$brandId")->with('success', 'Cap nhat image thanh cong');
+            return redirect("/admin-mo/brand/update/$brandId")->with('success', 'Update image success');
         }else{
-            return redirect()->back()->withErrors('Khong tim thay Id');
+            return redirect()->back()->withErrors('Id not found');
         }
     }
 }

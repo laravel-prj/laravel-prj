@@ -55,15 +55,15 @@ class OrderController extends Controller
                     // mail
                     $name = $customer->first_name.' '.$customer->last_name;
                     if ($customer->gender == 1) {
-                        $gender = "Anh";
+                        $gender = "Mr";
                     }else{
-                        $gender = "Chị";
+                        $gender = "Ms/Mrs";
                     }
 
                     $message = [
                         'flag' => true,
-                        'type' => 'Đơn Hàng Đã Được Phê Duyệt',
-                        'thanks' => "Đơn hàng số $order->id của bạn đang trong quá trình vận chuyển, Cảm ơn $gender $name đã mua hàng."
+                        'type' => 'Order Approved',
+                        'thanks' => "Your Order number $order->id is shipping, Thank you $gender $name for your purchase."
                     ];
                     SendEmail::dispatch($message, $customer->email)->delay(now()->addMinute(1));
                 }else{
@@ -112,9 +112,9 @@ class OrderController extends Controller
         $order = OderModel::find($id);
         if ($order) {
             $order->delete();
-            return redirect('admin-mo/order/index')->with('success', "Xoa thanh cong");
+            return redirect('admin-mo/order/index')->with('success', "Delete success");
         }else{
-            return redirect()->back()->withErrors('Khong Tim Thay Id');
+            return redirect()->back()->withErrors('Id not found');
         }
     }
 

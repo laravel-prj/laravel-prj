@@ -18,7 +18,7 @@ class TypeController extends Controller
     private $__value='';
 
     public function index()
-    {   
+    {
         $brands = BrandModel::whereHas('type')->get();
         $type = ItemTypesModel::with('brand')->get();
         return view('admin/pages/itemType/index', compact('type', 'brands'));
@@ -39,14 +39,14 @@ class TypeController extends Controller
             $type->brand_id = $request->get('brand_id');
             if ($type->save()) {
                 $this->__key = 'success';
-                $this->__value = "Cập nhật id: $id thành công";
+                $this->__value = "Update id: $id Success";
             }else{
                 $this->__key = 'error';
-                $this->__value = "Cập nhật id: $id không thành công, lỗi CSDL";
+                $this->__value = "Update id: $id fail, CSDL error";
             }
         }else{
             $this->__key = 'error';
-            $this->__value = "Không tìm thấy id: $id";
+            $this->__value = "id not found: $id";
         }
         return redirect('admin-mo/itemType/index')->with($this->__key, $this->__value);
     }
@@ -54,9 +54,9 @@ class TypeController extends Controller
     public function create()
     {
         $brand = BrandModel::all();
-        
+
         if (count($brand)<1) {
-            return redirect()->back()->with('error','Chua co Brand');
+            return redirect()->back()->with('error','Brand not found');
         }
         return view('admin/pages/itemType/create', compact('brand'));
     }
@@ -69,9 +69,9 @@ class TypeController extends Controller
             $type->brand_id = $request->brand_id;
             $type->name = $request->name;
             if ($type ->save()) {
-                return redirect('admin-mo/itemType/index')->with('success', 'Tạo thành công');
+                return redirect('admin-mo/itemType/index')->with('success', 'success');
             }else{
-                return redirect()->back()->with('error', 'Không lưu được data, lỗi CSDL');
+                return redirect()->back()->with('error', 'Cannot save data, CSDL error');
             }
         } catch (\Throwable $th) {
             return redirect()->back();
@@ -82,7 +82,7 @@ class TypeController extends Controller
     public function delete($id)
     {
         $type = ItemTypesModel::deleteType($id);
-        return Redirect::back()->with('success', "Xóa id: $id và các relationship thành công");
+        return Redirect::back()->with('success', "Delete id: $id and relationships successfully");
     }
 
     public function ajaxGetBrandType(Request $request)

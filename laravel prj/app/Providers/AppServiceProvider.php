@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $navbar = BrandModel::all();
+        $navbar = BrandModel::with('type')->get();
         $type = ItemTypesModel::all();
         View::share('navbar', $navbar);
         View::share('type', $type);

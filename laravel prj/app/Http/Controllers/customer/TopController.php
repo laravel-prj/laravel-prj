@@ -189,7 +189,7 @@ class TopController extends Controller
     public function band($id)
     {
         $band = BrandModel::with('item')->find($id);
-       $bra = ItemModel::where('item_type_id',$id)->get();
+        $bra = ItemModel::where('item_type_id',$id)->get();
         $data = $band->item;
         foreach ($data as $sale_item) {
             foreach ($sale_item->images as $image) {
