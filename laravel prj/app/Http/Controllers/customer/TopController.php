@@ -186,18 +186,48 @@ class TopController extends Controller
         }
         return [$quantity,$limit];
     }
-    public function band($id)
+
+    public function band(Request $request)
     {
+        $id = $request->brandId;
+        $name = $request->typeName;
+
         $band = BrandModel::with('item')->find($id);
-       $bra = ItemModel::where('item_type_id',$id)->get();
-        $data = $band->item;
-        foreach ($data as $sale_item) {
-            foreach ($sale_item->images as $image) {
-                if ($image->default_img == 1) {
-                    $sale_item['image'] = $image->img;
+        $bra = ItemModel::where('item_type_id',$id)->get();
+
+        if (isset($name) && !empty($name) && isset($id)&& !empty($id)) {
+            $listData = ItemTypesModel::with('item.item_details','images')->where(['brand_id'=> $id, 'name' => $name])->get();
+            foreach ($listData as $data) {
+                foreach ($data->images as $image) {
+                    if ($image->default_img == 1) {
+                        $data['image'] = $image->img;
+                    }
+                }
+                unset($data->images);
+            }
+        }else{
+            if (isset($name) && !empty($name)) {
+                $listData = ItemTypesModel::with('item.item_details','images')->where('name', $name)->get();
+                foreach ($listData as $data) {
+                    foreach ($data->images as $image) {
+                        if ($image->default_img == 1) {
+                            $data['image'] = $image->img;
+                        }
+                    }
+                    unset($data->images);
+                }
+            }else{
+                $listData = $band->item;
+                foreach ($listData as $sale_item) {
+                    foreach ($sale_item->images as $image) {
+                        if ($image->default_img == 1) {
+                            $sale_item['image'] = $image->img;
+                        }
+                    }
                 }
             }
         }
+
         $sale = ItemModel::with('images')->where('discout_item','>',0)->take(3)->get();
         foreach ($sale as $sale_item) {
             foreach ($sale_item->images as $image) {
@@ -215,7 +245,7 @@ class TopController extends Controller
                 }
             }
         }
-        return view('customer/pages/brand', compact('data','bra', 'sale', 'top'));
+        return view('customer/pages/brand', compact('listData','bra', 'sale', 'top'));
 
     }
 

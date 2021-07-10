@@ -81,10 +81,10 @@
                         <div class="aa-sidebar-widget">
                             <h3>Brands</h3>
 
-
+                            {{-- {{route('brand', ['typeName' => $typee->name])}} --}}
                             <ul class="aa-catg-nav">
                                 @foreach ($navbar as $brand)
-                                    <li><a href="{{ asset("band/$brand->id") }}">{{ $brand->name }}</a></li>
+                                    <li><a href="{{ route('brand', ['brandId' => $brand->id]) }}">{{ $brand->name }}</a></li>
                                 @endforeach
                             </ul>
 
@@ -94,7 +94,7 @@
                             <h3>Tags</h3>
                             <div class="tag-cloud">
                                 @foreach ($type as $typee)
-                                    <a href="{{ asset("band/type/$typee->id") }}">{{ $typee->name }}</a>
+                                    <a href="{{ route('brand', ['typeName' => $typee->name]) }}">{{ $typee->name }}</a>
                                 @endforeach
                             </div>
                         </div>

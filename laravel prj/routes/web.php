@@ -156,7 +156,7 @@ Route::get('/updatePass', [MyAccountController::class, 'updatePass']);
 Route::post('/postUpdatePass', [MyAccountController::class, 'postUpdatePass']);
 
 Route::get('/viewOrder', [MyAccountController::class, 'viewOrder']);
-Route::get('/band/{id}', [TopController::class, 'band']);
-Route::get('/band/type/{id}', [TopController::class, 'band']);
+// Route::get('/brandNav/{id}', [TopController::class, 'brandNav']);
+Route::get('/band/type/{array?}', [TopController::class, 'band'])->name('brand');
 Route::get('/saleProduct', [TopController::class, 'sale']);
 Route::get('/topProduct', [TopController::class, 'top']);

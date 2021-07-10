@@ -18,7 +18,7 @@
              <div class="aa-product-catg-body">
                <ul class="aa-product-catg">
                  <!-- start single product item -->
-                 @foreach ($data as $item)
+                 @foreach ($listData as $item)
                  <li>
                   <figure>
                     <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}" width="100%" height="300px"></a>
@@ -68,7 +68,7 @@
 
                <ul class="aa-catg-nav">
                 @foreach ($navbar as $brand)
-                <li><a href="{{asset("band/$brand->id")}}">{{$brand->name}}</a></li>
+                <li><a href="{{route('brand', ['brandId' => $brand->id])}}">{{$brand->name}}</a></li>
                 @endforeach
                </ul>
 
@@ -77,8 +77,9 @@
              <div class="aa-sidebar-widget">
                <h3>Tags</h3>
                <div class="tag-cloud">
+
                  @foreach ($type as $typee)
-                 <a href="{{asset("band/type/$typee->id")}}">{{$typee->name}}</a>
+                 <a href="{{route('brand', ['typeName' => $typee->name])}}">{{$typee->name}}</a>
                  @endforeach
                </div>
              </div>

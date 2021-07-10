@@ -10,6 +10,8 @@ use App\Models\ImageModel;
 use App\Models\CustomerModel;
 use App\Models\ShopModel;
 use App\Models\ItemModel;
+use App\Models\OderModel;
+use App\Models\OderItemModel;
 use App\Models\User;
 use App\Models\BrandModel;
 use Auth;
@@ -102,5 +104,29 @@ class TopAdmin extends Controller
     public function customer(){
         $data= CustomerModel::all();
         return view('admin/pages/customer-mng', compact('data'));
+    }
+
+    public function ajaxLoadChart(Request $request)
+    {
+        $currentMonth = $request->month;
+        $itemNum; $hotNum; $normalNum; $priceNum;
+
+        $orders = OderModel::whereMonth('created_at', '=', $currentMonth);
+        $itemNum = count($orders->get());
+        $hotNum = OderItemModel::with(['itemDetail.item' => function($q){
+            return $q->where('feature', '=', 1);
+        }])->whereMonth('created_at', '=', $currentMonth)->get();
+        $contHotNum =0;
+        $contNorlmalNum =0;
+        foreach ($hotNum as $key => $value) {
+            if (isset($value['itemDetail']['item'])) {
+                $contHotNum += 1;
+            }else{
+                $contNorlmalNum += 1;
+            }
+        }
+        $priceNum = $orders->sum('total_price');
+        $data =['itemNum'=>$itemNum, 'hotNum'=>$contHotNum, 'normalNum'=>$contNorlmalNum, 'priceNum'=>$priceNum];
+        return response()->json($data, 200);
     }
 }

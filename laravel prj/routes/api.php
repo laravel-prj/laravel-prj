@@ -32,6 +32,7 @@ Route::get('admin-mo/testGetAll', [TopAdmin::class, 'testGetAll']);
 Route::post('admin-mo/testPost', [TopAdmin::class, 'testPost']);
 Route::put('admin-mo/testPut/{id}', [TopAdmin::class, 'testPut']);
 Route::delete('admin-mo/testDelete/{id}', [TopAdmin::class, 'testDelete']);
+Route::get('ajaxLoadChart', [TopAdmin::class, 'ajaxLoadChart']);
 
 
 Route::post('admin-mo/item', [ItemController::class, 'create']);

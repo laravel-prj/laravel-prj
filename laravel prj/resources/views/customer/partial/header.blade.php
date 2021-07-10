@@ -145,7 +145,7 @@
                                 </a>
                                 <div class="aa-cartbox-summary">
                                     <ul id="cartHeader">
-                                       
+
                                     </ul>
                                     <a class="aa-cartbox-checkout aa-primary-btn" href="{{asset('checkout')}}">Checkout</a>
                                 </div>
@@ -189,13 +189,15 @@
                             <a href="{{asset('/shop')}}">Brands <span class="caret"></span></a>
 
                             <ul class="dropdown-menu">
+                                {{-- {{route('brand', ['brandId' => $brand->id])}} --}}
                                 @foreach ($navbar as $item)
                                     <li>
-                                        <a href="{{ asset("band/$item->id") }}">{{ $item->name }}<span
+                                        <a href="{{ route('brand', ['brandId' => $item->id]) }}">{{ $item->name }}<span
                                                 class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            @foreach ($type as $typ)
-                                                <li><a href="{{ asset("band/type/$typ->id") }}">
+                                            @foreach ($item->type as $typ)
+                                            {{-- asset("band/type/$typ->id") --}}
+                                                <li><a href="{{ route('brand', ['brandId' => $item->id, 'typeName' => $typ->name]) }}">
                                                         {{ $typ->name }}</a>
                                                 </li>
                                             @endforeach

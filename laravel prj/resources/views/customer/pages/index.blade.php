@@ -207,7 +207,7 @@
                         <ul class="aa-client-brand-slider">
                             @foreach ($navbar as $brand)
                                 <li>
-                                    <a href="{{ asset("band/$brand->id") }}"><img
+                                    <a href="{{route('brand', ['brandId' => $brand->id])}}"><img
                                             src="{{ asset("customer/img/$brand->img") }}" width="100px" /></a>
                                 </li>
                             @endforeach
