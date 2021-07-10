@@ -130,4 +130,14 @@ class TopAdmin extends Controller
         $data =['itemNum'=>$itemNum, 'hotNum'=>$contHotNum, 'normalNum'=>$contNorlmalNum, 'priceNum'=>$priceNum];
         return response()->json($data, 200);
     }
+
+    public function ajaxLoadChart2(Request $request)
+    {
+        $currentMonth = $request->month;$priceNum;
+        $orders = OderModel::whereMonth('created_at', '=', $currentMonth);
+        $priceNum = $orders->sum('total_price');
+        $discountNum = $orders->sum('total_discount');
+        $data =['priceNum'=>$priceNum, 'discountNum'=>$discountNum];
+        return response()->json($data, 200);
+    }
 }

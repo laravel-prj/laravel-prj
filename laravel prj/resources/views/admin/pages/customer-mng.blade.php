@@ -107,16 +107,6 @@
                                 </i>
                                 View
                             </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
                         </td>
                     </tr>
                   @endforeach
@@ -138,9 +128,7 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script> --}}
 {{--quick defined--}}
 <script>
-   $(function () {
 
-   });
 </script>
 @stop
 

@@ -18,10 +18,10 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $brands = BrandModel::whereHas('item')->get();
+        $brands = BrandModel::whereHas('item')->orderBy('created_at','DESC')->get();
         $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
             return $q->where('images.default_img', '=', 1);
-        }])->get();
+        }])->orderBy('created_at','DESC')->get();
         return view('admin/pages/items/index',compact('items','brands'));
     }
 
@@ -58,60 +58,6 @@ class ItemController extends Controller
             'discout_item' => $request->discout_item
         ]);
         return redirect('admin-mo/item/index')->with('success', 'success');
-
-        // if ($request->hasFile('files') && $request->hasFile('file')){
-        //     foreach ($images as $item){
-        //         $var = date_create();
-        //         $time = date_format($var, 'YmdHis');
-        //         $imageName = $time . '-' . $item->getClientOriginalName();
-        //         $item->move('customer/img/', $imageName);
-        //         $arr[] = $imageName;
-
-        //         $imagesData = new ImageModel;
-        //         $imagesData->item_id = $itemData->id;
-        //         $imagesData->img =  $imageName;
-        //         $imagesData->save();
-        //     }
-        //     $image = implode(",", $arr);
-
-        //     $varDefault = date_create();
-        //     $timeDefault = date_format($varDefault, 'YmdHis');
-        //     $imageDefault = $timeDefault . '-' . $image_default->getClientOriginalName();
-        //     $image_default->move('customer/img/', $imageDefault);
-
-        //     $imageDefaultData = new ImageModel;
-        //     $imageDefaultData->item_id = $itemData->id;
-        //     $imageDefaultData->img =  $imageDefault;
-        //     $imageDefaultData->default_img = 1;
-        //     if ($imageDefaultData->save()) {
-        //         return redirect('admin-mo/item/index')->with('success', 'Tạo thành công');
-        //     }else{
-        //         return redirect('admin-mo/item/index')->with('error', 'Co Loi Xay Ra');
-        //     }
-        // }
-        // NOTE
-        // $imagesData = ImageModel::createMany([
-        //     [
-        //         'item_type_id'=>$itemData->id,
-        //         'img'=>$emailsettingstype->id,
-        //         'created_at'=>'',
-        //         'updated_at'=>'',
-
-        //     ],
-        //     [
-        //         'name'=>'mail_port',
-        //         'type'=>$emailsettingstype->id,
-        //         'created_at'=>'',
-        //         'updated_at'=>'',
-
-        //     ],
-        //     [
-        //         'name'=>'mail_username',
-        //         'type'=>$emailsettingstype->id,
-        //         'created_at'=>'',
-        //         'updated_at'=>'',
-        //     ],
-        // ]);
     }
 
     public function getView($id)
@@ -126,7 +72,7 @@ class ItemController extends Controller
         $brandId = $request->brandSearch;
         $html = '';
         if (isset($request->flg) && !empty($request->flg)) {
-            $types = ItemTypesModel::where('brand_id', $brandId)->get();
+            $types = ItemTypesModel::where('brand_id', $brandId)->orderBy('created_at','DESC')->get();
             foreach ($types as $key => $type) {
                 if ($request->typeIdSearch == $type->id) {
                     $html .= '<option value=\''.$type->id.'\' selected>'.$type->name.'</option>';
@@ -139,7 +85,7 @@ class ItemController extends Controller
                 $html .='<option value="0">All</option>';
             }else{
                 $html .='<option value="0">All</option>';
-                $types = ItemTypesModel::whereHas('item')->where('brand_id',$brandId)->get();
+                $types = ItemTypesModel::whereHas('item')->where('brand_id',$brandId)->orderBy('created_at','DESC')->get();
                 foreach ($types as $key => $type) {
                     $html .= '<option value=\''.$type->id.'\'>'.$type->name.'</option>';
                 }
@@ -156,7 +102,7 @@ class ItemController extends Controller
         $html = '';
         $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
             return $q->where('images.default_img', '=', 1);
-        }])->get();
+        }])->orderBy('created_at','DESC')->get();
 
         if ($brandId == 0) {
             foreach ($items as $key => $item) {
@@ -280,7 +226,7 @@ class ItemController extends Controller
         $html = '';
         $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
             return $q->where('images.default_img', '=', 1);
-        }]);
+        }])->orderBy('created_at','DESC');
         // if (count($items) < 0) {
         //     return response($html, 404)
         //     ->header('Content-Type', 'text/plain');
@@ -345,7 +291,7 @@ class ItemController extends Controller
                 }
             }
         }else{
-            $items = $items->where('item_type_id',$typeId)->get();
+            $items = $items->where('item_type_id',$typeId)->orderBy('created_at','DESC')->orderBy('created_at','DESC')->get();
 
             foreach ($items as $key => $item) {
 
@@ -415,7 +361,7 @@ class ItemController extends Controller
         $name = $request->nameSearch;
         $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
             return $q->where('images.default_img', '=', 1);
-        }])->where('name', 'like', '%' . $name . '%')->get();
+        }])->where('name', 'like', '%' . $name . '%')->orderBy('created_at','DESC')->get();
         if (count($items) < 1) {
             return response($html, 404)
             ->header('Content-Type', 'text/plain');
@@ -424,7 +370,7 @@ class ItemController extends Controller
             # search all + name
             $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
                 return $q->where('images.default_img', '=', 1);
-            }])->where('name', 'like', '%' . $name . '%')->get();
+            }])->where('name', 'like', '%' . $name . '%')->orderBy('created_at','DESC')->get();
             foreach ($items as $key => $item) {
                 $brandName = $item['type']['brand']['name'];
                 $typeName = $item['type']['name'];
@@ -482,7 +428,7 @@ class ItemController extends Controller
                 # search brand + name
                 $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
                     return $q->where('images.default_img', '=', 1);
-                }])->where('name', 'like', '%' . $name . '%')->get();
+                }])->where('name', 'like', '%' . $name . '%')->orderBy('created_at','DESC')->get();
                 foreach ($items as $key => $item) {
                     if (!($item['type']['brand']['id'] == $brandId)) {
                         unset($items[$key]);
@@ -545,7 +491,7 @@ class ItemController extends Controller
                 # search brand + type + name
                 $items = ItemModel::with('type.brand','item_details')->with(['images' => function($q){
                     return $q->where('images.default_img', '=', 1);
-                }])->where([['item_type_id', $typeId], ['name', 'like', '%' . $name . '%']])->get();
+                }])->where([['item_type_id', $typeId], ['name', 'like', '%' . $name . '%']])->orderBy('created_at','DESC')->get();
                 foreach ($items as $key => $item) {
                     $brandName = $item['type']['brand']['name'];
                     $typeName = $item['type']['name'];

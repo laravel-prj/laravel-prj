@@ -99,8 +99,12 @@
                 <!-- Main row -->
                 <div class="row">
                     <!-- Left col -->
-                    <section class="col-lg-7 connectedSortable">
+                    <section class="col-lg-5 connectedSortable">
                         <canvas id="myChart" width="400" height="200"></canvas>
+                    </section>
+
+                    <section class="col-lg-5 offset-md-1 connectedSortable">
+                        <canvas id="myChart2" width="400" height="200"></canvas>
                     </section>
                     <!-- /.Left col -->
 
@@ -116,7 +120,7 @@
     var itemNum;
     var hotNum;
     var normalNum;
-    var priceNum;
+
 
     function resolveAfter2Seconds() {
         return new Promise(resolve => {
@@ -133,8 +137,7 @@
                     itemNum = response.itemNum;
                     hotNum = response.hotNum;
                     normalNum = response.normalNum;
-                    priceNum = response.priceNum;
-                    resolve(itemNum,hotNum,normalNum,priceNum);
+                    resolve(itemNum,hotNum,normalNum);
                 }
             });
         });
@@ -146,10 +149,10 @@
     const myChart = await new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Item', 'Hot', 'Normal', 'Price'],
+            labels: ['SaleItem', 'Hot', 'Normal'],
             datasets: [{
                 label: 'Current Month',
-                data: [itemNum, hotNum, normalNum, priceNum],
+                data: [itemNum, hotNum, normalNum],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -176,11 +179,73 @@
                 }
             }
         }
-    });;
-    console.log(result);
+    });
+    }
+    asyncCall();
+
+
+    // Chart 2
+    var priceNum;
+    var discountNum;
+
+    function resolveAfter2() {
+        return new Promise(resolve => {
+            let day = new Date();
+            let month = day.getMonth()+1;
+            $.ajax({
+                type: "get",
+                url: window.location.origin + "/api/ajaxLoadChart2",
+                data: {
+                    month:month
+                },
+                success: function (response) {
+                    priceNum = response.priceNum;
+                    discountNum = response.discountNum;
+                    resolve(priceNum,discountNum);
+                }
+            });
+        });
     }
 
-    asyncCall();
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    async function asyncCall2() {
+    const result = await resolveAfter2();
+    const myChart2 = await new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Price', 'Discount'],
+            datasets: [{
+                label: 'Current Month',
+                data: [priceNum, discountNum],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    }
+    asyncCall2();
 
     </script>
 @stop
