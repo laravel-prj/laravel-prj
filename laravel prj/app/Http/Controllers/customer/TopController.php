@@ -193,7 +193,6 @@ class TopController extends Controller
         $name = $request->typeName;
 
         $band = BrandModel::with('item')->find($id);
-<<<<<<< .mine
         $bra = ItemModel::where('item_type_id',$id)->get();
 
         if (isset($name) && !empty($name) && isset($id)&& !empty($id)) {
@@ -203,17 +202,6 @@ class TopController extends Controller
                     if ($image->default_img == 1) {
                         $data['image'] = $image->img;
                     }
-=======
-        $bra = ItemModel::where('item_type_id',$id)->get();
-        $data = $band->item;
-        foreach ($data as $sale_item) {
-            foreach ($sale_item->images as $image) {
-                if ($image->default_img == 1) {
-                    $sale_item['image'] = $image->img;
-
-
-
->>>>>>> .theirs
                 }
                 unset($data->images);
             }
