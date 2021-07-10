@@ -77,6 +77,7 @@ class TopAdmin extends Controller
     {
         $shops = ShopModel::all();
         $types = ItemTypesModel::with('producerOrderBy')->get();
+
         return view('admin/pages/addproduct', compact('shops', 'types'));
     }
 

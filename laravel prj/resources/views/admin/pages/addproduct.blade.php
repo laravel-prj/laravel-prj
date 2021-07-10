@@ -98,7 +98,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{asset('/admin-mo')}}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Manager Item</li>
                         </ol>
                     </div><!-- /.col -->

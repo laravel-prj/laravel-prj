@@ -8,7 +8,7 @@ use App\Models\ItemModel;
 use App\Http\Requests\ImageRequest;
 use App\Http\Requests\ImageDefaultRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 
 class ImageController extends Controller
 {
@@ -29,7 +29,7 @@ class ImageController extends Controller
     public function storeMul($itemId, Request $request)
     {
         $images = $request->file('files');
-        
+
         if ($request->hasFile('files')){
             foreach ($images as $item){
                 $var = date_create();
@@ -43,7 +43,7 @@ class ImageController extends Controller
                 $imagesData->default_img = 0;
                 $imagesData->save();
             }
-            return redirect('admin-mo/images/item/'.$itemId)->with('success','Them Images thanh cong');
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Add Images');
         }
     }
 
@@ -74,9 +74,9 @@ class ImageController extends Controller
             $imageData->default_img = ($request->default_img) ? $request->default_img : 0 ;
             $imageData->save();
             // edirect('admin-mo/item/index')
-            return redirect('admin-mo/images/item/'.$itemId)->with('success','Them Image thanh cong');
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Add Image success');
         }else{
-            return redirect()->back()->withErrors('vui long nhap image');
+            return redirect()->back()->withErrors('Please add image');
         }
     }
 
@@ -93,7 +93,7 @@ class ImageController extends Controller
         if ($img) {
             return view('admin/pages/images/update',compact('img','flg','item'));
         }else{
-            return redirect()->back()->withErrors('Khong tim thay Id');
+            return redirect()->back()->withErrors('Id not found');
         }
     }
 
@@ -104,20 +104,20 @@ class ImageController extends Controller
             $img->update([
                 'default_img'=>$request->default_img
             ]);
-            return redirect('admin-mo/images/item/'.$itemId)->with('success','Update Image thanh cong');
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Update Image success');
         }else{
-            return redirect()->back()->withErrors('Khong tim thay Id');
+            return redirect()->back()->withErrors('Id not found');
         }
     }
 
-    
+
     public function getUpdateImg($itemId, $imgId, Request $request)
     {
         $img = ImageModel::find($imgId);
         if ($img) {
             return view('admin/pages/images/update-img',compact('img','itemId'));
         }else{
-            return redirect()->back()->withErrors('Khong tim thay Image');
+            return redirect()->back()->withErrors('Image not found');
         }
     }
 
@@ -141,9 +141,9 @@ class ImageController extends Controller
                     'img'=>$imageName
                 ]);
             }
-            return redirect('admin-mo/images/item/'.$itemId)->with('success','Update Image thanh cong');
+            return redirect('admin-mo/images/item/'.$itemId)->with('success','Update Image succes');
         }else{
-            return redirect()->back()->withErrors('Khong tim thay Id');
+            return redirect()->back()->withErrors('Id not found');
         }
     }
 
@@ -154,9 +154,9 @@ class ImageController extends Controller
             $file_path = public_path().'\customer\img\\'.$image->img;
             File::delete($file_path);
             $image->delete();
-            return redirect()->back()->with('success', "Xóa id: $imageId thành công");
+            return redirect()->back()->with('success', "Delete id: $imageId success");
         }else{
-            return redirect()->back()->withErrors("K tim thay image"); 
+            return redirect()->back()->withErrors("image not found");
         }
     }
 

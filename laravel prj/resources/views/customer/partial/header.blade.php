@@ -195,9 +195,15 @@
                                         <a href="{{ route('brand', ['brandId' => $item->id]) }}">{{ $item->name }}<span
                                                 class="caret"></span></a>
                                         <ul class="dropdown-menu">
+<<<<<<< .mine
                                             @foreach ($item->type as $typ)
                                             {{-- asset("band/type/$typ->id") --}}
                                                 <li><a href="{{ route('brand', ['brandId' => $item->id, 'typeName' => $typ->name]) }}">
+=======
+                                            @foreach ($item->type as $typ)
+                                                <li><a href="{{ asset("band/type/$typ->id") }}">
+
+>>>>>>> .theirs
                                                         {{ $typ->name }}</a>
                                                 </li>
                                             @endforeach

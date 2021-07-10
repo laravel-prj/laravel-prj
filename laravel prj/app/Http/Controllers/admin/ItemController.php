@@ -29,11 +29,11 @@ class ItemController extends Controller
     {
         $brands = BrandModel::all();
         if (count($brands) < 1) {
-            return redirect()->back()->with('error','Chua co Brand')->withInput();
+            return redirect()->back()->with('error','Brand not found')->withInput();
         }
         $types = ItemTypesModel::where('brand_id', $brands[0]['id'])->get();
         if (count($types) < 1) {
-            return redirect()->back()->with('error','Chua co Type')->withInput();
+            return redirect()->back()->with('error','Type not found')->withInput();
         }
 
         $currentUser = Auth::guard('loyal_admin')->user();
@@ -57,7 +57,7 @@ class ItemController extends Controller
             'feature' => $request->feature,
             'discout_item' => $request->discout_item
         ]);
-        return redirect('admin-mo/item/index')->with('success', 'Tạo thành công');
+        return redirect('admin-mo/item/index')->with('success', 'success');
 
         // if ($request->hasFile('files') && $request->hasFile('file')){
         //     foreach ($images as $item){
@@ -630,9 +630,9 @@ class ItemController extends Controller
                 'feature' => $request->feature,
                 'discout_item' => $request->discout_item,
             ]);
-            return redirect('admin-mo/item/index')->with('success', "Cập nhật thành công");
+            return redirect('admin-mo/item/index')->with('success', "Update successfully");
         }else{
-            return redirect('admin-mo/item/index')->with('error', 'Co Loi Xay Ra');
+            return redirect('admin-mo/item/index')->with('error', 'Error');
         }
     }
 
@@ -641,9 +641,9 @@ class ItemController extends Controller
         $item = ItemModel::find($id);
         if ($item) {
             ItemModel::deleteItem($id);
-            return redirect()->back()->with('success', "Xóa id: $id cà các relationship thành công");
+            return redirect()->back()->with('success', "Delete id: $id and relationship successfully");
         }else{
-            return redirect()->back()->withErrors('Khong Tim Thay Item');
+            return redirect()->back()->withErrors('Item not found');
         }
     }
 }
