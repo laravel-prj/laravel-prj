@@ -192,37 +192,45 @@ class TopController extends Controller
         $id = $request->brandId;
         $name = $request->typeName;
 
-        $band = BrandModel::with('item')->find($id);
+        $band = BrandModel::with('item.item_details', 'item.images')->where('id',$id)->get();
         $bra = ItemModel::where('item_type_id',$id)->get();
 
         if (isset($name) && !empty($name) && isset($id)&& !empty($id)) {
-            $listData = ItemTypesModel::with('item.item_details','images')->where(['brand_id'=> $id, 'name' => $name])->get();
+            $listData = ItemTypesModel::with('item.item_details','item.images')->where(['brand_id'=> $id, 'name' => $name])->get();
+
             foreach ($listData as $data) {
-                foreach ($data->images as $image) {
-                    if ($image->default_img == 1) {
-                        $data['image'] = $image->img;
+                foreach ($data->item as $item) {
+                    foreach ($item->images as $image) {
+                        if ($image->default_img == 1) {
+                            $item->img = $image->img;
+                        }
                     }
+                    unset($item->images);
                 }
-                unset($data->images);
             }
         }else{
             if (isset($name) && !empty($name)) {
-                $listData = ItemTypesModel::with('item.item_details','images')->where('name', $name)->get();
+                $listData = ItemTypesModel::with('item.item_details','item.images')->where('name', $name)->get();
                 foreach ($listData as $data) {
-                    foreach ($data->images as $image) {
-                        if ($image->default_img == 1) {
-                            $data['image'] = $image->img;
+                    foreach ($data->item as $item) {
+                        foreach ($item->images as $image) {
+                            if ($image->default_img == 1) {
+                                $item->img = $image->img;
+                            }
                         }
+                        unset($item->images);
                     }
-                    unset($data->images);
                 }
             }else{
-                $listData = $band->item;
-                foreach ($listData as $sale_item) {
-                    foreach ($sale_item->images as $image) {
-                        if ($image->default_img == 1) {
-                            $sale_item['image'] = $image->img;
+                $listData = $band;
+                foreach ($listData as $data) {
+                    foreach ($data->item as $item) {
+                        foreach ($item->images as $image) {
+                            if ($image->default_img == 1) {
+                                $item->img = $image->img;
+                            }
                         }
+                        unset($item->images);
                     }
                 }
             }

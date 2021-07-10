@@ -47,4 +47,10 @@ class ItemDetailModel extends Model
        return $this->belongsTo('App\Models\ItemModel', 'item_id', 'id');
     }
 
+
+
+    public function image() {
+        return $this->belongsToMany('App\Article', 'article_tag', 'article_id', 'tag_id');
+    }
+
 }

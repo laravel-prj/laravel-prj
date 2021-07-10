@@ -18,19 +18,23 @@
              <div class="aa-product-catg-body">
                <ul class="aa-product-catg">
                  <!-- start single product item -->
-                 @foreach ($listData as $item)
-                 <li>
-                  <figure>
-                    <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->image")}}" width="100%" height="300px"></a>
-                    <a class="aa-add-card-btn"href="{{asset("detail/$item->id")}}"><span class="fa fa-shopping-cart"></span>Detail</a>
-                    <figcaption>
-                      <h4 class="aa-product-title"><a href="{{asset("detail/$item->id")}}">{{$item->name}}</a></h4>
-                      <span class="aa-product-price">{{$item->price}}</span>
-                    </figcaption>
-                  </figure>
-                  <!-- product badge -->
-                  <span class="aa-badge aa-sale" href="#">SALE!</span>
-                </li>
+                 @foreach ($listData as $data)
+
+                    @foreach ($data->item as $item)
+                        <li>
+                            <figure>
+                                <a class="aa-product-img" href="{{asset("detail/$item->id")}}"><img src="{{asset("customer/img/$item->img")}}" width="100%" height="300px"></a>
+                                <a class="aa-add-card-btn"href="{{asset("detail/$item->id")}}"><span class="fa fa-shopping-cart"></span>Detail</a>
+                                <figcaption>
+                                <h4 class="aa-product-title"><a href="{{asset("detail/$item->id")}}">{{$item->name}}</a></h4>
+                                <span class="aa-product-price">{{$item->price}}</span>
+                                </figcaption>
+                            </figure>
+                            <!-- product badge -->
+                            <span class="aa-badge aa-sale" href="#">SALE!</span>
+                        </li>
+                    @endforeach
+
                  @endforeach
 
                </ul>
