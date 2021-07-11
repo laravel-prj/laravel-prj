@@ -39,7 +39,7 @@ class CheckOutController extends Controller
         if (Session::get("cart")) {
             $this->__data['cart'] = Session::get("cart");
         }else{
-            Session::put('msg', 'Giỏ hàng đang trống, xin hãy đặt hàng trước');
+            Session::put('msg', 'Cart is empty, please order first');
             return redirect('/');
         }
         $order = new OderModel;
@@ -71,7 +71,7 @@ class CheckOutController extends Controller
                     else{
                         if ($quantity < 0) {
                             Session::forget('cart');
-                            Session::put('msg', 'Có Lỗi Gì Đó Xảy Ra');
+                            Session::put('msg', 'Error');
                             return redirect('/');
                         }
                     }
@@ -82,15 +82,15 @@ class CheckOutController extends Controller
             // mail
             $name = $this->__data['info']->first_name.' '.$this->__data['info']->last_name;
             if ($this->__data['info']->gender == 1) {
-                $gender = "Anh";
+                $gender = "Mr";
             }else{
-                $gender = "Chị";
+                $gender = "Ms/Mrs";
             }
 
             $message = [
                 'type' => 'Thông Báo Đơn Đặt Hàng',
                 'info' => $this->__data['info'],
-                'thanks' => "Cảm ơn $gender $name đã mua hàng, Chúng tôi sẽ giao hàng trong thời gian sớm nhất",
+                'thanks' => "Thank $gender $name for your purchase. We will deliver the products as soon as possible",
                 'order' => $order,
                 'listCart' => Session::get("cart"),
             ];

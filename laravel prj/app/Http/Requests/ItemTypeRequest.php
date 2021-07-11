@@ -32,8 +32,8 @@ class ItemTypeRequest extends FormRequest
     public function messages()
     {
         return [
-           'name.required' => 'Chưa nhập Name',
-           'name.max' => 'Name không được quá 10 ký tự',
+           'name.required' => 'Name is not input yet',
+           'name.max' => 'Name ',
            'brand_id.required' => 'Bạn chưa chọn Brand',
            'brand_id.numeric' => 'Brand phải có dạng number',
         ];

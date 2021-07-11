@@ -35,9 +35,9 @@ class BrandRequest extends FormRequest
     public function messages()
     {
         return [
-           'name.required' => 'Chua nhap name',
-           'name.min' => 'name phai co it nhat 5 ky tu',
-           'name.max' => 'name phai it hon 10 ky tu',
+           'name.required' => 'Name is not input yet',
+           'name.min' => 'name must be at least 3 characters',
+           'name.max' => 'name must less than 50 characters',
         ];
     }
 }

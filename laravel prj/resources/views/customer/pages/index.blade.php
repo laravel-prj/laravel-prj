@@ -49,7 +49,7 @@
                                 <img data-seq src="{{ asset('customer/img/slide2.jpg') }}" style="height: 500px" />
                             </div>
                             <div class="seq-title">
-                                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+                                <a data-seq href="{{ asset('/shop') }}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
                             </div>
                         </li>
                         <!-- single slide item -->
@@ -58,7 +58,7 @@
                                 <img data-seq src="{{ asset('customer/img/slide3.jpg') }}" style="height: 500px" />
                             </div>
                             <div class="seq-title">
-                                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+                                <a data-seq href="{{ asset('/shop') }}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
                             </div>
                         </li>
                     </ul>

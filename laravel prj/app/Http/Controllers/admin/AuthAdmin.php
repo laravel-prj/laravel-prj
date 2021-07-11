@@ -32,7 +32,7 @@ class AuthAdmin extends Controller
         if (Auth::guard('loyal_admin')->attempt($arr, $remember)) {
             return redirect('admin-mo');
         } else {
-            return redirect()->back()->withErrors("tài khoản và mật khẩu chưa chính xác")->withInput();
+            return redirect()->back()->withErrors("Incorrect account and password")->withInput();
         }
     }
 

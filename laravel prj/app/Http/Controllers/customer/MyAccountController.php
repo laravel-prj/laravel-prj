@@ -35,7 +35,7 @@ class MyAccountController extends Controller
             $cus->update($newData);
             return redirect('/editAcc');
         }else{
-            return redirect('/editAcc')->back()->withErrors('err','K tim thay customer');
+            return redirect('/editAcc')->back()->withErrors('err','customer not found');
         }
 
     }
@@ -59,12 +59,12 @@ class MyAccountController extends Controller
                         $customer->update([
                             'password'=>bcrypt($request->password)
                         ]);
-                        return redirect('editAcc')->with('success','Cap nhat mat khau thanh cong');
+                        return redirect('editAcc')->with('success','Password updated');
                     }else{
-                        return redirect()->back()->withErrors('Password moi chua giong nhau')->withInput();
+                        return redirect()->back()->withErrors('Password and confirm password are not match')->withInput();
                     }
                 }else{
-                    return redirect()->back()->withErrors('Khong dung Password cu')->withInput();
+                    return redirect()->back()->withErrors('New password cannot the same at recent password')->withInput();
                 }
             } else
             {
