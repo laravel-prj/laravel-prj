@@ -10,6 +10,7 @@ use App\Models\ImageModel;
 use App\Models\BrandModel;
 use App\Models\CustomerModel;
 use App\Models\ItemTypesModel;
+use App\Http\Requests\CreateCustomerRequest;
 
 use Session;
 
@@ -154,7 +155,7 @@ class TopController extends Controller
 
        return view('customer/pages/register');
     }
-    public function post_register(Request $request)
+    public function post_register(CreateCustomerRequest $request)
     {
         $register = new CustomerModel;
         $register->first_name = $request->first_name;
