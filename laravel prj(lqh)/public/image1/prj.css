@@ -1,0 +1,96 @@
+.carousel {
+    position: relative;;
+    top:0;    
+  }
+  .navbar {
+    position:absolute;
+    font-size: 24px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    top:30px;
+    z-index:10;
+    background: transparent;
+    opacity: 0.9;
+    width:100%;
+    border-color: transparent;
+  }
+ 
+  .carousel-inner item:active{
+      position: relative;
+      animation: mymove 3s;
+      animation-timing-function: ease-in-out;
+    }
+    
+    @keyframes mymove{
+      from { left:-80px; top:0px;}
+      to {left:0px; top:0px;}
+    }
+    footer{
+      position: static;
+      background-color:#111212;
+      bottom: 0;  
+      color: rgba(255, 255, 255, 0.582);
+     }
+     #im1{
+       width: 100%;
+     }
+     #pad1{
+       margin:1cm;
+     }
+     #pad2{
+       margin-left: 1cm;
+     }
+     .im1{
+      height: 30px;
+      background-color:#111212;
+     }
+     .im2{
+       height:40px;
+     }
+     #sec1{
+       height: 500px;
+       font-size: 2cm;
+       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+       text-align: center;
+     }
+     .prod1{
+       width:50%;
+     }
+     #sec3{
+       height: 300px;
+       font-size: 0.7cm;
+       text-align: center;
+       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+       background-color: rgb(236, 229, 229);
+     }
+     footer{
+       font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+       font-size: 18px;
+     }
+     hr{
+      height:1px;
+      border-width:0;
+      background-color:black;
+    }
+     #but1{
+       width:70%;
+       opacity: 60%;
+       background-color: rgb(255, 251, 251);
+       border: none;
+       color: black;
+     }
+     #but2{
+      opacity: 50%;
+      background-color: #979b9b;
+      border: none;
+    }
+    #ft1{
+      background-color: #111212;
+      height:2cm;
+      padding-left:1.5cm;
+    }
+     #ft2{
+       background-color: black;
+       height:2cm;
+       padding:1cm;
+     }
+     

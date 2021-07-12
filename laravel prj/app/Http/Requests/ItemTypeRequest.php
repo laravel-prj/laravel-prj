@@ -33,9 +33,9 @@ class ItemTypeRequest extends FormRequest
     {
         return [
            'name.required' => 'Name is not input yet',
-           'name.max' => 'Name ',
-           'brand_id.required' => 'Bạn chưa chọn Brand',
-           'brand_id.numeric' => 'Brand phải có dạng number',
+           'name.max' => 'Name cannot more than 10 characters',
+           'brand_id.required' => 'You have not choose any brand',
+           'brand_id.numeric' => 'Brand must be number',
         ];
     }
 }
