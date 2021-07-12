@@ -111,6 +111,7 @@ class OrderController extends Controller
     {
         $order = OderModel::find($id);
         if ($order) {
+            $order->orderItem()->delete();
             $order->delete();
             return redirect('admin-mo/order/index')->with('success', "Delete success");
         }else{

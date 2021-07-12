@@ -20,7 +20,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{asset('/admin-mol')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ asset('/admin-mol') }}">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard v1</li>
                         </ol>
                     </div><!-- /.col -->
@@ -38,9 +38,8 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
-
-                                <p>New Orders</p>
+                                <h3>{{ $numDashBoard['newOrder'] }}</h3>
+                                <p>New Orders (Current Month)</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -53,9 +52,8 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                <p>Bounce Rate</p>
+                                <h3>{{ $numDashBoard['product'] }}</h3>
+                                <p>Product</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -68,8 +66,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
-
+                                <h3>{{ $numDashBoard['customerRegistration'] }}</h3>
                                 <p>User Registrations</p>
                             </div>
                             <div class="icon">
@@ -83,9 +80,8 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Unique Visitors</p>
+                                <h3>{{ $numDashBoard['completedOreder'] }}</h3>
+                                <p>Completed Order</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
@@ -117,135 +113,134 @@
 @stop
 @section('scripts')
     <script>
-    var itemNum;
-    var hotNum;
-    var normalNum;
+        var itemNum;
+        var hotNum;
+        var normalNum;
 
 
-    function resolveAfter2Seconds() {
-        return new Promise(resolve => {
-            let day = new Date();
-            let month = day.getMonth()+1;
-            $.ajax({
-                type: "get",
-                url: window.location.origin + "/api/ajaxLoadChart",
+        function resolveAfter2Seconds() {
+            return new Promise(resolve => {
+                let day = new Date();
+                let month = day.getMonth() + 1;
+                $.ajax({
+                    type: "get",
+                    url: window.location.origin + "/api/ajaxLoadChart",
+                    data: {
+                        month: month
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        itemNum = response.itemNum;
+                        hotNum = response.hotNum;
+                        normalNum = response.normalNum;
+                        resolve(itemNum, hotNum, normalNum);
+                    }
+                });
+            });
+        }
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        async function asyncCall() {
+            const result = await resolveAfter2Seconds();
+            const myChart = await new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    month:month
+                    labels: ['SaleItem', 'Hot', 'Normal'],
+                    datasets: [{
+                        label: 'Current Month',
+                        data: [itemNum, hotNum, normalNum],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
                 },
-                success: function (response) {
-                    console.log(response);
-                    itemNum = response.itemNum;
-                    hotNum = response.hotNum;
-                    normalNum = response.normalNum;
-                    resolve(itemNum,hotNum,normalNum);
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
             });
-        });
-    }
-
-    var ctx = document.getElementById('myChart').getContext('2d');
-    async function asyncCall() {
-    const result = await resolveAfter2Seconds();
-    const myChart = await new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['SaleItem', 'Hot', 'Normal'],
-            datasets: [{
-                label: 'Current Month',
-                data: [itemNum, hotNum, normalNum],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
         }
-    });
-    }
-    asyncCall();
+        asyncCall();
 
 
-    // Chart 2
-    var priceNum;
-    var discountNum;
+        // Chart 2
+        var priceNum;
+        var discountNum;
 
-    function resolveAfter2() {
-        return new Promise(resolve => {
-            let day = new Date();
-            let month = day.getMonth()+1;
-            $.ajax({
-                type: "get",
-                url: window.location.origin + "/api/ajaxLoadChart2",
+        function resolveAfter2() {
+            return new Promise(resolve => {
+                let day = new Date();
+                let month = day.getMonth() + 1;
+                $.ajax({
+                    type: "get",
+                    url: window.location.origin + "/api/ajaxLoadChart2",
+                    data: {
+                        month: month
+                    },
+                    success: function(response) {
+                        priceNum = response.priceNum;
+                        discountNum = response.discountNum;
+                        resolve(priceNum, discountNum);
+                    }
+                });
+            });
+        }
+
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        async function asyncCall2() {
+            const result = await resolveAfter2();
+            const myChart2 = await new Chart(ctx2, {
+                type: 'bar',
                 data: {
-                    month:month
+                    labels: ['Price', 'Discount'],
+                    datasets: [{
+                        label: 'Current Month',
+                        data: [priceNum, discountNum],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
                 },
-                success: function (response) {
-                    priceNum = response.priceNum;
-                    discountNum = response.discountNum;
-                    resolve(priceNum,discountNum);
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
             });
-        });
-    }
-
-    var ctx2 = document.getElementById('myChart2').getContext('2d');
-    async function asyncCall2() {
-    const result = await resolveAfter2();
-    const myChart2 = await new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['Price', 'Discount'],
-            datasets: [{
-                label: 'Current Month',
-                data: [priceNum, discountNum],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
         }
-    });
-    }
-    asyncCall2();
-
+        asyncCall2();
     </script>
 @stop

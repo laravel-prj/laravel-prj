@@ -14,6 +14,7 @@ use App\Models\OderModel;
 use App\Models\OderItemModel;
 use App\Models\User;
 use App\Models\BrandModel;
+use Carbon\Carbon;
 use Auth;
 
 
@@ -96,7 +97,13 @@ class TopAdmin extends Controller
     }
     public function index()
     {
-        return view('admin/pages/index');
+        $now = Carbon::now();
+        $numDashBoard = [];
+        $numDashBoard['newOrder'] = OderItemModel::whereMonth('created_at', '=', $now->month)->count();
+        $numDashBoard['product'] = ItemModel::all()->count();
+        $numDashBoard['customerRegistration'] = CustomerModel::all()->count();
+        $numDashBoard['completedOreder'] = OderModel::where('status',1)->count();
+        return view('admin/pages/index', compact('numDashBoard'));
     }
     public function admin(){
         $data= User::all();
